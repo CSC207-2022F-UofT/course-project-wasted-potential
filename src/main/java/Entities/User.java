@@ -1,4 +1,8 @@
 package Entities;
 
-public class User {
+public abstract class User {
+    private String username;
+    private String password;
+
+
 }
