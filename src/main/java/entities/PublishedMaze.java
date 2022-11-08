@@ -6,5 +6,5 @@ public class PublishedMaze extends Maze{
     String author;
     String name;
     Boolean published;
-    LocalDate publish_date;
+    LocalDate publishDate;
 }
