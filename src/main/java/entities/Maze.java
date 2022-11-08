@@ -8,11 +8,11 @@ public abstract class Maze {
     private char[][] state;
     final static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
         put("empty", '.');
-        put("wall", 'w');
+        put("wall", '#');
     }};
 
-    public static void main(String[] args) {
-        System.out.println(ENCODING);
-    }
+//    public static void main(String[] args) {
+//        System.out.println(ENCODING);
+//    }
 
 }
