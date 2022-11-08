@@ -1,9 +1,12 @@
 package design;
 
-import entities.Maze;
+import entities.DesignableMaze;
 
 public abstract class MazeGenerator {
 
-    public abstract void generate(Maze maze);
+//    int numRows;
+//    int numCols;
+    DesignableMaze maze;
+    public abstract void generate(DesignableMaze maze);
 
 }
