@@ -10,9 +10,9 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract void userLogin();
+    public abstract void loginUser();
 
-    public abstract void userLogout();
+    public abstract void logoutUser();
 
 
     public String getUser(){
