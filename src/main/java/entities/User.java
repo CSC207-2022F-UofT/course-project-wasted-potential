@@ -2,7 +2,7 @@ package entities;
 
 public abstract class User {
 
-    private String username;
+    private String user;
     private String password;
     private String userType;
     private String creationTime;
@@ -26,8 +26,20 @@ public abstract class User {
         return this.password;
     }
 
-    public String getCreationTime(){
-        return this.creationTime;
+    public User(String username, String password){
+        this.user = username;
+        this.password = password;
     }
+
+    public abstract void loginUser();
+
+    public abstract void logoutUser();
+
+
+    public String getUser(){
+        return this.user;
+    }
+
+
 
 }
