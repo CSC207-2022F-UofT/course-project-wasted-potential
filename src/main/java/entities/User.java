@@ -2,33 +2,14 @@ package entities;
 
 public abstract class User {
 
-    private String user;
+    private String username;
     private String password;
-    private String userType;
-    private String creationTime;
+    private User userType;
 
-    public User(String username, String password, String userType, String creationTime){
+    public User(String username, String password, User userType){
         this.username = username;
         this.password = password;
         this.userType = userType;
-        this.creationTime = creationTime;
-    }
-
-    public String getUsername(){
-        return this.username;
-    }
-
-    public String getUserType(){
-        return this.userType;
-    }
-
-    public String getPassword(){
-        return this.password;
-    }
-
-    public User(String username, String password){
-        this.user = username;
-        this.password = password;
     }
 
     public abstract void userLogin();
@@ -36,8 +17,12 @@ public abstract class User {
     public abstract void userLogout();
 
 
-    public String getUser(){
-        return this.user;
+    public String getUsername(){
+        return this.username;
+    }
+
+    public User getUserType(){
+        return this.userType;
     }
 
 
