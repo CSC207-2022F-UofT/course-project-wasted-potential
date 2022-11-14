@@ -1,7 +1,6 @@
 package design;
 
 import entities.DesignableMaze;
-import entities.Maze;
 
 public class MazeDesigner {
 
@@ -33,26 +32,5 @@ public class MazeDesigner {
             dm.placeEnd(row, col);
         }
     }
-    /* just a test
-    public static void main(String[] args) {
-        DesignableMaze bruh = new DesignableMaze(9, 35);
-        MazeDesigner md = new MazeDesigner();
-        md.resetMaze(bruh);
-        for (int i = 0; i < bruh.getNumRow(); i++) {
-            for (int j = 0; j < bruh.getNumCol(); j++) {
-                if ((j)%(i+1) == 0 || (j)%(i+3) == 0){
-                    md.buildWall(bruh,i,j);
-                }
-            }
-        }
-        md.removeWall(bruh, 2, 25);
 
-        md.startPoint(bruh, 0, 25);
-        md.endPoint(bruh, 8, 1);
-        System.out.println(bruh);
-
-        md.resetMaze(bruh);
-        System.out.println(bruh);
-    }
-    */
 }
