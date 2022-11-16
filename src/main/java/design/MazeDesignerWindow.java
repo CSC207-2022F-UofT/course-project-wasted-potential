@@ -16,6 +16,8 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
+import java.net.URL;
+
 
 public class MazeDesignerWindow extends Application {
     Button button;
@@ -163,6 +165,14 @@ public class MazeDesignerWindow extends Application {
         root.addRow(1, maze);
 
         Scene scene = new Scene(root, 750, 666);
+        if (this.getClass().getResource("/mdwstylesheet.css") == null) {
+            System.out.println("Resource not found. Aborting.");
+        } else {
+            String css = this.getClass().getResource("/mdwstylesheet.css").toExternalForm();
+            scene.getStylesheets().add(css);
+        }
+
+        root.getStyleClass().add("fancy-button");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
