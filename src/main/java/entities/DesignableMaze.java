@@ -21,7 +21,7 @@ public class DesignableMaze extends Maze{
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
                 if (this.state[i][j] == 'S'){
-                    this.state[i][j] = Maze.ENCODING.get("wall");
+                    this.state[i][j] = Maze.ENCODING.get("empty");
                 }
             }
         }
@@ -33,7 +33,7 @@ public class DesignableMaze extends Maze{
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
                 if (this.state[i][j] == 'E'){
-                    this.state[i][j] = Maze.ENCODING.get("wall");
+                    this.state[i][j] = Maze.ENCODING.get("empty");
                 }
             }
         }
@@ -54,6 +54,7 @@ public class DesignableMaze extends Maze{
         }
     }
 
+    /*
     public void emptySetup() {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
@@ -66,5 +67,16 @@ public class DesignableMaze extends Maze{
         }
         placeStart(0, 1);
         placeEnd(this.getNumRow()-1, this.getNumCol()-2);
+    }
+    */
+
+    public void emptySetup() {
+        for (int i = 0; i < this.getNumRow(); i++) {
+            for (int j = 0; j < this.getNumCol(); j++) {
+                deleteWall(i, j);
+            }
+        }
+        placeStart(0, 0);
+        placeEnd(this.getNumRow()-1, this.getNumCol()-1);
     }
 }
