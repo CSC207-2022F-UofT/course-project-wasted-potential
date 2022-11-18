@@ -16,7 +16,6 @@ public class MazeSolvabilityInteractor implements MazeSolvableInBoundary {
         else {
             maze_solvable_out_boundary.reportFailure();
         }
-        System.out.println(isSolvable);
     }
 
 
