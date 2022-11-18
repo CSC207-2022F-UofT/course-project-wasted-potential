@@ -97,7 +97,7 @@ public class RandomizedPrim extends MazeGenerator {
     }
 
     public static void main(String[] args) {
-        DesignableMaze bruh = new DesignableMaze(9, 35);
+        DesignableMaze bruh = new DesignableMaze(8, 34);
         MazeGenerator mg = new RandomizedPrim();
         mg.generate(bruh);
     }
