@@ -33,10 +33,6 @@ public abstract class Maze {
         return numCol;
     }
 
-    public char[][] getState() {
-        return state;
-    }
-
     public boolean inBounds(int row, int col) {
         if (row >= numRow || row < 0) return false;
         return col < numCol && col >= 0;
@@ -54,5 +50,9 @@ public abstract class Maze {
 
         return returnString.toString();
     }
+
+//    public static void main(String[] args) {
+//        System.out.println(ENCODING);
+//    }
 
 }
