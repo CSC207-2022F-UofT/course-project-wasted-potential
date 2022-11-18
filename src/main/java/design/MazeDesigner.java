@@ -33,4 +33,17 @@ public class MazeDesigner {
         }
     }
 
+    public int getRows(DesignableMaze dm){
+        return dm.getNumRow();
+    }
+    public int getCols(DesignableMaze dm){
+        return dm.getNumCol();
+    }
+    public String cellString(DesignableMaze dm, int row, int col){
+        return String.valueOf(dm.getState(row, col));
+    }
+    public char cellChar(DesignableMaze dm, int row, int col){
+        return dm.getState(row, col);
+    }
+
 }
