@@ -1,13 +1,10 @@
 package design;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class Vertex {
+public class MazeCell {
     int row;
     int col;
 
-    public Vertex(int row, int col) {
+    public MazeCell(int row, int col) {
         this.row = row;
         this.col = col;
     }
@@ -18,11 +15,11 @@ public class Vertex {
             return true;
         }
 
-        if (!(o instanceof Vertex)) {
+        if (!(o instanceof MazeCell)) {
             return false;
         }
 
-        Vertex v = (Vertex) o;
+        MazeCell v = (MazeCell) o;
 
         return v.row == this.row && v.col == this.col;
     }
@@ -33,13 +30,4 @@ public class Vertex {
     public int hashCode() {
         return this.col + this.row;
     }
-
-//    public static void main(String[] args) {
-//        Vertex a = new Vertex(2,1);
-//        Vertex b = new Vertex(1,2);
-//        Set<Vertex> set = new HashSet<Vertex>();
-//        set.add(a);
-//
-//        System.out.println(set.contains(b));
-//    }
 }

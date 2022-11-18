@@ -5,6 +5,7 @@ import entities.DesignableMaze;
 import java.util.ArrayList;
 //import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class RandomizedPrim extends MazeGenerator {
 
@@ -12,30 +13,62 @@ public class RandomizedPrim extends MazeGenerator {
         {2, 0}, {-2, 0}, {0,-2}, {0, 2}
     };
 
-    List<Vertex> visited = new ArrayList<Vertex>();
-    List<Vertex> frontierVertices = new ArrayList<Vertex>();
-    List<Vertex> emptyCells = new ArrayList<Vertex>();
-//    List<Edge> edges = new ArrayList<Edge>();
+    List<MazeCell> visitedCells = new ArrayList<MazeCell>();
+    List<MazeCell> frontierCells = new ArrayList<MazeCell>();
+    List<MazeCell> emptyCells = new ArrayList<MazeCell>();
 
-    public void addVertex(Vertex v) {
-        visited.add(v);
-        emptyCells.add(v);
+    public RandomizedPrim(DesignableMaze maze) {
+        super(maze);
+    }
 
-        List<Vertex> neighbors = getNeighbors(v);
+    @Override
+    public void generate() {
+        fillMaze();
 
-        for (Vertex potFrontier : neighbors) {
+        // start with first empty cell
+        addCell(new MazeCell(1, 1));
 
-            if (visited.contains(potFrontier) || frontierVertices.contains(potFrontier)) {
-                continue;
+        // randomly connect the frontiers until there are no frontiers left
+        while (!frontierCells.isEmpty()) {
+            MazeCell frontier = getRandom(frontierCells);
+            frontierCells.remove(frontier);
+            addCell(frontier);
+
+            randomlyConnectFrontier(frontier);
+        }
+
+        // delete the walls which should be empty
+        for (MazeCell e : emptyCells)  {
+            maze.deleteWall(e.row, e.col);
+        }
+    }
+    private void fillMaze() {
+        for (int i = 0; i < maze.getNumRow(); i++) {
+            for (int j = 0; j < maze.getNumCol(); j++) {
+                maze.placeWall(i, j);
             }
-
-            frontierVertices.add(potFrontier);
-
         }
     }
 
-    public List<Vertex> getNeighbors(Vertex v) {
-        List<Vertex> neighbors = new ArrayList<Vertex>();
+    private void addCell(MazeCell v) {
+        visitedCells.add(v);
+        emptyCells.add(v);
+
+        List<MazeCell> neighbors = getNeighbors(v);
+
+        // update frontier cells
+        for (MazeCell cell : neighbors) {
+
+            if (visitedCells.contains(cell) || frontierCells.contains(cell)) {
+                continue;
+            }
+
+            frontierCells.add(cell);
+        }
+    }
+
+    private List<MazeCell> getNeighbors(MazeCell v) {
+        List<MazeCell> neighbors = new ArrayList<MazeCell>();
 
         for (int[] d : DELTA) {
             int newRow = v.row + d[0];
@@ -45,61 +78,46 @@ public class RandomizedPrim extends MazeGenerator {
                 continue;
             }
 
-            neighbors.add(new Vertex(newRow, newCol));
+            neighbors.add(new MazeCell(newRow, newCol));
         }
 
         return neighbors;
     }
 
-    public <T> T getRandom(List<T> array) {
+    private <T> T getRandom(List<T> array) {
         int randIdx = (int)  (Math.random() * array.size());
         return array.get(randIdx);
     }
-    public Vertex getMiddleCell(Vertex v1, Vertex v2) {
+    private MazeCell getMiddleCell(MazeCell v1, MazeCell v2) {
         int midRow = (v1.row + v2.row) / 2;
         int midCol = (v1.col + v2.col) / 2;
-        return new Vertex(midRow, midCol);
+        return new MazeCell(midRow, midCol);
     }
 
-    @Override
-    public void generate(DesignableMaze maze) {
-        this.maze = maze;
+    private void randomlyConnectFrontier(MazeCell frontier) {
 
-        maze.fill();
+        // get a list of visited neighbors of the frontier
+        List<MazeCell> visitedNeighbors = new ArrayList<MazeCell>();
 
-        Vertex startVertex = new Vertex(1, 1);
-        addVertex(startVertex);
-
-        while (!frontierVertices.isEmpty()) {
-            Vertex frontier =  getRandom(frontierVertices);
-            frontierVertices.remove(frontier);
-            addVertex(frontier);
-
-            List<Vertex> frontierNeighbors = new ArrayList<Vertex>();
-
-            for (Vertex v : getNeighbors(frontier)) {
-                if (visited.contains(v)) {
-                    frontierNeighbors.add(v);
-                }
+        for (MazeCell v : getNeighbors(frontier)) {
+            if (visitedCells.contains(v)) {
+                visitedNeighbors.add(v);
             }
-
-            Vertex randVisited = getRandom(frontierNeighbors);
-            Vertex middleCell = getMiddleCell(randVisited, frontier);
-
-            emptyCells.add(middleCell);
         }
 
-        for (Vertex e : emptyCells)  {
-            maze.deleteWall(e.row, e.col);
-        }
+        MazeCell randomVisitedNeighbor = getRandom(visitedNeighbors);
 
-        System.out.println(maze);
+        // join the randomly visited cell with the frontier
+        MazeCell middleCell = getMiddleCell(randomVisitedNeighbor, frontier);
+        emptyCells.add(middleCell);
     }
+
 
     public static void main(String[] args) {
-        DesignableMaze bruh = new DesignableMaze(9, 35);
-        MazeGenerator mg = new RandomizedPrim();
-        mg.generate(bruh);
+//        DesignableMaze bruh = new DesignableMaze(25, 25);
+//        MazeGenerator gen = new RandomizedPrim(bruh);
+//        gen.generate();
+//        System.out.println(bruh);
     }
 
 }
