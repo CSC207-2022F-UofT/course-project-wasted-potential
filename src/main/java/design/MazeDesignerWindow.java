@@ -11,19 +11,14 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
-//import resources.stylesheet.css;
 
-import java.io.File;
-import java.net.URL;
 
 
 public class MazeDesignerWindow extends Application {
     Button button;
-    Button buttonarr[][];
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
 
     public static void main(String[] args) {
@@ -32,11 +27,11 @@ public class MazeDesignerWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Popup popup = new Popup();
+        Popup wallpopup = new Popup();
         Button close = new Button("Close");
-        DesignableMaze bruh = new DesignableMaze(23, 45);
+        DesignableMaze pmaze = new DesignableMaze(23, 45);
         MazeDesigner md = new MazeDesigner();
-        md.resetMaze(bruh);
+        md.resetMaze(pmaze);
 
         primaryStage.setTitle("Maze Designer");
         button = new Button();
@@ -47,7 +42,6 @@ public class MazeDesignerWindow extends Application {
         ToggleButton bulldozer = new ToggleButton("Bulldoze");
         ToggleButton starter = new ToggleButton("Place Start");
         ToggleButton ender = new ToggleButton("Place End");
-
 
         Button resetter = new Button("Reset");
         resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
@@ -66,32 +60,33 @@ public class MazeDesignerWindow extends Application {
         starter.setToggleGroup(choices);
         ender.setToggleGroup(choices);
 
-        int row = bruh.getNumRow();
-        int col = bruh.getNumCol();
+        int row = md.getRows(pmaze);
+        int col = md.getCols(pmaze);
         Button buttonarray[][] = new Button[row][col];
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event){
-                int row=buttonarr.length;
-                int col=buttonarr[0].length;
+                int row=buttonarray.length;
+                int col=buttonarray[0].length;
 
-                for (int i = 0; i < buttonarr.length; i++) {
-                    for (int j = 0; j < buttonarr[0].length; j++) {
-                        if (event.getSource()==buttonarr[i][j]){
+                for (int i = 0; i < buttonarray.length; i++) {
+                    for (int j = 0; j < buttonarray[0].length; j++) {
+                        if (event.getSource()==buttonarray[i][j]){
                             row = i;
                             col = j;
                         }
                     }
                 }
-                if (row == 0 || col == 0 || row == buttonarr.length-1 || col == buttonarr[0].length-1){
+                if (row == 0 || col == 0 || row == buttonarray.length-1 || col == buttonarray[0].length-1){
                     if(event.getSource()!=resetter && event.getSource()!=randomizer) {
                         Label label = new Label("You cannot edit the outermost walls!");
                         GridPane popuppane = new GridPane();
                         popuppane.addRow(0, label);
                         popuppane.addRow(1, close);
-                        popup.getContent().add(popuppane);
-                        popuppane.setStyle(" -fx-background-color: white; \n -fx-border-color: black;");
+                        wallpopup.getContent().add(popuppane);
+                        popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+                        close.setStyle("-fx-background-color: #BB86FC;");
 
                         popuppane.setMinHeight(100);
                         popuppane.setMinWidth(234);
@@ -99,44 +94,19 @@ public class MazeDesignerWindow extends Application {
 
                         label.setMinWidth(80);
                         label.setMinHeight(50);
-                        popup.show(primaryStage);
+                        wallpopup.show(primaryStage);
                     }
                 } else {
                     if (builder == (ToggleButton) choices.getSelectedToggle()) {
-                        md.buildWall(bruh, row, col);
-                        buttonarr[row][col].setText("#");
-                        buttonarr[row][col].setStyle(" -fx-background-color: #03DAC6; \n -fx-border-color: none;");
+                        md.buildWall(pmaze, row, col);
                     } else if (bulldozer == (ToggleButton) choices.getSelectedToggle()) {
-                        md.removeWall(bruh, row, col);
-                        buttonarr[row][col].setText(".");
-                        buttonarr[row][col].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
+                        md.removeWall(pmaze, row, col);
                     } else if (starter == (ToggleButton) choices.getSelectedToggle()) {
-                        md.startPoint(bruh, row, col);
-                        for (int i = 0; i < buttonarr.length; i++){
-                            for (int j = 0; j < buttonarr[0].length; j++) {
-                                if (buttonarr[i][j].getText().equals("S")){
-                                    buttonarr[i][j].setText(".");
-                                    buttonarr[i][j].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
-                                    break;
-                                }
-                            }
-                        }
-                        buttonarr[row][col].setText("S");
-                        buttonarr[row][col].setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: none;");
+                        md.startPoint(pmaze, row, col);
                     } else if (ender == (ToggleButton) choices.getSelectedToggle()) {
-                        md.startPoint(bruh, row, col);
-                        for (int i = 0; i < buttonarr.length; i++){
-                            for (int j = 0; j < buttonarr[0].length; j++) {
-                                if (buttonarr[i][j].getText().equals("E")){
-                                    buttonarr[i][j].setText(".");
-                                    buttonarr[i][j].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
-                                    break;
-                                }
-                            }
-                        }
-                        buttonarr[row][col].setText("E");
-                        buttonarr[row][col].setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: none;");
+                        md.endPoint(pmaze, row, col);
                     }
+                    updateMazeUI(pmaze, md, buttonarray, md.getRows(pmaze), md.getCols(pmaze));
                 }
             }
         };
@@ -146,38 +116,14 @@ public class MazeDesignerWindow extends Application {
             public void handle(ActionEvent extrabuttons){
 
                 if (extrabuttons.getSource()==resetter){
-                    bruh.emptySetup();
-                    for (int i = 0; i < bruh.getNumRow(); i++) {
-                        for (int j = 0; j < bruh.getNumCol(); j++) {
-                            buttonarray[i][j].setText(String.valueOf(bruh.getState(i, j)));
-                            if(bruh.getState(i, j) == '#'){
-                                buttonarr[i][j].setStyle(" -fx-background-color: #03DAC6; \n -fx-border-color: none;");
-                            } else if (bruh.getState(i, j) == '.'){
-                                buttonarr[i][j].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
-                            } else {
-                                buttonarr[i][j].setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: none;");
-                            }
-                        }
-                    }
+                    md.resetMaze(pmaze);
+                    updateMazeUI(pmaze, md, buttonarray, md.getRows(pmaze), md.getCols(pmaze));
                 } else if (extrabuttons.getSource()==randomizer){
                     RandomizedPrim mg = new RandomizedPrim();
-                    mg.generate(bruh);
-                    md.startPoint(bruh,1,1);
-                    md.endPoint(bruh, bruh.getNumRow()-2, bruh.getNumCol()-2);
-                    buttonarr[1][1].setText(String.valueOf(bruh.getState(1, 1)));
-                    buttonarr[bruh.getNumRow()-2][bruh.getNumRow()-2].setText(String.valueOf(bruh.getState(bruh.getNumRow()-2, bruh.getNumRow()-2)));
-                    for (int i = 0; i < bruh.getNumRow(); i++) {
-                        for (int j = 0; j < bruh.getNumCol(); j++) {
-                            buttonarray[i][j].setText(String.valueOf(bruh.getState(i, j)));
-                            if(bruh.getState(i, j) == '#'){
-                                buttonarr[i][j].setStyle(" -fx-background-color: #03DAC6; \n -fx-border-color: none;");
-                            } else if (bruh.getState(i, j) == '.'){
-                                buttonarr[i][j].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
-                            } else {
-                                buttonarr[i][j].setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: none;");
-                            }
-                        }
-                    }
+                    mg.generate(pmaze);
+                    md.startPoint(pmaze,1,1);
+                    md.endPoint(pmaze, md.getRows(pmaze)-2, md.getCols(pmaze)-2);
+                    updateMazeUI(pmaze, md, buttonarray, md.getRows(pmaze), md.getCols(pmaze));
                 }
             }
         };
@@ -185,7 +131,7 @@ public class MazeDesignerWindow extends Application {
         EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent popuphandle){
                 if (popuphandle.getSource()==close){
-                    popup.hide();
+                    wallpopup.hide();
                 }
             }
         };
@@ -194,30 +140,20 @@ public class MazeDesignerWindow extends Application {
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
 
-        System.out.println(bruh);
-
+        updateMazeUI(pmaze, md, buttonarray, row, col);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                buttonarray[i][j] = new Button(String.valueOf(bruh.getState(i, j)));
-                if(bruh.getState(i, j) == '#'){
-                    buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6; \n -fx-border-color: none;");
-                } else if (bruh.getState(i, j) == '.'){
-                    buttonarray[i][j].setStyle(" -fx-background-color: #121212; \n -fx-border-color: none;");
-                } else {
-                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: none;");
-                }
                 buttonarray[i][j].setOnAction(event);
             }
         }
-        buttonarr = buttonarray;
 
         root.setVgap(10);
         root.addRow(0, funcs);
 
         GridPane maze = new GridPane();
 
-        for (int i = 0; i < buttonarr.length; i++) {
-            maze.addRow(i, buttonarr[i]);
+        for (int i = 0; i < buttonarray.length; i++) {
+            maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
 
@@ -227,5 +163,26 @@ public class MazeDesignerWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    public void updateMazeUI(DesignableMaze dm, MazeDesigner md, Button[][] buttonarray, int row, int col){
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if(buttonarray[i][j] == null){
+                    buttonarray[i][j] = new Button();
+                }
+                if(md.cellChar(dm, i, j) == '#'){
+                    buttonarray[i][j].setText("#");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
+                } else if (md.cellChar(dm, i, j) == '.'){
+                    buttonarray[i][j].setText(".");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
+                } else if (md.cellChar(dm, i, j) == 'S'){
+                    buttonarray[i][j].setText("S");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                } else {
+                    buttonarray[i][j].setText("E");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                }
+            }
+        }
+    }
 }
