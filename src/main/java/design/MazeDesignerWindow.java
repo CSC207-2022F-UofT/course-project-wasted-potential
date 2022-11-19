@@ -15,10 +15,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
-
-
 public class MazeDesignerWindow extends Application {
-    Button button;
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
 
     public static void main(String[] args) {
@@ -29,12 +26,13 @@ public class MazeDesignerWindow extends Application {
     public void start(Stage primaryStage) throws Exception{
         Popup wallpopup = new Popup();
         Button close = new Button("Close");
-        DesignableMaze pmaze = new DesignableMaze(23, 45);
+        DesignableMaze pmaze = new DesignableMaze(9, 15);
         MazeDesigner md = new MazeDesigner();
         md.resetMaze(pmaze);
-
+        int row = md.getRows(pmaze);
+        int col = md.getCols(pmaze);
+        Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
-        button = new Button();
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
 
@@ -42,7 +40,6 @@ public class MazeDesignerWindow extends Application {
         ToggleButton bulldozer = new ToggleButton("Bulldoze");
         ToggleButton starter = new ToggleButton("Place Start");
         ToggleButton ender = new ToggleButton("Place End");
-
         Button resetter = new Button("Reset");
         resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
         Button randomizer = new Button("Random");
@@ -51,21 +48,14 @@ public class MazeDesignerWindow extends Application {
                 "            #3700A3,\n" +
                 "            #372FF3,\n" +
                 "            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3); \n -fx-text-fill: #FFFFFF;");
-
         HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, resetter);
         ToggleGroup choices = new ToggleGroup();
-
         builder.setToggleGroup(choices);
         bulldozer.setToggleGroup(choices);
         starter.setToggleGroup(choices);
         ender.setToggleGroup(choices);
 
-        int row = md.getRows(pmaze);
-        int col = md.getCols(pmaze);
-        Button buttonarray[][] = new Button[row][col];
-
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent event){
                 int row=buttonarray.length;
                 int col=buttonarray[0].length;
@@ -112,9 +102,7 @@ public class MazeDesignerWindow extends Application {
         };
 
         EventHandler<ActionEvent> extrabuttons = new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent extrabuttons){
-
                 if (extrabuttons.getSource()==resetter){
                     md.resetMaze(pmaze);
                     updateMazeUI(pmaze, md, buttonarray, md.getRows(pmaze), md.getCols(pmaze));
@@ -149,9 +137,7 @@ public class MazeDesignerWindow extends Application {
 
         root.setVgap(10);
         root.addRow(0, funcs);
-
         GridPane maze = new GridPane();
-
         for (int i = 0; i < buttonarray.length; i++) {
             maze.addRow(i, buttonarray[i]);
         }
@@ -161,6 +147,7 @@ public class MazeDesignerWindow extends Application {
         scene.getStylesheets().add(css);
 
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
     public void updateMazeUI(DesignableMaze dm, MazeDesigner md, Button[][] buttonarray, int row, int col){
