@@ -1,11 +1,11 @@
 package entities;
 
 public class UserFactory {
-    public void createPLayer() {
-
+    public Player createPlayer(String name, String password, String creationTime) {
+        return new Player(name, password, creationTime);
     }
 
-    public void createDesigner() {
-
+    public Designer createDesigner(String name, String password, String creationTime) {
+        return new Designer(name, password, creationTime);
     }
 }

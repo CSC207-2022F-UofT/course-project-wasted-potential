@@ -30,6 +30,4 @@ public abstract class User {
         return this.creationTime;
     }
 
-
-
 }
