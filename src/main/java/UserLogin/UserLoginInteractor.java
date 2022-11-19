@@ -1,38 +1,30 @@
 package UserLogin;
-import entities.User;
+import screens.UserDatabase;
 
 public class UserLoginInteractor implements ULoginInputBoundary{
-    private String username;
-    private String password;
-    private User userType;
+    final UserLoginDsGateway dsGateway;
+    final ULoginPresenter presenter;
+    final UserDatabase database;
 
-    public UserLoginInteractor(String username, String password, User userType){
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-    }
-
-    public boolean existsByName(String username){
-        /* Check if user exists in database, returns boolean value */
-    }
-
-    public boolean checkValidPassword(String password){
-        /* Check if password matches one in database */
-
+    public UserLoginInteractor(UserLoginDsGateway dsGateway, ULoginPresenter presenter, UserDatabase database){
+        this.dsGateway = dsGateway;
+        this.presenter = presenter;
+        this.database = database;
     }
 
     @Override
-    public void logUserIn() {
-        if (existsByName(this.username)){
-            if (checkValidPassword(this.password)){
-                /* Log in if true */
+    public void logUserIn(UserLoginRequestModel user) {
+        if (database.existsByName(user.getUsername())){
+            if (database.checkValidPassword(user.getUsername(), user.getPassword())){
+                String userType = database.getUserType(user.getUsername());
+                UserLoginDsRequestModel userRequestModel = new UserLoginDsRequestModel(user.getUsername(), userType);
+                dsGateway.logUserIn(userRequestModel);
             } else {
-                /* Redirect to register page or say user does not exist? */
+                presenter.failView("Incorrect password. Try again.");
             }
         } else {
-            /* Update presenter to show failure, no such user exists */
+            presenter.failView("No such user exists.");
         }
     }
 
-    /* What is presenter and gateway method? */
 }

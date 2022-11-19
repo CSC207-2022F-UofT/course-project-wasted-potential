@@ -5,10 +5,10 @@ public class Player extends User{
     private String password;
     private String creationTime;
 
+
     public Player(String username, String password, String creationTime){
         super(username, password, "Player", creationTime);
     }
-
 
 }
 

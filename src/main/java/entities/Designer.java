@@ -9,5 +9,4 @@ public class Designer extends User{
         super(username, password, "Designer", creationTime);
     }
 
-
 }
