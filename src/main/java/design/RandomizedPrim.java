@@ -111,13 +111,4 @@ public class RandomizedPrim extends MazeGenerator {
         MazeCell middleCell = getMiddleCell(randomVisitedNeighbor, frontier);
         emptyCells.add(middleCell);
     }
-
-
-    public static void main(String[] args) {
-//        DesignableMaze bruh = new DesignableMaze(25, 25);
-//        MazeGenerator gen = new RandomizedPrim(bruh);
-//        gen.generate();
-//        System.out.println(bruh);
-    }
-
 }
