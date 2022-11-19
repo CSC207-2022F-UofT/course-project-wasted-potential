@@ -4,25 +4,30 @@ public abstract class User {
 
     private String username;
     private String password;
-    private User userType;
+    private String userType;
+    private String creationTime;
 
-    public User(String username, String password, User userType){
+    public User(String username, String password, String userType, String creationTime){
         this.username = username;
         this.password = password;
         this.userType = userType;
+        this.creationTime = creationTime;
     }
-
-    public abstract void userLogin();
-
-    public abstract void userLogout();
-
 
     public String getUsername(){
         return this.username;
     }
 
-    public User getUserType(){
+    public String getUserType(){
         return this.userType;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public String getCreationTime(){
+        return this.creationTime;
     }
 
 
