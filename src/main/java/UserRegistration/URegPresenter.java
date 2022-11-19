@@ -1,4 +1,7 @@
 package UserRegistration;
 
-public class URegPresenter {
+public interface URegPresenter{
+    UserRegisterResponseModel successView(UserRegisterResponseModel userResponseModel);
+
+    UserRegisterResponseModel failView(String errorMessage);
 }

@@ -1,0 +1,89 @@
+package screens;
+import java.io.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import entities.User;
+import entities.Player;
+
+public class UserDatabase {
+
+    private final File csvFile;
+    private final Map<String, Integer> headers = new LinkedHashMap<>();
+    private final Map<String, User> userAccounts = new HashMap<>();
+
+    public UserDatabase(String csvPath) throws IOException{
+        csvFile = new File(csvPath);
+        headers.put("username", 0);
+        headers.put("user_type", 1);
+        headers.put("password", 2);
+        headers.put("creation_time", 3);
+
+        if(csvFile.length() == 0){
+            save();
+        } else {
+
+            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+            reader.readLine();
+
+            String userInfo;
+            while ((userInfo = reader.readLine()) != null){
+                String[] col = userInfo.split(",");
+                String username = String.valueOf(col[headers.get("username")]);
+                String userType = String.valueOf(col[headers.get("user_type")]);
+                String password = String.valueOf(col[headers.get("password")]);
+                String creationTime = String.valueOf(col[headers.get("creation_time")]);
+                if (userType.equals("Player")){
+                    User user = new Player(username, password, creationTime);
+                    userAccounts.put(username, user);
+                }
+
+            }
+
+            reader.close();
+
+        }
+    }
+
+    public void save (User user){
+        /* Can save player/designer class instead of requestModel ?*/
+        userAccounts.put(user.getUsername(), user);
+        this.save();
+    }
+
+    private void save(){
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(csvFile));
+            writer.write(String.join(",", headers.keySet()));
+            writer.newLine();
+
+            for(User user: userAccounts.values()){
+                String info = String.format("%1$s,%2$s,%3$s,%4$s", user.getUsername(),
+                        user.getUserType(), user.getPassword(),user.getCreationTime());
+                writer.write(info);
+                writer.newLine();
+            }
+
+            writer.close();
+
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean existsByName(String username){
+        return userAccounts.containsKey(username);
+    }
+
+    public boolean checkValidPassword(String username, String password){
+        User userInfo = userAccounts.get(username);
+        return password.equals(userInfo.getPassword());
+    }
+
+    public String getUserType(String username){
+        User userInfo = userAccounts.get(username);
+        return userInfo.getUserType();
+    }
+}

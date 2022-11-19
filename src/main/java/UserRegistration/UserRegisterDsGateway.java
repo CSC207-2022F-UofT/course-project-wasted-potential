@@ -2,7 +2,5 @@ package UserRegistration;
 
 public interface UserRegisterDsGateway {
 
-    public void existsByName();
-
-    public void storeUser();
+    public void storeUser(UserRegisterRequestModel newUser);
 }

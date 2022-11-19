@@ -2,5 +2,5 @@ package UserRegistration;
 
 public interface URegInputBoundary {
 
-    public void createUser();
+    public void createUser(UserRegisterRequestModel userRequestModel);
 }

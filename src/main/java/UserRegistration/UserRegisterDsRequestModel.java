@@ -1,14 +1,12 @@
 package UserRegistration;
-import entities.User;
 
 public class UserRegisterDsRequestModel {
-    private String username;
+    private final String username;
     private String password;
-    private User userType;
-    /* Not sure what type creationTime is stored as */
-    private Object creationTime;
+    private final String userType;
+    private final String creationTime;
 
-    public UserRegisterDsRequestModel(String username, User userType, String password, Object creationTime) {
+    public UserRegisterDsRequestModel(String username, String userType, String password, String creationTime) {
         this.username = username;
         this.userType = userType;
         this.password = password;
@@ -23,11 +21,11 @@ public class UserRegisterDsRequestModel {
         return this.password;
     }
 
-    public User getUserType(){
+    public String getUserType(){
         return this.userType;
     }
 
-    public Object getCreationTime(){
+    public String getCreationTime(){
         return this.creationTime;
     }
 
