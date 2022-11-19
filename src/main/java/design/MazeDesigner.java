@@ -20,27 +20,21 @@ public class MazeDesigner {
             }
         }
     }
-
     public void startPoint(DesignableMaze dm, int row, int col){
         if (dm.getState(row, col) != 'S') {
             dm.placeStart(row, col);
         }
     }
-
     public void endPoint(DesignableMaze dm, int row, int col){
         if (dm.getState(row, col) != 'E') {
             dm.placeEnd(row, col);
         }
     }
-
     public int getRows(DesignableMaze dm){
         return dm.getNumRow();
     }
     public int getCols(DesignableMaze dm){
         return dm.getNumCol();
-    }
-    public String cellString(DesignableMaze dm, int row, int col){
-        return String.valueOf(dm.getState(row, col));
     }
     public char cellChar(DesignableMaze dm, int row, int col){
         return dm.getState(row, col);
