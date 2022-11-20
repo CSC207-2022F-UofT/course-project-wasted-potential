@@ -1,12 +1,16 @@
 package screens;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import UserRegistration.UserRegisterDsGateway;
+import UserRegistration.UserRegisterRequestModel;
 import entities.User;
 import entities.Player;
 
-public class UserDatabase {
+public class UserDatabase implements UserRegisterDsGateway {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -18,6 +22,7 @@ public class UserDatabase {
         headers.put("user_type", 1);
         headers.put("password", 2);
         headers.put("creation_time", 3);
+        headers.put("mazes_played", 4);
 
         if(csvFile.length() == 0){
             save();
@@ -33,6 +38,7 @@ public class UserDatabase {
                 String userType = String.valueOf(col[headers.get("user_type")]);
                 String password = String.valueOf(col[headers.get("password")]);
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
+
                 if (userType.equals("Player")){
                     User user = new Player(username, password, creationTime);
                     userAccounts.put(username, user);
@@ -44,9 +50,8 @@ public class UserDatabase {
 
         }
     }
-
+    @Override
     public void save (User user){
-        /* Can save player/designer class instead of requestModel ?*/
         userAccounts.put(user.getUsername(), user);
         this.save();
     }
@@ -73,17 +78,20 @@ public class UserDatabase {
 
     }
 
-    public boolean existsByName(String username){
-        return userAccounts.containsKey(username);
-    }
-
+    @Override
     public boolean checkValidPassword(String username, String password){
         User userInfo = userAccounts.get(username);
         return password.equals(userInfo.getPassword());
     }
 
+    @Override
     public String getUserType(String username){
         User userInfo = userAccounts.get(username);
         return userInfo.getUserType();
+    }
+
+    @Override
+    public boolean existsByName(String username) {
+        return userAccounts.containsKey(username);
     }
 }
