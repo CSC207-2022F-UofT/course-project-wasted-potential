@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class MazeDesignerPresenter {
+public class MazeDesignerPresenter implements MazeDesignerOutputBoundary{
     public void updateMazeUI(MazeDesignerController md, Button[][] buttonarray){
         for (int i = 0; i < md.getRows(); i++) {
             for (int j = 0; j < md.getCols(); j++) {

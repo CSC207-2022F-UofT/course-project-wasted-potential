@@ -15,8 +15,8 @@ import javafx.geometry.Pos;
 
 public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    MazeDesignerPresenter mdp = new MazeDesignerPresenter();
-    MazeDesignerController mdc = new MazeDesignerController();
+    MazeDesignerPresenter mdp = new MazeDesignerPresenter(); // safest way: call controller and have it do it there
+    final MazeDesignerController mdc = new MazeDesignerController();
 
     public static void main(String[] args) {
         launch(args);

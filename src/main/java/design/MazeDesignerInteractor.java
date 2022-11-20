@@ -2,7 +2,7 @@ package design;
 
 import entities.DesignableMaze;
 
-public class MazeDesignerInteractor {
+public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     DesignableMaze dm;
 
