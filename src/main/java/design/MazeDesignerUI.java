@@ -24,12 +24,10 @@ public class MazeDesignerUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        MazeDesignerInteractor md = new MazeDesignerInteractor();
-        md.newMaze();
-        md.resetMaze();
+        mdc.start();
 
-        int row = md.getRows();
-        int col = md.getCols();
+        int row = mdc.getRows();
+        int col = mdc.getCols();
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
@@ -59,8 +57,8 @@ public class MazeDesignerUI extends Application {
                 int row=buttonarray.length;
                 int col=buttonarray[0].length;
 
-                for (int i = 0; i < buttonarray.length; i++) {
-                    for (int j = 0; j < buttonarray[0].length; j++) {
+                for (int i = 0; i < row; i++) {
+                    for (int j = 0; j < col; j++) {
                         if (event.getSource()==buttonarray[i][j]){
                             row = i;
                             col = j;
@@ -72,16 +70,18 @@ public class MazeDesignerUI extends Application {
                         mdp.outerWallEdit(primaryStage);
                     }
                 } else {
+                    int handler = -1;
                     if (builder == (ToggleButton) choices.getSelectedToggle()) {
-                        md.buildWall(row, col);
+                        handler = 0;
                     } else if (bulldozer == (ToggleButton) choices.getSelectedToggle()) {
-                        md.removeWall(row, col);
+                        handler = 1;
                     } else if (starter == (ToggleButton) choices.getSelectedToggle()) {
-                        md.startPoint(row, col);
+                        handler = 2;
                     } else if (ender == (ToggleButton) choices.getSelectedToggle()) {
-                        md.endPoint(row, col);
+                        handler = 3;
                     }
-                    mdp.updateMazeUI(md, buttonarray, md.getRows(), md.getCols());
+                    mdc.handleBuild(handler, row, col);
+                    mdp.updateMazeUI(mdc, buttonarray);
                 }
             }
         };
@@ -89,19 +89,18 @@ public class MazeDesignerUI extends Application {
         EventHandler<ActionEvent> extrabuttons = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent extrabuttons){
                 if (extrabuttons.getSource()==resetter){
-                    md.resetMaze();
-                    mdp.updateMazeUI(md, buttonarray, md.getRows(), md.getCols());
+                    mdc.resetMaze();
                 } else if (extrabuttons.getSource()==randomizer){
-                    md.randoMaze();
-                    mdp.updateMazeUI(md, buttonarray, md.getRows(), md.getCols());
+                    mdc.randoMaze();
                 }
+                mdp.updateMazeUI(mdc, buttonarray);
             }
         };
 
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
 
-        mdp.updateMazeUI(md, buttonarray, row, col);
+        mdp.updateMazeUI(mdc, buttonarray);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 buttonarray[i][j].setOnAction(event);
