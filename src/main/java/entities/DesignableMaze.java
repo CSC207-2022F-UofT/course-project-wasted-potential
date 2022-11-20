@@ -18,25 +18,15 @@ public class DesignableMaze extends Maze{
     }
 
     public void placeStart(int row, int col) {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
-                if (this.state[i][j] == 'S'){
-                    this.state[i][j] = Maze.ENCODING.get("empty");
-                }
-            }
-        }
+        this.state[startLocation[0]][startLocation[1]] = Maze.ENCODING.get("empty");
+
         this.state[row][col] = Maze.ENCODING.get("start");
         startLocation[0] = row;
         startLocation[1] = col;
     }
     public void placeEnd(int row, int col) {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
-                if (this.state[i][j] == 'E'){
-                    this.state[i][j] = Maze.ENCODING.get("empty");
-                }
-            }
-        }
+        this.state[endLocation[0]][endLocation[1]] = Maze.ENCODING.get("empty");
+
         this.state[row][col] = Maze.ENCODING.get("end");
         endLocation[0] = row;
         endLocation[1] = col;
@@ -65,6 +55,11 @@ public class DesignableMaze extends Maze{
                 }
             }
         }
+        startLocation[0] = 1;
+        startLocation[1] = 1;
+        endLocation[0] = this.getNumRow()-2;
+        endLocation[1] = this.getNumCol()-2;
+
         placeStart(1, 1);
         placeEnd(this.getNumRow()-2, this.getNumCol()-2);
     }
