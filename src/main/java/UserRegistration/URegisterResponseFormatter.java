@@ -14,6 +14,7 @@ public class URegisterResponseFormatter implements URegPresenter {
 
     @Override
     public UserRegisterResponseModel failView(String errorMessage) {
-        return null;
+        throw new RuntimeException(errorMessage);
+
     }
 }

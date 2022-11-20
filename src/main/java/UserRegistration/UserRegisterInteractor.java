@@ -18,10 +18,10 @@ public class UserRegisterInteractor implements URegInputBoundary{
     }
 
     @Override
-    public void createUser(UserRegisterRequestModel userRequestModel) {
+    public UserRegisterResponseModel createUser(UserRegisterRequestModel userRequestModel) {
         boolean validPassword = userRequestModel.getPassword().equals(userRequestModel.getRepeatPassword());
-        if (validPassword){
-            if (dsGateway.existsByName(userRequestModel.getUsername())){
+        if (validPassword) {
+            if (dsGateway.existsByName(userRequestModel.getUsername())) {
                 presenter.failView("This username is already in use.");
             } else {
                 User user;
@@ -30,7 +30,7 @@ public class UserRegisterInteractor implements URegInputBoundary{
                 DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 String dateTimeString = creationTime.format(formatDateTime);
 
-                if (userRequestModel.getUserType().equals("Player")){
+                if (userRequestModel.getUserType().equals("Player")) {
                     user = userFactory.createPlayer(userRequestModel.getUsername(), userRequestModel.getPassword(),
                             dateTimeString);
                 } else {
@@ -46,5 +46,6 @@ public class UserRegisterInteractor implements URegInputBoundary{
         } else {
             presenter.failView("Passwords do not match.");
         }
+        return new UserRegisterResponseModel(null, null, null);
     }
 }
