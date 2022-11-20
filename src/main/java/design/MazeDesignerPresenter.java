@@ -11,9 +11,9 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class MazeDesignerPresenter {
-    public void updateMazeUI(MazeDesignerInteractor md, Button[][] buttonarray, int row, int col){
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+    public void updateMazeUI(MazeDesignerController md, Button[][] buttonarray){
+        for (int i = 0; i < md.getRows(); i++) {
+            for (int j = 0; j < md.getCols(); j++) {
                 if(buttonarray[i][j] == null){
                     buttonarray[i][j] = new Button();
                 }
