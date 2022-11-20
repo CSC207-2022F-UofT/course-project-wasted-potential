@@ -43,4 +43,6 @@ public class PublishedMaze extends Maze{
     public String getId() {
         return id;
     }
+
+    public char[][] getState() {return state; }
 }
