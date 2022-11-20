@@ -20,7 +20,7 @@ public class DesignableMaze extends Maze{
     public void placeStart(int row, int col) {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
-                if (this.state[i][j] == 'S'){
+                if (this.state[i][j] == Maze.ENCODING.get("start")){
                     this.state[i][j] = Maze.ENCODING.get("empty");
                 }
             }
@@ -32,7 +32,7 @@ public class DesignableMaze extends Maze{
     public void placeEnd(int row, int col) {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
-                if (this.state[i][j] == 'E'){
+                if (this.state[i][j] == Maze.ENCODING.get("end")){
                     this.state[i][j] = Maze.ENCODING.get("empty");
                 }
             }
