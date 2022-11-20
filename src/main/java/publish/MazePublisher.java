@@ -18,7 +18,7 @@ public class MazePublisher {
         return solveCheck.checkMazeSolvability(this.mazeInfo.getDm());
     }
 
-    public boolean publishMaze() {
+    public PublishedMaze publishMaze() {
         if (checkSolvable()) {
             char[][] state = new char[this.mazeInfo.getDm().getNumRow()][this.mazeInfo.getDm().getNumCol()];
             for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
@@ -26,15 +26,14 @@ public class MazePublisher {
                     state[i][j] = this.mazeInfo.getDm().getState(i, j);
                 }
             }
-            PublishedMaze pm = new PublishedMaze(this.mazeInfo.getAuthor(),
+            return new PublishedMaze(this.mazeInfo.getAuthor(),
                                                  this.mazeInfo.getName(),
                                                  true,
                                                  new Date(),
                                                  state);
-            return true;
         }
         else {
-            return false;
+            return null;
         }
     }
 }

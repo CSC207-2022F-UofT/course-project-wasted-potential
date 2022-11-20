@@ -1,6 +1,6 @@
 package publish;
 
 public interface MazePublishedOutBoundary {
-    void reportSuccess();
+    void reportSuccess(MazePublishedResponseModel mazeInfo);
     void reportFailure();
 }
