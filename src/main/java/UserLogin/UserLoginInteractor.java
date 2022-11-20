@@ -1,24 +1,24 @@
 package UserLogin;
-import screens.UserDatabase;
+import UserRegistration.UserRegisterDsGateway;
 
 public class UserLoginInteractor implements ULoginInputBoundary{
-    final UserLoginDsGateway dsGateway;
+    /* Change gateway so login and register share a gateway cus they share database which implements the same gateway*/
+    final UserRegisterDsGateway dsGateway;
     final ULoginPresenter presenter;
-    final UserDatabase database;
 
-    public UserLoginInteractor(UserLoginDsGateway dsGateway, ULoginPresenter presenter, UserDatabase database){
+    public UserLoginInteractor(UserRegisterDsGateway dsGateway, ULoginPresenter presenter){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
-        this.database = database;
     }
 
     @Override
     public void logUserIn(UserLoginRequestModel user) {
-        if (database.existsByName(user.getUsername())){
-            if (database.checkValidPassword(user.getUsername(), user.getPassword())){
-                String userType = database.getUserType(user.getUsername());
-                UserLoginDsRequestModel userRequestModel = new UserLoginDsRequestModel(user.getUsername(), userType);
-                dsGateway.logUserIn(userRequestModel);
+        if (dsGateway.existsByName(user.getUsername())){
+            if (dsGateway.checkValidPassword(user.getUsername(), user.getPassword())){
+                String userType = dsGateway.getUserType(user.getUsername());
+
+                UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), userType);
+                presenter.successView(userResponseModel);
             } else {
                 presenter.failView("Incorrect password. Try again.");
             }

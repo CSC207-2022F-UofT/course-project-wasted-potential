@@ -1,6 +1,7 @@
 package UserLogin;
 
 public class UserLoginRepo implements UserLoginDsGateway {
+    /*
     final ULoginPresenter presenter;
 
     public UserLoginRepo(ULoginPresenter presenter) {
@@ -13,4 +14,5 @@ public class UserLoginRepo implements UserLoginDsGateway {
         UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), user.getUserType());
         presenter.successView(userResponseModel);
     }
+    */
 }
