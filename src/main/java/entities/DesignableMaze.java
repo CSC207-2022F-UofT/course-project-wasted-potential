@@ -69,7 +69,6 @@ public class DesignableMaze extends Maze{
         placeEnd(this.getNumRow()-2, this.getNumCol()-2);
     }
 
-
     /*
     public void emptySetup() {
         for (int i = 0; i < this.getNumRow(); i++) {
