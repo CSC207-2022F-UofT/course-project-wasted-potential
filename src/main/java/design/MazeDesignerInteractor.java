@@ -41,7 +41,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         return dm.getNumCol();
     }
     public char cellChar(int row, int col){
-        return dm.getState(row, col);
+        return dm.getCell(row, col);
     }
 
 }
