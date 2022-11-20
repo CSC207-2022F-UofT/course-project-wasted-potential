@@ -32,7 +32,7 @@ public class DesignableMaze extends Maze{
         endLocation[1] = col;
     }
 
-    public char getState(int row, int col){
+    public char getCell(int row, int col){
         return this.state[row][col];
     }
 
