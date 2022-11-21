@@ -23,7 +23,7 @@ public class MazePublisher {
             char[][] state = new char[this.mazeInfo.getDm().getNumRow()][this.mazeInfo.getDm().getNumCol()];
             for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
                 for (int j = 0; j < this.mazeInfo.getDm().getNumCol(); j++) {
-                    state[i][j] = this.mazeInfo.getDm().getState(i, j);
+                    state[i][j] = this.mazeInfo.getDm().getCell(i, j);
                 }
             }
             return new PublishedMaze(this.mazeInfo.getAuthor(),
