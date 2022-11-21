@@ -1,16 +1,16 @@
 package HintGenerator;
 
-import entities.DesignableMaze;
+import entities.GameState;
 
 public class HintGeneratorControl {
-    private HintGeneratorInBoundary hint_generator_in_boundary;
+    private HintGeneratorInBoundary hintGeneratorInBoundary;
 
-    public HintGeneratorControl(HintGeneratorInBoundary hint_generator_in_boundary) {
-        this.hint_generator_in_boundary = hint_generator_in_boundary;
+    public HintGeneratorControl(HintGeneratorInBoundary hintGeneratorInBoundary) {
+        this.hintGeneratorInBoundary = hintGeneratorInBoundary;
     }
 
-    public void generateHint(DesignableMaze maze) {
-        hint_generator_in_boundary.generateHint(maze);
+    public void generateHint(GameState maze) {
+        hintGeneratorInBoundary.generateHint(maze);
     }
 
 }

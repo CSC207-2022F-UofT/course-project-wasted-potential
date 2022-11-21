@@ -1,7 +1,7 @@
 package HintGenerator;
 
-import entities.DesignableMaze;
+import entities.GameState;
 
 public interface HintGeneratorInBoundary {
-    public void generateHint(DesignableMaze maze);
+    public void generateHint(GameState maze);
 }

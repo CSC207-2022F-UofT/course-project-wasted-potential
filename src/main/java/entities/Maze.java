@@ -37,6 +37,10 @@ public abstract class Maze {
         return state;
     }
 
+    public char getCell(int row, int col){
+        return this.state[row][col];
+    }
+
     public boolean inBounds(int row, int col) {
         if (row >= numRow || row < 0) return false;
         return col < numCol && col >= 0;

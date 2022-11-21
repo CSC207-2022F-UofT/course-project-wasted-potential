@@ -50,10 +50,6 @@ public class DesignableMaze extends Maze{
         return endLocation;
     }
 
-    public char getCell(int row, int col){
-        return this.state[row][col];
-    }
-
     public void fill() {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
