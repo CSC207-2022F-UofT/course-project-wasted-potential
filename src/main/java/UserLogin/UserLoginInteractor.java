@@ -1,5 +1,5 @@
 package UserLogin;
-import UserRegistration.UserRegisterAndLoginDsGateway;
+import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
 
 public class UserLoginInteractor implements ULoginInputBoundary{
 
@@ -18,7 +18,13 @@ public class UserLoginInteractor implements ULoginInputBoundary{
                 String userType = dsGateway.getUserType(user.getUsername());
 
                 UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), userType);
-                presenter.successView(userResponseModel);
+                if(userResponseModel.getUserType().equals("Player")){
+                    System.out.println("lol");
+                    /* change to player view */
+                } else {
+                    presenter.designerSuccessView(userResponseModel);
+                }
+
             } else {
                 presenter.failView("Incorrect password. Try again.");
             }
