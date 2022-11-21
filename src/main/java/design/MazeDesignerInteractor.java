@@ -1,10 +1,13 @@
 package design;
 
 import entities.DesignableMaze;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     DesignableMaze dm;
+    MazeDesignerPresenter mdp = new MazeDesignerPresenter();
 
     public void newMaze(){
         dm = new DesignableMaze(11, 17);
@@ -42,6 +45,13 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
     }
     public char cellChar(int row, int col){
         return dm.getCell(row, col);
+    }
+
+    public void outWallAttempt(Stage primaryStage){
+        mdp.outerWallEdit(primaryStage);
+    }
+    public void updateMaze(MazeDesignerController mdc, Button[][] buttonarr){
+        mdp.updateMazeUI(mdc, buttonarr);
     }
 
 }

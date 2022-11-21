@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 
 public class MazeDesignerController {
     MazeDesignerInteractor md = new MazeDesignerInteractor();
-    MazeDesignerPresenter mdp = new MazeDesignerPresenter();
 
     public void start(){
         md.newMaze();
@@ -44,9 +43,9 @@ public class MazeDesignerController {
     }
 
     public void outWallAttempt(Stage primaryStage){
-        mdp.outerWallEdit(primaryStage);
+        md.outWallAttempt(primaryStage);
     }
     public void updateMaze(Button[][] buttonarr){
-        mdp.updateMazeUI(this, buttonarr);
+        md.updateMaze(this, buttonarr);
     }
 }
