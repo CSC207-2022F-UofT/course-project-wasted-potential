@@ -1,14 +1,23 @@
 package UserRegistration;
+import RegisterAndLoginSharedClasses.RegisterAndLoginViewInterface;
 
 public class URegisterResponseFormatter implements URegPresenter {
 
+    final RegisterAndLoginViewInterface view;
+
+    public URegisterResponseFormatter(RegisterAndLoginViewInterface view) {
+        this.view = view;
+    }
+
     @Override
-    public UserRegisterResponseModel successView(UserRegisterResponseModel userResponseModel) {
-        if(userResponseModel.getUserType().equals("Player")){
-            /* change to player view */
-        } else {
-            /* change to designer view */
-        }
+    public UserRegisterResponseModel playerSuccessView(UserRegisterResponseModel userResponseModel) {
+
+        return userResponseModel;
+    }
+
+    @Override
+    public UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userResponseModel){
+
         return userResponseModel;
     }
 

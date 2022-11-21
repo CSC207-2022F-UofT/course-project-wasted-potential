@@ -1,7 +1,9 @@
 package UserRegistration;
 
 public interface URegPresenter{
-    UserRegisterResponseModel successView(UserRegisterResponseModel userResponseModel);
+    UserRegisterResponseModel playerSuccessView(UserRegisterResponseModel userResponseModel);
+
+    UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userRegisterResponseModel);
 
     UserRegisterResponseModel failView(String errorMessage);
 }

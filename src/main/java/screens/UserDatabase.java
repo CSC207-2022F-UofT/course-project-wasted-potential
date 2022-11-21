@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import UserRegistration.UserRegisterAndLoginDsGateway;
+import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 

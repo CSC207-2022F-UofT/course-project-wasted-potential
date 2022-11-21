@@ -1,4 +1,4 @@
-package UserRegistration;
+package RegisterAndLoginSharedClasses;
 import entities.User;
 
 public interface UserRegisterAndLoginDsGateway {
