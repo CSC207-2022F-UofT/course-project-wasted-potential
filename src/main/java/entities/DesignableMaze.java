@@ -65,16 +65,4 @@ public class DesignableMaze extends Maze{
         placeStart(1, 1);
         placeEnd(this.getNumRow()-2, this.getNumCol()-2);
     }
-
-    /*
-    public void emptySetup() {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
-                deleteWall(i, j);
-            }
-        }
-        placeStart(0, 0);
-        placeEnd(this.getNumRow()-1, this.getNumCol()-1);
-    }
-     */
 }
