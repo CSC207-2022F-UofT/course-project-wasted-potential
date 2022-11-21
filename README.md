@@ -1,13 +1,16 @@
 # Maze game
 
-The program allows users to design their own mazes (either from scratch or with the help of the program). The user can verify the solvability of their designs and later publish their mazes making them publicly playable. Finally, users are able to play any maze that is publicly available.
+Our program is a platform for users to design and play mazes made by other users. Our "design toolkit" allows designers to randomly generate mazes, build their own maze designs and verify the solvability of their mazes before publishing. Players can view all published mazes and choose which one they would like to play.
 
 
 ### Tools and libraries
 
-The GUI was built using JavaFX.
+- Gradle build automation tool
+- GUI was built using JavaFX
+- JavaDoc for generating documentation
+- JUnit for testing
 
-### Installation
+### Running the project locally
 
 1. Clone the repository
 
@@ -15,8 +18,18 @@ The GUI was built using JavaFX.
 git clone https://github.com/CSC207-2022F-UofT/course-project-wasted-potential 
 ```
 
-2. Open the project in IntelliJ and run
+2. Open the project in IntelliJ using
 
 ```
 gradle run
 ```
+
+#### View JavaDoc
+
+```
+javadoc exa
+```
+
+#### Run tests
+
+1. Right click `src/test` in IntellJ and click 'Run as' and 'Unit-Test'
