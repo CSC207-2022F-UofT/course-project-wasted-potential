@@ -1,18 +1,18 @@
 package UserLogin;
-import UserRegistration.UserRegisterDsGateway;
+import UserRegistration.UserRegisterAndLoginDsGateway;
 
 public class UserLoginInteractor implements ULoginInputBoundary{
-    /* Change gateway so login and register share a gateway cus they share database which implements the same gateway*/
-    final UserRegisterDsGateway dsGateway;
+
+    final UserRegisterAndLoginDsGateway dsGateway;
     final ULoginPresenter presenter;
 
-    public UserLoginInteractor(UserRegisterDsGateway dsGateway, ULoginPresenter presenter){
+    public UserLoginInteractor(UserRegisterAndLoginDsGateway dsGateway, ULoginPresenter presenter){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
     }
 
     @Override
-    public void logUserIn(UserLoginRequestModel user) {
+    public UserLoginResponseModel logUserIn(UserLoginRequestModel user) {
         if (dsGateway.existsByName(user.getUsername())){
             if (dsGateway.checkValidPassword(user.getUsername(), user.getPassword())){
                 String userType = dsGateway.getUserType(user.getUsername());
@@ -25,6 +25,7 @@ public class UserLoginInteractor implements ULoginInputBoundary{
         } else {
             presenter.failView("No such user exists.");
         }
+        return new UserLoginResponseModel(null, null);
     }
 
 }

@@ -1,16 +1,14 @@
 package screens;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import UserRegistration.UserRegisterDsGateway;
-import UserRegistration.UserRegisterRequestModel;
+import UserRegistration.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 
-public class UserDatabase implements UserRegisterDsGateway {
+public class UserDatabase implements UserRegisterAndLoginDsGateway {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();

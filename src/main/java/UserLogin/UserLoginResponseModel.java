@@ -8,4 +8,8 @@ public class UserLoginResponseModel {
         this.username = username;
         this.userType = userType;
     }
+
+    public String getUserType(){
+        return this.userType;
+    }
 }

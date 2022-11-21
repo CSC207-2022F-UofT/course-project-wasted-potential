@@ -1,14 +1,14 @@
 package UserRegistration;
 import entities.User;
 
-public interface UserRegisterDsGateway {
+public interface UserRegisterAndLoginDsGateway {
 
     public void save(User user);
 
     public boolean existsByName(String username);
 
     public boolean checkValidPassword(String username, String password);
-    public String getUserType(String username);
 
+    public String getUserType(String username);
 
 }

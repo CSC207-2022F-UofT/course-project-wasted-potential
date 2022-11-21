@@ -13,7 +13,7 @@ import UserLogin.UserLoginController;
 
 public class LoginUI extends Application{
 
-    final UserLoginController controller = new UserLoginController();
+    private UserLoginController controller;
 
     public static void main(String[] args) {
         launch(args);
@@ -49,7 +49,7 @@ public class LoginUI extends Application{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
-                    /* call controller and specific info */
+                    controller.loginUser(username, password);
                 }
             }
         };
