@@ -1,6 +1,7 @@
 package entities;
 
 import com.sun.javafx.runtime.VersionInfo;
+import javafx.scene.control.Button;
 
 public class DesignableMaze extends Maze{
 
@@ -42,6 +43,25 @@ public class DesignableMaze extends Maze{
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
                 placeWall(i, j);
+            }
+        }
+    }
+
+    public void setButtonArray(Button[][] buttonarray){
+        for (int i = 0; i < buttonarray.length; i++) {
+            for (int j = 0; j < buttonarray[0].length; j++) {
+                if(buttonarray[i][j] == null){
+                    buttonarray[i][j] = new Button();
+                }
+                if(getCell(i, j) == '#'){
+                    buttonarray[i][j].setText("#");
+                } else if (getCell(i, j) == '.'){
+                    buttonarray[i][j].setText(".");
+                } else if (getCell(i, j) == 'S'){
+                    buttonarray[i][j].setText("S");
+                } else {
+                    buttonarray[i][j].setText("E");
+                }
             }
         }
     }

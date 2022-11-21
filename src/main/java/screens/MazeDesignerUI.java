@@ -25,8 +25,8 @@ public class MazeDesignerUI extends Application {
     public void start(Stage primaryStage) throws Exception{
         mdc.start();
 
-        int row = mdc.getRows();
-        int col = mdc.getCols();
+        int row = 11;
+        int col = 17;
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();

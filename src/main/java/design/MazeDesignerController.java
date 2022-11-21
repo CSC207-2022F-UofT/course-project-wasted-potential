@@ -32,20 +32,10 @@ public class MazeDesignerController {
         md.randomMaze();
     }
 
-    public int getRows(){
-        return md.getRows();
-    }
-    public int getCols(){
-        return md.getCols();
-    }
-    public char cellChar(int row, int col){
-        return md.cellChar(row, col);
-    }
-
     public void outWallAttempt(Stage primaryStage){
         md.outWallAttempt(primaryStage);
     }
     public void updateMaze(Button[][] buttonarr){
-        md.updateMaze(this, buttonarr);
+        md.updateMaze(buttonarr);
     }
 }

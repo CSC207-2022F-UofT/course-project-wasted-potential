@@ -11,19 +11,19 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class MazeDesignerPresenter implements MazeDesignerOutputBoundary{
-    public void updateMazeUI(MazeDesignerController md, Button[][] buttonarray){
-        for (int i = 0; i < md.getRows(); i++) {
-            for (int j = 0; j < md.getCols(); j++) {
+    public void updateMazeUI(Button[][] buttonarray){
+        for (int i = 0; i < buttonarray.length; i++) {
+            for (int j = 0; j < buttonarray[0].length; j++) {
                 if(buttonarray[i][j] == null){
                     buttonarray[i][j] = new Button();
                 }
-                if(md.cellChar(i, j) == '#'){
+                if(buttonarray[i][j].getText().equals("#")){
                     buttonarray[i][j].setText("#");
                     buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
-                } else if (md.cellChar(i, j) == '.'){
+                } else if(buttonarray[i][j].getText().equals(".")){
                     buttonarray[i][j].setText(".");
                     buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
-                } else if (md.cellChar(i, j) == 'S'){
+                } else if(buttonarray[i][j].getText().equals("S")){
                     buttonarray[i][j].setText("S");
                     buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
                 } else {

@@ -43,15 +43,13 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
     public int getCols(){
         return dm.getNumCol();
     }
-    public char cellChar(int row, int col){
-        return dm.getCell(row, col);
-    }
 
     public void outWallAttempt(Stage primaryStage){
         mdp.outerWallEdit(primaryStage);
     }
-    public void updateMaze(MazeDesignerController mdc, Button[][] buttonarr){
-        mdp.updateMazeUI(mdc, buttonarr);
+    public void updateMaze(Button[][] buttonarr){
+        dm.setButtonArray(buttonarr);
+        mdp.updateMazeUI(buttonarr);
     }
 
 }
