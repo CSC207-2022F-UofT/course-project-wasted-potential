@@ -1,17 +1,16 @@
 package UserRegistration;
 import entities.UserFactory;
 import entities.User;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class UserRegisterInteractor implements URegInputBoundary{
 
-    final UserRegisterDsGateway dsGateway;
+    final UserRegisterAndLoginDsGateway dsGateway;
     final URegPresenter presenter;
     final UserFactory userFactory;
 
-    public UserRegisterInteractor(UserRegisterDsGateway dsGateway, URegPresenter presenter, UserFactory userFactory){
+    public UserRegisterInteractor(UserRegisterAndLoginDsGateway dsGateway, URegPresenter presenter, UserFactory userFactory){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
         this.userFactory = userFactory;

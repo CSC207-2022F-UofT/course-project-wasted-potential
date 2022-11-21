@@ -19,7 +19,4 @@ public class UserRegisterResponseModel {
         return this.userType;
     }
 
-    public String getCreationTime(){
-        return this.creationTime;
-    }
 }

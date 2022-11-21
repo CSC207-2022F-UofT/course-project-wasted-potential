@@ -1,5 +1,4 @@
 package screens;
-import UserRegistration.URegInputBoundary;
 import UserRegistration.UserRegisterController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,6 +14,7 @@ import javafx.stage.Popup;
 import javax.swing.*;
 
 public class RegisterUI extends Application{
+
 
     private UserRegisterController controller;
 

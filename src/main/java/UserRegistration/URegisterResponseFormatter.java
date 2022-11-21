@@ -5,9 +5,9 @@ public class URegisterResponseFormatter implements URegPresenter {
     @Override
     public UserRegisterResponseModel successView(UserRegisterResponseModel userResponseModel) {
         if(userResponseModel.getUserType().equals("Player")){
-            /* change to designer view */
+            /* change to player view */
         } else {
-            /* change view */
+            /* change to designer view */
         }
         return userResponseModel;
     }
