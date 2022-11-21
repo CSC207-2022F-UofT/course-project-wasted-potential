@@ -3,7 +3,6 @@ package publish;
 import entities.PublishedMaze;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -59,7 +58,7 @@ public class MazeDatabase implements MazePublisherGateway{
 
             for(PublishedMaze maze: mazes.values()){
                 String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s", maze.getId(),
-                        maze.getName(), maze.getAuthor(),maze.getPublishDate(), Arrays.deepToString(maze.getState()));
+                        maze.getName(), maze.getAuthor(),maze.getPublishDate(), maze);
                 writer.write(info);
                 writer.newLine();
             }
