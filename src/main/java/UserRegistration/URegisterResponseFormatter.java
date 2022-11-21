@@ -1,10 +1,21 @@
 package UserRegistration;
 import RegisterAndLoginSharedClasses.RegisterAndLoginViewInterface;
 
+/**
+ * The type U register response formatter.
+ */
 public class URegisterResponseFormatter implements URegPresenter {
 
+    /**
+     * The View.
+     */
     final RegisterAndLoginViewInterface view;
 
+    /**
+     * Instantiates a new U register response formatter.
+     *
+     * @param view the view
+     */
     public URegisterResponseFormatter(RegisterAndLoginViewInterface view) {
         this.view = view;
     }

@@ -5,12 +5,31 @@ import entities.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type User register interactor.
+ */
 public class UserRegisterInteractor implements URegInputBoundary{
 
+    /**
+     * The Ds gateway.
+     */
     final UserRegisterAndLoginDsGateway dsGateway;
+    /**
+     * The Presenter.
+     */
     final URegPresenter presenter;
+    /**
+     * The User factory.
+     */
     final UserFactory userFactory;
 
+    /**
+     * Instantiates a new User register interactor.
+     *
+     * @param dsGateway   the ds gateway
+     * @param presenter   the presenter
+     * @param userFactory the user factory
+     */
     public UserRegisterInteractor(UserRegisterAndLoginDsGateway dsGateway, URegPresenter presenter, UserFactory userFactory){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
