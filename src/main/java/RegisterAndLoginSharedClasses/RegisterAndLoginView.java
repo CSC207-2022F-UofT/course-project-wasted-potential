@@ -1,7 +1,6 @@
 package RegisterAndLoginSharedClasses;
 
 import javafx.stage.Stage;
-import screens.MazeDesignerUI;
 
 /**
  * The type Register and login view.
