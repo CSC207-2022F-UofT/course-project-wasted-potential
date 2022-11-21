@@ -3,16 +3,26 @@ package publish;
 import entities.PublishedMaze;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The type Maze database.
+ */
 public class MazeDatabase implements MazePublisherGateway{
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<String, PublishedMaze> mazes = new HashMap<>();
 
+    /**
+     * Instantiates a new Maze database.
+     *
+     * @param csvPath the csv path
+     * @throws IOException the io exception
+     */
     public MazeDatabase(String csvPath) throws IOException{
         csvFile = new File(csvPath);
         headers.put("id", 0);
@@ -20,6 +30,7 @@ public class MazeDatabase implements MazePublisherGateway{
         headers.put("author", 2);
         headers.put("creation_time", 3);
         headers.put("state", 4);
+        headers.put("startPosition", 5);
 
         if(csvFile.length() == 0){
             storeMaze();
@@ -36,7 +47,7 @@ public class MazeDatabase implements MazePublisherGateway{
                 String author = String.valueOf(col[headers.get("author")]);
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
                 String state = String.valueOf(col[headers.get("state")]);
-
+                String startPosition = String.valueOf(col[headers.get("startPosition")]);
             }
 
             reader.close();
@@ -57,8 +68,9 @@ public class MazeDatabase implements MazePublisherGateway{
             writer.newLine();
 
             for(PublishedMaze maze: mazes.values()){
-                String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s", maze.getId(),
-                        maze.getName(), maze.getAuthor(),maze.getPublishDate(), maze);
+                String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s, %6$s", maze.getId(),
+                        maze.getName(), maze.getAuthor(),maze.getPublishDate(),
+                        maze, Arrays.toString(maze.getStartPosition()));
                 writer.write(info);
                 writer.newLine();
             }
@@ -69,5 +81,14 @@ public class MazeDatabase implements MazePublisherGateway{
             throw new RuntimeException(e);
         }
 
+    }
+
+    /**
+     * Gets mazes.
+     *
+     * @return the mazes
+     */
+    public Map<String, PublishedMaze> getMazes() {
+        return mazes;
     }
 }

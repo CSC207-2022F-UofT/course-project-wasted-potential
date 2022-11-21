@@ -1,5 +1,8 @@
 package publish;
 
+/**
+ * The type Maze publisher presenter.
+ */
 public class MazePublisherPresenter implements MazePublishedOutBoundary{
     public void reportSuccess(MazePublishedResponseModel mazeInfo) {
         System.out.println("Your maze " + mazeInfo.getName() + " has been published!");
