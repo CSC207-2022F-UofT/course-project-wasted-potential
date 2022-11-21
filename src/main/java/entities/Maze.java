@@ -7,7 +7,7 @@ public abstract class Maze {
     private int numRow;
     private int numCol;
     protected char[][] state;
-    final static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
+    final public static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
         put("empty", '.');
         put("wall", '#');
         put("start", 'S');
