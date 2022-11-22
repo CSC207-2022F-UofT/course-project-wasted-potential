@@ -9,5 +9,5 @@ public interface MazePublishedInBoundary {
      *
      * @param mazeInfo the maze info
      */
-    void publishMaze(MazePublishedRequestModel mazeInfo);
+    public void publishMaze(MazePublishedRequestModel mazeInfo);
 }
