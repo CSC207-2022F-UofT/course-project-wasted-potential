@@ -1,6 +1,8 @@
 package HintGenerator;
 
 import entities.GameState;
+import entities.MazeCell;
+
 import java.util.List;
 
 public class HintGeneratorInteractor implements HintGeneratorInBoundary {
@@ -11,7 +13,7 @@ public class HintGeneratorInteractor implements HintGeneratorInBoundary {
     }
 
     public void generateHint(GameState maze) {
-        List<int[]> hint_path = HintGenerator.generateHint(maze);
+        List<MazeCell> hint_path = HintGenerator.generateHint(maze);
         hintGeneratorOutBoundary.displayHint(hint_path);
     }
 }

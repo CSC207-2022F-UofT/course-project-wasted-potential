@@ -24,6 +24,11 @@ public abstract class Maze {
         this.state = new char[numRow][numCol];
     }
 
+    public Maze(int numRow, int numCol, char[][] state) {
+        this.numRow = numRow;
+        this.numCol = numCol;
+        this.state = state;
+    }
 
     public int getNumRow() {
         return numRow;

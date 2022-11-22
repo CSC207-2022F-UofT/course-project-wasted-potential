@@ -9,16 +9,18 @@ import java.util.LinkedList;
 
 public class MazeSolver {
 
-    public static List<int[]> getValidMoves(Maze maze, int position[]) {
+    public static List<MazeCell> getValidMoves(Maze maze, MazeCell position) {
         // Intialize an empty arrayList to store the valid moves
-        List<int[]> validMoves = new ArrayList<int[]>();
+        List<MazeCell> validMoves = new ArrayList<MazeCell>();
         // Initialize an array to store the cell representations of moves in all 4 directions
-        int[][] possibleMoves = {{position[0] + 1, position[1]}, {position[0] - 1, position[1]},
-                {position[0], position[1] + 1}, {position[0], position[1] - 1}};
+        MazeCell[] possibleMoves = {new MazeCell(position.row + 1, position.col),
+                new MazeCell(position.row - 1, position.col),
+                new MazeCell(position.row, position.col + 1),
+                new MazeCell(position.row, position.col - 1)};
 
         // Add all valid moves in possibleMoves to the validMoves arrayList
-        for (int[] move: possibleMoves) {
-            if (maze.inBounds(move[0], move[1]) && maze.getCell(move[0], move[1]) != Maze.ENCODING.get("wall")) {
+        for (MazeCell move: possibleMoves) {
+            if (maze.inBounds(move.row, move.col) && maze.getCell(move.row, move.col) != Maze.ENCODING.get("wall")) {
                 validMoves.add(move);
             }
         }
@@ -30,27 +32,28 @@ public class MazeSolver {
     public static boolean checkMazeSolvability(DesignableMaze maze) {
         // Store the maze's start cell
         int[] startLocation = maze.getStartLocation();
+        MazeCell startCell = new MazeCell(startLocation[0], startLocation[1]);
         // Initialize an arrayList to store the cells to visit
-        Queue<int[]> queue = new LinkedList<int[]>() {
-            {add(startLocation);}
+        Queue<MazeCell> queue = new LinkedList<MazeCell>() {
+            {add(startCell);}
         };
         // Initialize a set to store all visited cells
-        Set<int[]> visited = new HashSet<int[]>() {
-            {add(startLocation);}
+        Set<MazeCell> visited = new HashSet<MazeCell>() {
+            {add(startCell);}
         };
 
         // Perform breadth first search as long as there are still cells to visit in the queue
         while (queue.size() > 0) {
             // Store the next cell to visit and remove it from the queue
-            int[] currPosition = queue.remove();
+            MazeCell currPosition = queue.remove();
             // Return true if the current cell is the end cell
-            if (maze.getCell(currPosition[0], currPosition[1]) == Maze.ENCODING.get("end")) {
+            if (maze.getCell(currPosition.row, currPosition.col) == Maze.ENCODING.get("end")) {
                 return true;
             }
             // Get the valid moves from the current cell
-            List<int[]> validMoves = MazeSolver.getValidMoves(maze, currPosition);
+            List<MazeCell> validMoves = MazeSolver.getValidMoves(maze, currPosition);
             // Add all valid and unvisited moves to the queue and mark them as visited
-            for (int[] move : validMoves) {
+            for (MazeCell move : validMoves) {
                 if (!visited.contains(move)) {
                     visited.add(move);
                     queue.add(move);
