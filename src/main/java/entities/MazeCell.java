@@ -1,8 +1,10 @@
-package design;
+package entities;
+
+import java.util.Objects;
 
 public class MazeCell {
-    int row;
-    int col;
+    public int row;
+    public int col;
 
     public MazeCell(int row, int col) {
         this.row = row;
@@ -24,10 +26,8 @@ public class MazeCell {
         return v.row == this.row && v.col == this.col;
     }
 
-
-    // can prolly delete this later
     @Override
     public int hashCode() {
-        return this.col + this.row;
+        return Objects.hash(this.row, this.col);
     }
 }

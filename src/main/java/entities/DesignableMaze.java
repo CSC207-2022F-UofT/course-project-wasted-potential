@@ -5,10 +5,16 @@ public class DesignableMaze extends Maze{
     private int startLocation[] = new int[2];
     private int endLocation[] = new int[2];
 
-
     public DesignableMaze(int numRow, int numCol) {
         super(numRow, numCol);
     }
+
+    public DesignableMaze(int numRow, int numCol, char[][] state, int[] start, int[] end) {
+        super(numRow, numCol, state);
+        this.startLocation = start;
+        this.endLocation = end;
+    }
+
     public void placeWall(int row, int col) {
         this.state[row][col] = Maze.ENCODING.get("wall");
     }
@@ -48,10 +54,6 @@ public class DesignableMaze extends Maze{
 
     public int[] getEndLocation() {
         return endLocation;
-    }
-
-    public char getCell(int row, int col){
-        return this.state[row][col];
     }
 
     public void fill() {
