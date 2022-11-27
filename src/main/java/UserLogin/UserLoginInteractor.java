@@ -7,13 +7,8 @@ import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
  */
 
 public class UserLoginInteractor implements ULoginInputBoundary{
-    /**
-     * Instance variable dsGateway stores an instance of the UserRegisterAndLoginDsGateway class.
-     */
+
     final UserRegisterAndLoginDsGateway dsGateway;
-    /**
-     * Instance variable presenter stores an instance of the ULoginPresenter class.
-     */
     final ULoginPresenter presenter;
 
     /**

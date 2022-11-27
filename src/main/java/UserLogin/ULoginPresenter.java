@@ -1,9 +1,5 @@
 package UserLogin;
 
-/**
- * The presenter interface.
- */
-
 public interface ULoginPresenter {
     /**
      * Returns the user response model and changes the view to the user type "Designer" view.

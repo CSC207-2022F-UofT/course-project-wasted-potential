@@ -1,13 +1,6 @@
 package UserLogin;
 
-/**
- * The controller that calls the method logUserIn implemented in the UserLoginInteractor
- * which logs the user in.
- */
 public class UserLoginController {
-    /**
-     * An instance of the ULoginInputBoundary class
-     */
     final ULoginInputBoundary userInput;
 
     /**

@@ -1,9 +1,6 @@
 package UserLogin;
 
 public class UserLoginResponseFormatter implements ULoginPresenter{
-    /**
-     * The instance variable view which stores an instance of the UserLoginViewInterface class.
-     */
     final UserLoginViewInterface view;
 
     /**
