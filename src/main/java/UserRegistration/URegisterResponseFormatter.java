@@ -1,13 +1,6 @@
 package UserRegistration;
 
-/**
- * The type U register response formatter.
- */
 public class URegisterResponseFormatter implements URegPresenter {
-
-    /**
-     * The View.
-     */
     final UserRegisterViewInterface view;
 
     /**
@@ -21,13 +14,13 @@ public class URegisterResponseFormatter implements URegPresenter {
 
     @Override
     public UserRegisterResponseModel playerSuccessView(UserRegisterResponseModel userResponseModel) {
-
+        view.updatePlayerView();
         return userResponseModel;
     }
 
     @Override
     public UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userResponseModel){
-
+        view.updateDesignerView();
         return userResponseModel;
     }
 

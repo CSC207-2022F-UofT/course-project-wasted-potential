@@ -1,30 +1,30 @@
 package UserRegistration;
 
 /**
- * The interface U reg presenter.
+ * The presenter interface.
  */
 public interface URegPresenter{
     /**
-     * Player success view user register response model.
+     * Returns the user response model and changes the view to the user type "Player" view.
      *
-     * @param userResponseModel the user response model
-     * @return the user register response model
+     * @param userResponseModel the response model
+     * @return the response model
      */
     UserRegisterResponseModel playerSuccessView(UserRegisterResponseModel userResponseModel);
 
     /**
-     * Designer success view user register response model.
+     * Returns the user response model and changes the view to the user type "Designer" view.
      *
-     * @param userRegisterResponseModel the user register response model
-     * @return the user register response model
+     * @param userRegisterResponseModel the response model
+     * @return the response model
      */
     UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userRegisterResponseModel);
 
     /**
-     * Fail view user register response model.
+     * Returns the user response model and throws a runtime exception depending on the error message given.
      *
      * @param errorMessage the error message
-     * @return the user register response model
+     * @return the response model
      */
     UserRegisterResponseModel failView(String errorMessage);
 }

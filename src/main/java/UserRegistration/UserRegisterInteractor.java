@@ -6,27 +6,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The type User register interactor.
+ * The interactor which implements the input boundary and creates the user,
+ * stores them in the database, and logs them in automatically after creation is complete.
  */
 public class UserRegisterInteractor implements URegInputBoundary{
 
     /**
-     * The Ds gateway.
+     * Stores an instance of the UserRegisterAndLoginDSGateway class.
      */
     final UserRegisterAndLoginDsGateway dsGateway;
     /**
-     * The Presenter.
+     * Stores an instance of the URegPresenter class.
      */
     final URegPresenter presenter;
     /**
-     * The User factory.
+     * Stores an instance of the UserFactory class
      */
     final UserFactory userFactory;
 
     /**
-     * Instantiates a new User register interactor.
+     * Instantiates a new interactor.
      *
-     * @param dsGateway   the ds gateway
+     * @param dsGateway   the gateway
      * @param presenter   the presenter
      * @param userFactory the user factory
      */

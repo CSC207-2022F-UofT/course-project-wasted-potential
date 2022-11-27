@@ -1,14 +1,14 @@
 package UserRegistration;
 
 /**
- * The interface U reg input boundary.
+ * The input boundary interface
  */
 public interface URegInputBoundary {
     /**
-     * Create user user register response model.
+     * Returns a response model, creates the user in the database and logs them in automatically.
      *
      * @param userRequestModel the user request model
-     * @return the user register response model
+     * @return the user response model
      */
     public UserRegisterResponseModel createUser(UserRegisterRequestModel userRequestModel);
 }

@@ -8,7 +8,7 @@ public class UserRegisterView implements UserRegisterViewInterface{
      */
     Stage stage = new Stage();
     /**
-     * The Designer ui.
+     * The Designer UI.
      */
     MazeDesignerUI designerUI;
 

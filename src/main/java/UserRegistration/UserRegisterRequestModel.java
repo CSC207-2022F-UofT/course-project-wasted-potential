@@ -1,7 +1,7 @@
 package UserRegistration;
 
 /**
- * The type User register request model.
+ * The user request model which stores all the information the user inputs.
  */
 public class UserRegisterRequestModel {
     private String username;
@@ -10,7 +10,7 @@ public class UserRegisterRequestModel {
     private String userType;
 
     /**
-     * Instantiates a new User register request model.
+     * Instantiates a new request model.
      *
      * @param username       the username
      * @param password       the password
@@ -25,36 +25,36 @@ public class UserRegisterRequestModel {
     }
 
     /**
-     * Get username string.
+     * Returns the username as a string.
      *
-     * @return the string
+     * @return the user's username
      */
     public String getUsername(){
         return this.username;
     }
 
     /**
-     * Get user type string.
+     * Returns the user type as a string.
      *
-     * @return the string
+     * @return the user's user type
      */
     public String getUserType(){
         return this.userType;
     }
 
     /**
-     * Get password string.
+     * Returns the password as a string.
      *
-     * @return the string
+     * @return the user's password
      */
     public String getPassword(){
         return this.password;
     }
 
     /**
-     * Get repeat password string.
+     * Returns the repeated password as a string.
      *
-     * @return the string
+     * @return the user's repeated password
      */
     public String getRepeatPassword(){
         return this.repeatPassword;

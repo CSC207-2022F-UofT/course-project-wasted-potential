@@ -1,7 +1,7 @@
 package UserRegistration;
 
 /**
- * The type User register response model.
+ * The response model which stores the user's username, user type and password.
  */
 public class UserRegisterResponseModel {
     private String username;
@@ -9,11 +9,11 @@ public class UserRegisterResponseModel {
     private String creationTime;
 
     /**
-     * Instantiates a new User register response model.
+     * Instantiates a new response model.
      *
-     * @param username     the username
-     * @param userType     the user type
-     * @param creationTime the creation time
+     * @param username     the user's username
+     * @param userType     the user's user type
+     * @param creationTime the user's creation time
      */
     public UserRegisterResponseModel(String username, String userType, String creationTime){
         this.username = username;
@@ -22,18 +22,18 @@ public class UserRegisterResponseModel {
     }
 
     /**
-     * Get username string.
+     * Returns the user's username as a string.
      *
-     * @return the string
+     * @return the user's username
      */
     public String getUsername(){
         return this.username;
     }
 
     /**
-     * Get user type string.
+     * Returns the user's user type as a string.
      *
-     * @return the string
+     * @return the user's user type
      */
     public String getUserType(){
         return this.userType;
