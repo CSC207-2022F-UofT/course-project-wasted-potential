@@ -1,11 +1,8 @@
-package RegisterAndLoginSharedClasses;
+package UserRegistration;
 
 import javafx.stage.Stage;
 
-/**
- * The type Register and login view.
- */
-public class RegisterAndLoginView implements RegisterAndLoginViewInterface{
+public class UserRegisterView implements UserRegisterViewInterface{
     /**
      * The Stage.
      */
@@ -16,10 +13,10 @@ public class RegisterAndLoginView implements RegisterAndLoginViewInterface{
     MazeDesignerUI designerUI;
 
 
-    /* @Override
+    @Override
     public void updatePlayerView() {
         /* Update view */
-    // }
+    }
 
 
     @Override
@@ -30,4 +27,5 @@ public class RegisterAndLoginView implements RegisterAndLoginViewInterface{
             throw new RuntimeException(e);
         }
     }
+
 }
