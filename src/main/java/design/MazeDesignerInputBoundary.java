@@ -1,18 +1,25 @@
 package design;
 
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
 public interface MazeDesignerInputBoundary {
-    void newMaze();
+    public void newMaze();
 
-    void resetMaze();
+    public void resetMaze();
 
-    void buildWall(int row, int col);
+    public void buildWall(int row, int col);
 
-    void removeWall(int row, int col);
+    public void removeWall(int row, int col);
 
-    void startPoint(int row, int col);
+    public void startPoint(int row, int col);
 
-    void endPoint(int row, int col);
+    public void endPoint(int row, int col);
 
-    void randomMaze();
+    public void randomMaze();
+
+    public void outWallAttempt(Stage primaryStage);
+
+    public void updateMaze(Button[][] buttonarr);
 
 }

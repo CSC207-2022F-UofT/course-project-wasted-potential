@@ -7,7 +7,19 @@ import javafx.stage.Stage;
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     DesignableMaze dm;
-    MazeDesignerPresenter mdp = new MazeDesignerPresenter();
+    RandomizedPrim mg;
+    private MazeDesignerOutputBoundary mdp;
+
+
+    public MazeDesignerInteractor(MazeDesignerOutputBoundary mdp) {
+        // update designablemaze instance attribute
+        newMaze();
+        resetMaze();
+        // update the randomizedprim instance attribute
+        this.mg = new RandomizedPrim();
+        // update the output boundary instance attribute
+        this.mdp = mdp;
+    }
 
     public void newMaze(){
         dm = new DesignableMaze(11, 17);
@@ -32,7 +44,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         dm.placeEnd(row, col);
     }
     public void randomMaze(){
-        RandomizedPrim mg = new RandomizedPrim();
+        mg = new RandomizedPrim();
         mg.generate(dm);
         startPoint(1,1);
         endPoint(getRows()-2, getCols()-2);

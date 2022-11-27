@@ -5,11 +5,10 @@ import javafx.stage.Stage;
 
 
 public class MazeDesignerController {
-    MazeDesignerInteractor md = new MazeDesignerInteractor();
+    private MazeDesignerInputBoundary md;
 
-    public void start(){
-        md.newMaze();
-        md.resetMaze();
+    public MazeDesignerController(MazeDesignerInputBoundary md) {
+        this.md = md;
     }
 
     public void resetMaze(){

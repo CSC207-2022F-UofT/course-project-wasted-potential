@@ -1,6 +1,9 @@
 package screens;
 
 import design.MazeDesignerController;
+import design.MazeDesignerInteractor;
+import design.MazeDesignerOutputBoundary;
+import design.MazeDesignerPresenter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,7 +18,7 @@ import javafx.geometry.Pos;
 
 public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    final MazeDesignerController mdc = new MazeDesignerController();
+    final MazeDesignerController mdc = new MazeDesignerController(new MazeDesignerInteractor(new MazeDesignerPresenter()));
 
     public static void main(String[] args) {
         launch(args);
@@ -23,8 +26,6 @@ public class MazeDesignerUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        mdc.start();
-
         int row = 11;
         int col = 17;
         Button buttonarray[][] = new Button[row][col];
