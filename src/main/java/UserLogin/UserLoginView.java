@@ -3,6 +3,11 @@ package UserLogin;
 import javafx.stage.Stage;
 import screens.MazeDesignerUI;
 
+/**
+ * The view which implements the UserLoginViewInterface class and updates
+ * the view for the players and designers.
+ */
+
 public class UserLoginView implements UserLoginViewInterface{
     Stage stage = new Stage();
     MazeDesignerUI designerUI;

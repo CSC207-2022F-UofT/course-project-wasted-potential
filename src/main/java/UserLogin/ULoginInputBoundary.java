@@ -1,5 +1,14 @@
 package UserLogin;
 
+/**
+ * The input boundary interface.
+ */
+
 public interface ULoginInputBoundary {
-    public UserLoginResponseModel logUserIn(UserLoginRequestModel user);
+    /**
+     * Returns a response model, logs the user into the program.
+     * @param userRequestModel the user request model
+     * @return the user response model
+     */
+    public UserLoginResponseModel logUserIn(UserLoginRequestModel userRequestModel);
 }

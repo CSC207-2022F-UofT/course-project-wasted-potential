@@ -1,10 +1,27 @@
 package UserLogin;
 import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
 
-public class UserLoginInteractor implements ULoginInputBoundary{
+/**
+ * The interactor which implements the input boundary and logs
+ * the user in and calling methods in the presenter to update the view correspondingly.
+ */
 
+public class UserLoginInteractor implements ULoginInputBoundary{
+    /**
+     * Instance variable dsGateway stores an instance of the UserRegisterAndLoginDsGateway class.
+     */
     final UserRegisterAndLoginDsGateway dsGateway;
+    /**
+     * Instance variable presenter stores an instance of the ULoginPresenter class.
+     */
     final ULoginPresenter presenter;
+
+    /**
+     * The constructor that instantiates a new UserLoginInteractor.
+     *
+     * @param dsGateway the gateway
+     * @param presenter the presenter
+     */
 
     public UserLoginInteractor(UserRegisterAndLoginDsGateway dsGateway, ULoginPresenter presenter){
         this.dsGateway = dsGateway;
