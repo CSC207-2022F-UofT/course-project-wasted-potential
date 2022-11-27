@@ -30,6 +30,7 @@ public class MazeDesignerUI extends Application {
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
+        Button publish = new Button("Publish");
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
@@ -113,6 +114,7 @@ public class MazeDesignerUI extends Application {
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
+        root.addRow(2, publish);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
