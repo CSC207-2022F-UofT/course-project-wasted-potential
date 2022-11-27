@@ -1,8 +1,5 @@
 package UserRegistration;
 
-/**
- * The presenter interface.
- */
 public interface URegPresenter{
     /**
      * Returns the user response model and changes the view to the user type "Player" view.
@@ -21,7 +18,7 @@ public interface URegPresenter{
     UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userRegisterResponseModel);
 
     /**
-     * Returns the user response model and throws a runtime exception depending on the error message given.
+     * Throws a runtime exception with the given error message.
      *
      * @param errorMessage the error message
      * @return the response model

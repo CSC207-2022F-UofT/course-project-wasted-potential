@@ -3,13 +3,7 @@ package UserRegistration;
 import javafx.stage.Stage;
 
 public class UserRegisterView implements UserRegisterViewInterface{
-    /**
-     * The Stage.
-     */
     Stage stage = new Stage();
-    /**
-     * The Designer UI.
-     */
     MazeDesignerUI designerUI;
 
 

@@ -11,17 +11,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class UserRegisterInteractor implements URegInputBoundary{
 
-    /**
-     * Stores an instance of the UserRegisterAndLoginDSGateway class.
-     */
     final UserRegisterAndLoginDsGateway dsGateway;
-    /**
-     * Stores an instance of the URegPresenter class.
-     */
     final URegPresenter presenter;
-    /**
-     * Stores an instance of the UserFactory class
-     */
     final UserFactory userFactory;
 
     /**

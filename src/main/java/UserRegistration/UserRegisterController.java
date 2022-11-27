@@ -1,8 +1,5 @@
 package UserRegistration;
 
-/**
- * The controller that calls the method createUser which eventually returns a response model.
- */
 public class UserRegisterController {
     final URegInputBoundary userInput;
 
