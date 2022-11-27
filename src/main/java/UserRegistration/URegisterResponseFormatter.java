@@ -11,13 +11,13 @@ public class URegisterResponseFormatter implements URegPresenter {
 
     @Override
     public UserRegisterResponseModel playerSuccessView(UserRegisterResponseModel userResponseModel) {
-
+        view.updatePlayerView();
         return userResponseModel;
     }
 
     @Override
     public UserRegisterResponseModel designerSuccessView(UserRegisterResponseModel userResponseModel){
-
+        view.updateDesignerView();
         return userResponseModel;
     }
 
