@@ -20,7 +20,7 @@ public class UserLoginInteractor implements ULoginInputBoundary{
                 UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), userType);
                 if(userResponseModel.getUserType().equals("Player")){
                     System.out.println("lol");
-                    /* change to player view */
+                    presenter.playerSuccessView(userResponseModel);
                 } else {
                     presenter.designerSuccessView(userResponseModel);
                 }

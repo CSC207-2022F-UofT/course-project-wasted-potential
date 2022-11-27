@@ -1,6 +1,5 @@
 package UserLogin;
 
-
 public class UserLoginController {
     final ULoginInputBoundary userInput;
 

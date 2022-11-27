@@ -1,19 +1,23 @@
 package UserLogin;
 
-import RegisterAndLoginSharedClasses.RegisterAndLoginViewInterface;
 
 public class UserLoginResponseFormatter implements ULoginPresenter{
-    final RegisterAndLoginViewInterface view;
+    final UserLoginViewInterface view;
 
-    public UserLoginResponseFormatter(RegisterAndLoginViewInterface view) {
+    public UserLoginResponseFormatter(UserLoginViewInterface view) {
         this.view = view;
     }
 
-    /* Implement playerSuccessView when player view finished */
 
     @Override
     public UserLoginResponseModel designerSuccessView(UserLoginResponseModel userResponseModel) {
         view.updateDesignerView();
+        return userResponseModel;
+    }
+
+    @Override
+    public UserLoginResponseModel playerSuccessView(UserLoginResponseModel userResponseModel) {
+        view.updatePlayerView();
         return userResponseModel;
     }
 
