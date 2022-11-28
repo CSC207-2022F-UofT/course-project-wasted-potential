@@ -4,20 +4,27 @@ import entities.DesignableMaze;
 import entities.MazeCell;
 
 import java.util.ArrayList;
-//import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The Randomized prim strategy to generate a maze.
+ */
 public class RandomizedPrim extends MazeGenerator {
 
     private static final int[][] DELTA = {
         {2, 0}, {-2, 0}, {0,-2}, {0, 2}
     };
 
-    List<MazeCell> visitedCells = new ArrayList<MazeCell>();
-    List<MazeCell> frontierCells = new ArrayList<MazeCell>();
-    List<MazeCell> emptyCells = new ArrayList<MazeCell>();
-
+    private List<MazeCell> visitedCells = new ArrayList<>();
+    private List<MazeCell> frontierCells = new ArrayList<>();
+    private List<MazeCell> emptyCells = new ArrayList<>();
+    private Random randomizer = new Random();
+    /**
+     * Instantiates a new Randomized prim.
+     *
+     * @param maze the maze
+     */
     public RandomizedPrim(DesignableMaze maze) {
         super(maze);
     }
@@ -69,7 +76,7 @@ public class RandomizedPrim extends MazeGenerator {
     }
 
     private List<MazeCell> getNeighbors(MazeCell v) {
-        List<MazeCell> neighbors = new ArrayList<MazeCell>();
+        List<MazeCell> neighbors = new ArrayList<>();
 
         for (int[] d : DELTA) {
             int newRow = v.row + d[0];
@@ -86,7 +93,8 @@ public class RandomizedPrim extends MazeGenerator {
     }
 
     private <T> T getRandom(List<T> array) {
-        int randIdx = (int)  (Math.random() * array.size());
+
+        int randIdx = randomizer.nextInt(array.size());
         return array.get(randIdx);
     }
     private MazeCell getMiddleCell(MazeCell v1, MazeCell v2) {
@@ -98,7 +106,7 @@ public class RandomizedPrim extends MazeGenerator {
     private void randomlyConnectFrontier(MazeCell frontier) {
 
         // get a list of visited neighbors of the frontier
-        List<MazeCell> visitedNeighbors = new ArrayList<MazeCell>();
+        List<MazeCell> visitedNeighbors = new ArrayList<>();
 
         for (MazeCell v : getNeighbors(frontier)) {
             if (visitedCells.contains(v)) {
