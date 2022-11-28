@@ -25,7 +25,7 @@ public class MazeDesignerUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         int row = 11;
         int col = 17;
         Button buttonarray[][] = new Button[row][col];
