@@ -44,6 +44,10 @@ public interface MazeDesignerInputBoundary {
      */
     public void randomMaze();
 
+    /**
+     * Updates the Maze
+     * @return returns a String[][] that represents the current maze state for the UI to manipulate visuals
+     */
     public String[][] updateMaze();
 
 }

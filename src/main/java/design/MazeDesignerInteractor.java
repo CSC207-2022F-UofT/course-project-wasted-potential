@@ -21,7 +21,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         newMaze();
         resetMaze();
         // update the randomizedprim instance attribute
-        this.mg = new RandomizedPrim();
+        this.mg = new RandomizedPrim(this.dm);
         // update the output boundary instance attribute
         this.mdp = mdp;
     }
@@ -58,8 +58,8 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         dm.placeEnd(row, col);
     }
     public void randomMaze(){
-        mg = new RandomizedPrim();
-        mg.generate(dm);
+        mg = new RandomizedPrim(this.dm);
+        mg.generate();
         startPoint(1,1);
         endPoint(getRows()-2, getCols()-2);
     }

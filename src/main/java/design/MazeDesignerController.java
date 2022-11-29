@@ -22,18 +22,18 @@ public class MazeDesignerController {
     }
 
     /**
-     * @param h an int describing which event to execute; 0 to build, 1 to remove, 2 to place a Start, 3 to place an End
+     * @param action a String describing event to execute
      * @param row the row of the cell to execute the event
      * @param col the column of the cell to execute the event
      */
-    public void handleBuild(int h, int row, int col){
-        if (h == 0){
+    public void handleBuild(String action, int row, int col){
+        if (action.equals("build")){
             md.buildWall(row,col);
-        } else if (h == 1){
+        } else if (action.equals("remove")){
             md.removeWall(row, col);
-        } else if (h == 2){
+        } else if (action.equals("start")){
             md.startPoint(row,col);
-        } else if (h == 3) {
+        } else if (action.equals("end")) {
             md.endPoint(row,col);
         }
     }

@@ -1,8 +1,6 @@
 package screens;
 
 import design.MazeDesignerController;
-import design.MazeDesignerInteractor;
-import design.MazeDesignerPresenter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +17,15 @@ import javafx.geometry.Pos;
 
 public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    final MazeDesignerController mdc = new MazeDesignerController(new MazeDesignerInteractor(new MazeDesignerPresenter()));
+    private MazeDesignerController mdc;
+
+    public MazeDesignerUI(MazeDesignerController mdc) {
+        this.mdc = mdc;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage){
@@ -68,15 +74,15 @@ public class MazeDesignerUI extends Application {
                         outerWallEdit(primaryStage);
                     }
                 } else {
-                    int handler = -1;
+                    String handler = "";
                     if (builder == choices.getSelectedToggle()) {
-                        handler = 0;
+                        handler = "build";
                     } else if (bulldozer == choices.getSelectedToggle()) {
-                        handler = 1;
+                        handler = "remove";
                     } else if (starter == choices.getSelectedToggle()) {
-                        handler = 2;
+                        handler = "start";
                     } else if (ender == choices.getSelectedToggle()) {
-                        handler = 3;
+                        handler = "end";
                     }
                     mdc.handleBuild(handler, row, col);
                     updateMazeUI(mdc.updateMaze(), buttonarray);
@@ -174,3 +180,4 @@ public class MazeDesignerUI extends Application {
         }
     }
 }
+
