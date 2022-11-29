@@ -1,5 +1,5 @@
 package UserLogin;
-import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
+import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 
 /**
  * The interactor which implements the input boundary and logs
