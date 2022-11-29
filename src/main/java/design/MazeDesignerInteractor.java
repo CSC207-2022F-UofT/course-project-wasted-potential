@@ -32,8 +32,8 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         dm.placeEnd(row, col);
     }
     public void randomMaze(){
-        RandomizedPrim mg = new RandomizedPrim();
-        mg.generate(dm);
+        RandomizedPrim mg = new RandomizedPrim(dm);
+        mg.generate();
         startPoint(1,1);
         endPoint(getRows()-2, getCols()-2);
     }
@@ -54,4 +54,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         mdp.updateMazeUI(mdc, buttonarr);
     }
 
+    public DesignableMaze getDm() {
+        return dm;
+    }
 }

@@ -1,5 +1,6 @@
 package design;
 
+import entities.DesignableMaze;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -48,4 +49,6 @@ public class MazeDesignerController {
     public void updateMaze(Button[][] buttonarr){
         md.updateMaze(this, buttonarr);
     }
+
+    public DesignableMaze getDm() { return md.getDm(); }
 }

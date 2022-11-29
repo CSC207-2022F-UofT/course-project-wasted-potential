@@ -1,10 +1,8 @@
 package publish;
 
-import entities.DesignableMaze;
-import entities.PublishedMaze;
-/*
 import entities.MazeSolver;
-*/
+import entities.PublishedMaze;
+
 import java.util.Date;
 
 /**
@@ -28,10 +26,10 @@ public class MazePublisher {
      *
      * @return the boolean
      */
-    /*
+
     public boolean checkSolvable() {
         return MazeSolver.checkMazeSolvability(this.mazeInfo.getDm());
-    } */
+    }
 
     /**
      * Publish maze published maze.
@@ -39,7 +37,7 @@ public class MazePublisher {
      * @return the published maze
      */
     public PublishedMaze publishMaze() {
-//        if (checkSolvable()) {
+        if (checkSolvable()) {
             int[] startPosition = new int[2];
             char[][] state = new char[this.mazeInfo.getDm().getNumRow()][this.mazeInfo.getDm().getNumCol()];
             for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
@@ -57,10 +55,9 @@ public class MazePublisher {
                                                  new Date(),
                                                  state,
                                                  startPosition);
-            /*
         }
         else {
             return null;
-        } */
+        }
     }
 }

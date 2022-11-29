@@ -1,5 +1,6 @@
 package publish;
 
+import entities.DesignableMaze;
 import entities.PublishedMaze;
 
 /**
@@ -25,18 +26,25 @@ public class MazePublishInteractor implements MazePublishedInBoundary{
         this.gateway = gateway;
     }
 
-    public void publishMaze(MazePublishedRequestModel mazeInfo) {
+    public MazePublishInteractor(MazePublishedOutBoundary outBoundary) {
+        this.outBoundary = outBoundary;
+        this.gateway = null;
+    }
+
+    public MazePublishedResponseModel publishMaze(String author, String name, DesignableMaze dm) {
+        MazePublishedRequestModel mazeInfo = new MazePublishedRequestModel(author, name, dm);
         MazePublisher maze = new MazePublisher(mazeInfo);
         PublishedMaze pm = maze.publishMaze();
         if (maze.publishMaze() != null) {
-            gateway.storeMaze(pm);
+//            gateway.storeMaze(pm);
             MazePublishedResponseModel info = new MazePublishedResponseModel(pm.getId(),
                                                                              pm.getName(),
                                                                              pm.getPublishDate());
-            this.outBoundary.reportSuccess(info);
+            return this.outBoundary.reportSuccess(info);
         }
         else {
             this.outBoundary.reportFailure();
+            return null;
         }
     }
 }

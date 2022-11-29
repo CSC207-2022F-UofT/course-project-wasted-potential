@@ -23,7 +23,7 @@ public class MazeDatabase implements MazePublisherGateway{
      * @param csvPath the csv path
      * @throws IOException the io exception
      */
-    public MazeDatabase(String csvPath) throws IOException{
+    public MazeDatabase(String csvPath) throws IOException {
         csvFile = new File(csvPath);
         headers.put("id", 0);
         headers.put("name", 1);
@@ -37,7 +37,7 @@ public class MazeDatabase implements MazePublisherGateway{
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine();
+            reader.lines().skip(1);
 
             String mazeInfo;
             while ((mazeInfo = reader.readLine()) != null){
