@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
+import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 
@@ -27,9 +27,10 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine();
 
             String userInfo;
+            reader.lines().skip(1);
+
             while ((userInfo = reader.readLine()) != null){
                 String[] col = userInfo.split(",");
                 String username = String.valueOf(col[headers.get("username")]);

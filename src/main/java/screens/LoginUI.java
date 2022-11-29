@@ -15,12 +15,14 @@ public class LoginUI extends Application{
 
     private UserLoginController controller;
 
+    public LoginUI(UserLoginController controller){
+        this.controller = controller;
+    }
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void start(Stage primaryStage) throws Exception{
-
+    public void start(Stage primaryStage){
 
         Label userl = new Label("Username");
         Label pwdl = new Label("Password");
@@ -50,6 +52,8 @@ public class LoginUI extends Application{
                     String username = utf.getText();
                     String password = pwf.getText();
                     controller.loginUser(username, password);
+                } else if (actionEvent.getSource() == regis){
+                    // call function in scenemanager class
                 }
             }
         };

@@ -1,5 +1,5 @@
 package UserRegistration;
-import RegisterAndLoginSharedClasses.UserRegisterAndLoginDsGateway;
+import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.UserFactory;
 import entities.User;
 import java.time.LocalDateTime;
@@ -52,12 +52,7 @@ public class UserRegisterInteractor implements URegInputBoundary{
 
                 UserRegisterResponseModel userResponseModel = new UserRegisterResponseModel(user.getUsername(),
                         user.getUserType(), user.getCreationTime());
-
-                if(userResponseModel.getUserType().equals("Player")){
-                    presenter.playerSuccessView(userResponseModel);
-                } else {
-                    presenter.designerSuccessView(userResponseModel);
-                }
+                presenter.successView(userResponseModel);
             }
         } else {
             presenter.failView("Passwords do not match.");

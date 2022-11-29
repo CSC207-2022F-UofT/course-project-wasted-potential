@@ -1,5 +1,6 @@
 package screens;
 import UserRegistration.UserRegisterController;
+import UserRegistration.UserRegisterResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +24,7 @@ public class RegisterUI extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         Label userl = new Label("Create Username");
         Label pwdl = new Label("Create Password");
         Label rpwdl = new Label("Reconfirm Password");
@@ -97,7 +98,20 @@ public class RegisterUI extends Application{
                     close.setOnAction(popuphandle);
                     wallpopup.show(primaryStage);
                 }
-                controller.registerUser(username, password, repeatPassword, userType);
+                // valid??
+                UserRegisterResponseModel responseModel = controller.registerUser(username, password,
+                        repeatPassword, userType);
+                if (responseModel.getUserType().equals("Player")){
+                    // Change to player screen
+                    // call function in scene manager class
+
+                } else if (responseModel.getUserType().equals("Designer")){
+                    // Change to designer screen
+                    // call function in scene manager class
+
+                } else {
+                    //throw an exception??
+                }
             }
         };
 
