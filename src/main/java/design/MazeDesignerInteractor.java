@@ -1,16 +1,21 @@
 package design;
 
 import entities.DesignableMaze;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
+/**
+ * The Maze Designer Interactor
+ */
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
-    DesignableMaze dm;
-    RandomizedPrim mg;
+    private DesignableMaze dm;
+    private RandomizedPrim mg;
     private MazeDesignerOutputBoundary mdp;
 
 
+    /**
+     * Constructor for the Maze Designer Interactor
+     * @param mdp A MazeDesignerOutputBoundary, expected to be a MazeDesignerPresenter
+     */
     public MazeDesignerInteractor(MazeDesignerOutputBoundary mdp) {
         // update designablemaze instance attribute
         newMaze();
@@ -21,25 +26,34 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         this.mdp = mdp;
     }
 
+
     public void newMaze(){
         dm = new DesignableMaze(11, 17);
     }
+
 
     public void resetMaze(){
         dm.emptySetup();
     }
 
+
     public void buildWall(int row, int col){
         dm.placeWall(row, col);
     }
+
+
     public void removeWall(int row, int col){
         if (row != 0 && col != 0 && row != dm.getNumRow()-1 && col != dm.getNumCol()-1) {
             dm.deleteWall(row, col);
         }
     }
+
+
     public void startPoint(int row, int col){
         dm.placeStart(row, col);
     }
+
+
     public void endPoint(int row, int col){
         dm.placeEnd(row, col);
     }
@@ -56,12 +70,10 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         return dm.getNumCol();
     }
 
-    public void outWallAttempt(Stage primaryStage){
-        mdp.outerWallEdit(primaryStage);
-    }
-    public void updateMaze(Button[][] buttonarr){
-        dm.setButtonArray(buttonarr);
-        mdp.updateMazeUI(buttonarr);
+    public String[][] updateMaze(){
+        String[][] buttonarray = new String[getRows()][getCols()];
+        dm.setButtonArray(buttonarray);
+        return mdp.updateMazeUI(buttonarray);
     }
 
 }

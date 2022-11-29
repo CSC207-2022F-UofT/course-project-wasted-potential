@@ -2,27 +2,24 @@ package screens;
 
 import design.MazeDesignerController;
 import design.MazeDesignerInteractor;
-import design.MazeDesignerOutputBoundary;
 import design.MazeDesignerPresenter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
 public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     final MazeDesignerController mdc = new MazeDesignerController(new MazeDesignerInteractor(new MazeDesignerPresenter()));
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void start(Stage primaryStage){
@@ -68,7 +65,7 @@ public class MazeDesignerUI extends Application {
                 }
                 if (row == 0 || col == 0 || row == buttonarray.length-1 || col == buttonarray[0].length-1){
                     if(event.getSource()!=resetter && event.getSource()!=randomizer) {
-                        mdc.outWallAttempt(primaryStage);
+                        outerWallEdit(primaryStage);
                     }
                 } else {
                     int handler = -1;
@@ -82,7 +79,7 @@ public class MazeDesignerUI extends Application {
                         handler = 3;
                     }
                     mdc.handleBuild(handler, row, col);
-                    mdc.updateMaze(buttonarray);
+                    updateMazeUI(mdc.updateMaze(), buttonarray);
                 }
             }
         };
@@ -94,14 +91,14 @@ public class MazeDesignerUI extends Application {
                 } else if (extrabuttons.getSource()==randomizer){
                     mdc.randoMaze();
                 }
-                mdc.updateMaze(buttonarray);
+                updateMazeUI(mdc.updateMaze(), buttonarray);
             }
         };
 
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
 
-        mdc.updateMaze(buttonarray);
+        updateMazeUI(mdc.updateMaze(), buttonarray);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 buttonarray[i][j].setOnAction(event);
@@ -123,5 +120,57 @@ public class MazeDesignerUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+    }
+
+    public void outerWallEdit(Stage primaryStage){
+        Popup wallpopup = new Popup();
+        Button close = new Button("Close");
+        Label label = new Label("You cannot edit the outermost walls!");
+        GridPane popuppane = new GridPane();
+        popuppane.addRow(0, label);
+        popuppane.addRow(1, close);
+        wallpopup.getContent().add(popuppane);
+        popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+        close.setStyle("-fx-background-color: #BB86FC;");
+
+        popuppane.setMinHeight(100);
+        popuppane.setMinWidth(234);
+        popuppane.setAlignment(Pos.CENTER);
+
+        label.setMinWidth(80);
+        label.setMinHeight(50);
+
+        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent popuphandle){
+                if (popuphandle.getSource()==close){
+                    wallpopup.hide();
+                }
+            }
+        };
+        close.setOnAction(popuphandle);
+        wallpopup.show(primaryStage);
+    }
+
+    public void updateMazeUI(String[][] stringarray, Button[][] buttonarray){
+        for (int i = 0; i < buttonarray.length; i++) {
+            for (int j = 0; j < buttonarray[0].length; j++) {
+                if(buttonarray[i][j] == null){
+                    buttonarray[i][j] = new Button();
+                }
+                if(stringarray[i][j].equals("#")){
+                    buttonarray[i][j].setText("#");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
+                } else if(stringarray[i][j].equals(".")){
+                    buttonarray[i][j].setText(".");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
+                } else if(stringarray[i][j].equals("S")){
+                    buttonarray[i][j].setText("S");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                } else {
+                    buttonarray[i][j].setText("E");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                }
+            }
+        }
     }
 }

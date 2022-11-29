@@ -1,9 +1,5 @@
 package design;
 
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
-
 /**
  * The Maze Designer Controller
  */
@@ -50,18 +46,9 @@ public class MazeDesignerController {
     }
 
     /**
-     * Handles the event where the user tries to edit an outer wall
-     * @param primaryStage the Stage which needs to display the response to the event
-     */
-    public void outWallAttempt(Stage primaryStage){
-        md.outWallAttempt(primaryStage);
-    }
-
-    /**
      * Updates the current maze
-     * @param buttonarr a JavaFX Button array representing the current maze
      */
-    public void updateMaze(Button[][] buttonarr){
-        md.updateMaze(buttonarr);
+    public String[][] updateMaze(){
+        return md.updateMaze();
     }
 }
