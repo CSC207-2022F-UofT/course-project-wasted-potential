@@ -30,12 +30,7 @@ public class UserLoginInteractor implements ULoginInputBoundary{
                 String userType = dsGateway.getUserType(user.getUsername());
 
                 UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), userType);
-                if(userResponseModel.getUserType().equals("Player")){
-                    System.out.println("lol");
-                    presenter.playerSuccessView(userResponseModel);
-                } else {
-                    presenter.designerSuccessView(userResponseModel);
-                }
+                presenter.successView(userResponseModel);
 
             } else {
                 presenter.failView("Incorrect password. Try again.");
