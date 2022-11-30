@@ -1,4 +1,5 @@
 package screens;
+import UserLogin.UserLoginResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,18 +10,21 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import UserLogin.UserLoginController;
+import UserLogin.Singleton;
 
 
 public class LoginUI extends Application{
 
     private UserLoginController controller;
 
+    public LoginUI(UserLoginController controller){
+        this.controller = controller;
+    }
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void start(Stage primaryStage) throws Exception{
-
+    public void start(Stage primaryStage){
 
         Label userl = new Label("Username");
         Label pwdl = new Label("Password");
@@ -49,7 +53,12 @@ public class LoginUI extends Application{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
-                    controller.loginUser(username, password);
+                    // store login response model and
+                    // call functions in scene manager in if else depending on designer or player.
+                    UserLoginResponseModel responseModel = controller.loginUser(username, password);
+                    Singleton.getInstance(responseModel.getUsername());
+                } else if (actionEvent.getSource() == regis){
+                    // call function in scene manager class
                 }
             }
         };

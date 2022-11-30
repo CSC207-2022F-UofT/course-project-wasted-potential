@@ -29,4 +29,8 @@ public class UserLoginResponseModel {
     public String getUserType(){
         return this.userType;
     }
+
+    public String getUsername(){
+        return this.username;
+    }
 }
