@@ -7,10 +7,11 @@ import java.util.Map;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
+import entities.Designer;
 
 public class UserDatabase implements UserRegisterAndLoginDsGateway {
 
-    private final File csvFile;
+    private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, User> userAccounts = new HashMap<>();
 
@@ -29,7 +30,8 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
 
             String userInfo;
-            reader.lines().skip(1);
+            //Skips the first line of the csv file.
+            reader.readLine();
 
             while ((userInfo = reader.readLine()) != null){
                 String[] col = userInfo.split(",");
@@ -41,6 +43,11 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
                 if (userType.equals("Player")){
                     User user = new Player(username, password, creationTime);
                     userAccounts.put(username, user);
+                } else if (userType.equals("Designer")){
+                    User user = new Designer(username, password, creationTime);
+                    userAccounts.put(username, user);
+                } else {
+                    throw
                 }
 
             }

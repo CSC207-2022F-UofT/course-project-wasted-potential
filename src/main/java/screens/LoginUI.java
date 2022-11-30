@@ -51,9 +51,11 @@ public class LoginUI extends Application{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
+                    // store login response model and
+                    // call functions in scene manager in if else depending on designer or player.
                     controller.loginUser(username, password);
                 } else if (actionEvent.getSource() == regis){
-                    // call function in scenemanager class
+                    // call function in scene manager class
                 }
             }
         };
