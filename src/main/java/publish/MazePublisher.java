@@ -39,22 +39,29 @@ public class MazePublisher {
     public PublishedMaze publishMaze() {
         if (checkSolvable()) {
             int[] startPosition = new int[2];
-            char[][] state = new char[this.mazeInfo.getDm().getNumRow()][this.mazeInfo.getDm().getNumCol()];
             for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
                 for (int j = 0; j < this.mazeInfo.getDm().getNumCol(); j++) {
-                    if (state[i][j] == 'S') {
+                    if (this.mazeInfo.getDm().getState()[i][j] == 'S') {
                         startPosition[0] = i;
                         startPosition[1] = j;
                     }
-                    state[i][j] = this.mazeInfo.getDm().getCell(i, j);
                 }
             }
+//            StringBuilder returnString = new StringBuilder();
+//            for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++)  {
+//                StringBuilder curRow = new StringBuilder();
+//                for (int j = 0; j < this.mazeInfo.getDm().getNumCol(); j++) {
+//                    curRow.append(state[i][j]);
+//                }
+//                returnString.append(curRow + "\r\n");
+//            }
+//            System.out.println(returnString);
             return new PublishedMaze(this.mazeInfo.getAuthor(),
-                                                 this.mazeInfo.getName(),
-                                                 true,
-                                                 new Date(),
-                                                 state,
-                                                 startPosition);
+                                     this.mazeInfo.getName(),
+                             true,
+                                     new Date(),
+                                     this.mazeInfo.getDm().getState(),
+                                     startPosition);
         }
         else {
             return null;

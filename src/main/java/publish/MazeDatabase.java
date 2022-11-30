@@ -12,7 +12,7 @@ import java.util.Map;
  * The type Maze database.
  */
 public class MazeDatabase implements MazePublisherGateway{
-    private final File csvFile;
+    private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<String, PublishedMaze> mazes = new HashMap<>();
@@ -23,7 +23,7 @@ public class MazeDatabase implements MazePublisherGateway{
      * @param csvPath the csv path
      * @throws IOException the io exception
      */
-    public MazeDatabase(String csvPath) throws IOException {
+    public MazeDatabase(String csvPath) throws IOException{
         csvFile = new File(csvPath);
         headers.put("id", 0);
         headers.put("name", 1);
@@ -37,7 +37,7 @@ public class MazeDatabase implements MazePublisherGateway{
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.lines().skip(1);
+            reader.readLine();
 
             String mazeInfo;
             while ((mazeInfo = reader.readLine()) != null){

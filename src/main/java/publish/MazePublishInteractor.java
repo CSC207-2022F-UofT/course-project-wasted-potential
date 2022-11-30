@@ -26,17 +26,13 @@ public class MazePublishInteractor implements MazePublishedInBoundary{
         this.gateway = gateway;
     }
 
-    public MazePublishInteractor(MazePublishedOutBoundary outBoundary) {
-        this.outBoundary = outBoundary;
-        this.gateway = null;
-    }
-
     public MazePublishedResponseModel publishMaze(String author, String name, DesignableMaze dm) {
         MazePublishedRequestModel mazeInfo = new MazePublishedRequestModel(author, name, dm);
         MazePublisher maze = new MazePublisher(mazeInfo);
         PublishedMaze pm = maze.publishMaze();
+        System.out.println(pm);
         if (maze.publishMaze() != null) {
-//            gateway.storeMaze(pm);
+            gateway.storeMaze(pm);
             MazePublishedResponseModel info = new MazePublishedResponseModel(pm.getId(),
                                                                              pm.getName(),
                                                                              pm.getPublishDate());

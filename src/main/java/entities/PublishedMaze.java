@@ -17,7 +17,8 @@ public class PublishedMaze extends Maze{
     /**
      * Instantiates a new Published maze.
      */
-    public PublishedMaze() {}
+    public PublishedMaze() {
+    }
 
     /**
      * Instantiates a new Published maze.
@@ -41,6 +42,15 @@ public class PublishedMaze extends Maze{
         this.publishDate = date;
         this.id = this.publishDate.toString() + this.author;
         this.state = state;
+        StringBuilder returnString = new StringBuilder();
+        for (int i = 0; i < this.getNumRow(); i++)  {
+            StringBuilder curRow = new StringBuilder();
+            for (int j = 0; j < this.getNumCol(); j++) {
+                curRow.append(this.state[i][j]);
+            }
+            returnString.append(curRow + "\r\n");
+        }
+        System.out.println(returnString);
         this.startPosition = startPosition;
     }
 

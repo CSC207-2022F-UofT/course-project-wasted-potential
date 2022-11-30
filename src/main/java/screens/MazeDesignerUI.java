@@ -24,14 +24,18 @@ public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     final MazeDesignerController mdc = new MazeDesignerController();
 
-    final MazePublisherControl mpc = new MazePublisherControl(new MazePublishInteractor(new MazePublisherPresenter()));
+    final MazePublisherControl mpc;
+
+    public MazeDesignerUI(MazePublisherControl mpc) {
+        this.mpc = mpc;
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         mdc.start();
 
         int row = mdc.getRows();
