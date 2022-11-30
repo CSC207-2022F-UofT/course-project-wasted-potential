@@ -15,7 +15,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
-public class MazeDesignerUI extends Application {
+public class MazeDesignerUI extends Application implements Screen {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
