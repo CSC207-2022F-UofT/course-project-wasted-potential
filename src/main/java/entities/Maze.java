@@ -7,7 +7,7 @@ public abstract class Maze {
     private int numRow;
     private int numCol;
     protected char[][] state;
-    final static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
+    final public static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
         put("empty", '.');
         put("wall", '#');
         put("start", 'S');
@@ -24,6 +24,11 @@ public abstract class Maze {
         this.state = new char[numRow][numCol];
     }
 
+    public Maze(int numRow, int numCol, char[][] state) {
+        this.numRow = numRow;
+        this.numCol = numCol;
+        this.state = state;
+    }
 
     public int getNumRow() {
         return numRow;
@@ -31,6 +36,14 @@ public abstract class Maze {
 
     public int getNumCol() {
         return numCol;
+    }
+
+    public char[][] getState() {
+        return state;
+    }
+
+    public char getCell(int row, int col){
+        return this.state[row][col];
     }
 
     public boolean inBounds(int row, int col) {
@@ -50,9 +63,5 @@ public abstract class Maze {
 
         return returnString.toString();
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(ENCODING);
-//    }
 
 }

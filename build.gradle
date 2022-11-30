@@ -1,9 +1,15 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "19"
+    modules = ['javafx.controls']
 }
 
 dependencies {
