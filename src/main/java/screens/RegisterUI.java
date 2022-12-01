@@ -1,6 +1,8 @@
 package screens;
+import UserRegistration.Singleton;
 import UserRegistration.UserRegisterController;
 import UserRegistration.UserRegisterResponseModel;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.Popup;
 
 
-public class RegisterUI extends Application{
+public class RegisterUI extends Application implements Screen{
 
     private UserRegisterController controller;
 
@@ -91,24 +93,24 @@ public class RegisterUI extends Application{
                             if (popuphandle.getSource()==close){
                                 wallpopup.hide();
                             }
+
+                            UserRegisterResponseModel responseModel = controller.registerUser(username, password,
+                                    repeatPassword, userType);
+                            Singleton.getInstance(responseModel.getUsername());
+
+                            if (responseModel.getUserType().equals("Player")){
+                                ScreenManager.changeScreen("play");
+
+                            } else if (responseModel.getUserType().equals("Designer")){
+                                ScreenManager.changeScreen("design");
+
+                            } else {
+                                //throw an exception??
+                            }
                         }
                     };
                     close.setOnAction(popuphandle);
                     wallpopup.show(primaryStage);
-                }
-                // valid??
-                UserRegisterResponseModel responseModel = controller.registerUser(username, password,
-                        repeatPassword, userType);
-                if (responseModel.getUserType().equals("Player")){
-                    // Change to player screen
-                    // call function in scene manager class
-
-                } else if (responseModel.getUserType().equals("Designer")){
-                    // Change to designer screen
-                    // call function in scene manager class
-
-                } else {
-                    //throw an exception??
                 }
             }
         };
