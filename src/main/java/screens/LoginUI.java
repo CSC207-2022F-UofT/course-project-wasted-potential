@@ -57,11 +57,23 @@ public class LoginUI extends Application{
                     // call functions in scene manager in if else depending on designer or player.
                     UserLoginResponseModel responseModel = controller.loginUser(username, password);
                     Singleton.getInstance(responseModel.getUsername());
+
+                    if (responseModel.getUserType().equals("Player")){
+                        ScreenManager.changeScreen("play");
+                    } else if (responseModel.getUserType().equals("Designer")){
+                        ScreenManager.changeScreen("design");
+                    } else {
+                        // throw exception????????
+                    }
+
                 } else if (actionEvent.getSource() == regis){
-                    // call function in scene manager class
+                    ScreenManager.changeScreen("register");
                 }
             }
         };
+
+        login.setOnAction(eventButtonClick);
+        regis.setOnAction(eventButtonClick);
 
         primaryStage.setTitle("Log In");
         GridPane root = new GridPane();
