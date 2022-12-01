@@ -108,7 +108,7 @@ public class PublishedMaze extends Maze{
             for (int j = 0; j < this.getNumCol(); j++) {
                 curRow.append(state[i][j]);
             }
-            returnString.append(curRow);
+            returnString.append(curRow + ":");
         }
         return returnString.toString();
     }
