@@ -47,21 +47,14 @@ public class MazePublisher {
                     }
                 }
             }
-//            StringBuilder returnString = new StringBuilder();
-//            for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++)  {
-//                StringBuilder curRow = new StringBuilder();
-//                for (int j = 0; j < this.mazeInfo.getDm().getNumCol(); j++) {
-//                    curRow.append(state[i][j]);
-//                }
-//                returnString.append(curRow + "\r\n");
-//            }
-//            System.out.println(returnString);
             return new PublishedMaze(this.mazeInfo.getAuthor(),
-                                     this.mazeInfo.getName(),
-                             true,
-                                     new Date(),
-                                     this.mazeInfo.getDm().getState(),
-                                     startPosition);
+                    this.mazeInfo.getName(),
+                    true,
+                    new Date(),
+                    this.mazeInfo.getDm().getState(),
+                    startPosition,
+                    this.mazeInfo.getDm().getNumRow(),
+                    this.mazeInfo.getDm().getNumCol());
         }
         else {
             return null;

@@ -5,7 +5,6 @@ package publish;
  */
 public class MazePublisherPresenter implements MazePublishedOutBoundary{
     public MazePublishedResponseModel reportSuccess(MazePublishedResponseModel mazeInfo) {
-        System.out.println(mazeInfo.getId() + " " + mazeInfo.getName() + " " + mazeInfo.getPublishDate());
         return mazeInfo;
     }
     public void reportFailure() {

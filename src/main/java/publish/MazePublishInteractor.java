@@ -30,8 +30,7 @@ public class MazePublishInteractor implements MazePublishedInBoundary{
         MazePublishedRequestModel mazeInfo = new MazePublishedRequestModel(author, name, dm);
         MazePublisher maze = new MazePublisher(mazeInfo);
         PublishedMaze pm = maze.publishMaze();
-        System.out.println(pm);
-        if (maze.publishMaze() != null) {
+        if (pm != null) {
             gateway.storeMaze(pm);
             MazePublishedResponseModel info = new MazePublishedResponseModel(pm.getId(),
                                                                              pm.getName(),

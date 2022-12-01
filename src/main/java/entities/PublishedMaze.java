@@ -11,7 +11,6 @@ public class PublishedMaze extends Maze{
     private Boolean published;
     private Date publishDate;
     private String id;
-
     private int[] startPosition;
 
     /**
@@ -35,22 +34,15 @@ public class PublishedMaze extends Maze{
                          Boolean published,
                          Date date,
                          char[][] state,
-                         int[] startPosition) {
+                         int[] startPosition,
+                         int numRow,
+                         int numCol) {
+        super(numRow, numCol, state);
         this.author = author;
         this.name = name;
         this.published = published;
         this.publishDate = date;
         this.id = this.publishDate.toString() + this.author;
-        this.state = state;
-        StringBuilder returnString = new StringBuilder();
-        for (int i = 0; i < this.getNumRow(); i++)  {
-            StringBuilder curRow = new StringBuilder();
-            for (int j = 0; j < this.getNumCol(); j++) {
-                curRow.append(this.state[i][j]);
-            }
-            returnString.append(curRow + "\r\n");
-        }
-        System.out.println(returnString);
         this.startPosition = startPosition;
     }
 
@@ -106,5 +98,18 @@ public class PublishedMaze extends Maze{
      */
     public int[] getStartPosition() {
         return startPosition;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        for (int i = 0; i < this.getNumRow(); i++)  {
+            StringBuilder curRow = new StringBuilder();
+            for (int j = 0; j < this.getNumCol(); j++) {
+                curRow.append(state[i][j]);
+            }
+            returnString.append(curRow);
+        }
+        return returnString.toString();
     }
 }

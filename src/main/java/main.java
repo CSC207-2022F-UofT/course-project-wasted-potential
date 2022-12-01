@@ -1,5 +1,3 @@
-import design.MazeDesignerController;
-import entities.DesignableMaze;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import publish.MazeDatabase;
