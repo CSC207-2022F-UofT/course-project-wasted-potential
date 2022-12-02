@@ -140,7 +140,7 @@ public class RegisterUI extends Application implements Screen{
             //ScreenManager.changeScreen("play");
 
         } else if (responseModel.getUserType().equals("Designer")){
-            // ScreenManager.changeScreen("designer");
+            ScreenManager.changeScreen("designer");
 
         } else {
             //throw an exception??

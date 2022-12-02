@@ -61,7 +61,7 @@ public class LoginUI extends Application implements Screen{
                     if (responseModel.getUserType().equals("Player")){
                         // ScreenManager.changeScreen("play");
                     } else if (responseModel.getUserType().equals("Designer")){
-                        // ScreenManager.changeScreen("design");
+                        ScreenManager.changeScreen("designer");
                     } else {
                         // throw exception????????
                     }

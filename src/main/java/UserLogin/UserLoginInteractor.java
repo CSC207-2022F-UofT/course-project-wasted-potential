@@ -30,16 +30,15 @@ public class UserLoginInteractor implements ULoginInputBoundary{
                 String userType = dsGateway.getUserType(user.getUsername());
 
                 UserLoginResponseModel userResponseModel = new UserLoginResponseModel(user.getUsername(), userType);
-                presenter.successView(userResponseModel);
+                return presenter.successView(userResponseModel);
 
             } else {
-                presenter.failView("Incorrect password. Try again.");
+                return presenter.failView("Incorrect password. Try again.");
             }
         } else {
-            presenter.failView("No such user exists.");
+            return presenter.failView("No such user exists.");
         }
 
-        return new UserLoginResponseModel(null, null);
     }
 
 }
