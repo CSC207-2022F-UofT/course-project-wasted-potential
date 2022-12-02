@@ -13,7 +13,7 @@ import java.util.Random;
 public class RandomizedPrim extends MazeGenerator {
 
     private static final int[][] DELTA = {
-        {2, 0}, {-2, 0}, {0,-2}, {0, 2}
+            {2, 0}, {-2, 0}, {0,-2}, {0, 2}
     };
 
     private List<MazeCell> visitedCells = new ArrayList<>();

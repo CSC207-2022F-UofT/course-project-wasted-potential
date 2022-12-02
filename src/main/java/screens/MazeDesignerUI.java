@@ -22,27 +22,26 @@ import java.util.ArrayList;
 
 public class MazeDesignerUI extends Application {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    final MazeDesignerController mdc = new MazeDesignerController();
+    final MazeDesignerController mdc;
 
     final MazePublisherControl mpc;
 
-    public MazeDesignerUI(MazePublisherControl mpc) {
+    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc) {
+        this.mdc - mdc;
         this.mpc = mpc;
-    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        mdc.start();
-
-        int row = mdc.getRows();
-        int col = mdc.getCols();
+    public void start(Stage primaryStage){
+        int row = 11;
+        int col = 17;
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
+        Button publish = new Button("Publish");
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
@@ -83,21 +82,21 @@ public class MazeDesignerUI extends Application {
                 }
                 if (row == 0 || col == 0 || row == buttonarray.length-1 || col == buttonarray[0].length-1){
                     if(event.getSource()!=resetter && event.getSource()!=randomizer) {
-                        mdc.outWallAttempt(primaryStage);
+                        outerWallEdit(primaryStage);
                     }
                 } else {
-                    int handler = -1;
+                    String handler = "";
                     if (builder == choices.getSelectedToggle()) {
-                        handler = 0;
+                        handler = "build";
                     } else if (bulldozer == choices.getSelectedToggle()) {
-                        handler = 1;
+                        handler = "remove";
                     } else if (starter == choices.getSelectedToggle()) {
-                        handler = 2;
+                        handler = "start";
                     } else if (ender == choices.getSelectedToggle()) {
-                        handler = 3;
+                        handler = "end";
                     }
                     mdc.handleBuild(handler, row, col);
-                    mdc.updateMaze(buttonarray);
+                    updateMazeUI(mdc.updateMaze(), buttonarray);
                 }
             }
         };
@@ -109,6 +108,7 @@ public class MazeDesignerUI extends Application {
                 } else if (extrabuttons.getSource()==randomizer){
                     mdc.randoMaze();
                 }
+                updateMazeUI(mdc.updateMaze(), buttonarray);
                 mdc.updateMaze(buttonarray);
                 if (extrabuttons.getSource() == publisher) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
@@ -145,6 +145,8 @@ public class MazeDesignerUI extends Application {
 
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
+
+        updateMazeUI(mdc.updateMaze(), buttonarray);
         publisher.setOnAction(extrabuttons);
 
         close.setOnAction(popuphandle);
@@ -163,6 +165,7 @@ public class MazeDesignerUI extends Application {
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
+        root.addRow(2, publish);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
@@ -171,4 +174,57 @@ public class MazeDesignerUI extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
+
+    public void outerWallEdit(Stage primaryStage){
+        Popup wallpopup = new Popup();
+        Button close = new Button("Close");
+        Label label = new Label("You cannot edit the outermost walls!");
+        GridPane popuppane = new GridPane();
+        popuppane.addRow(0, label);
+        popuppane.addRow(1, close);
+        wallpopup.getContent().add(popuppane);
+        popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+        close.setStyle("-fx-background-color: #BB86FC;");
+
+        popuppane.setMinHeight(100);
+        popuppane.setMinWidth(234);
+        popuppane.setAlignment(Pos.CENTER);
+
+        label.setMinWidth(80);
+        label.setMinHeight(50);
+
+        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent popuphandle){
+                if (popuphandle.getSource()==close){
+                    wallpopup.hide();
+                }
+            }
+        };
+        close.setOnAction(popuphandle);
+        wallpopup.show(primaryStage);
+    }
+
+    public void updateMazeUI(String[][] stringarray, Button[][] buttonarray){
+        for (int i = 0; i < buttonarray.length; i++) {
+            for (int j = 0; j < buttonarray[0].length; j++) {
+                if(buttonarray[i][j] == null){
+                    buttonarray[i][j] = new Button();
+                }
+                if(stringarray[i][j].equals("#")){
+                    buttonarray[i][j].setText("#");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
+                } else if(stringarray[i][j].equals(".")){
+                    buttonarray[i][j].setText(".");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
+                } else if(stringarray[i][j].equals("S")){
+                    buttonarray[i][j].setText("S");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                } else {
+                    buttonarray[i][j].setText("E");
+                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+                }
+            }
+        }
+    }
 }
+
