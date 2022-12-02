@@ -1,4 +1,5 @@
 package screens;
+import UserLogin.UserLoginResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import UserLogin.UserLoginController;
+import UserLogin.Singleton;
 
 
 public class LoginUI extends Application{
@@ -53,12 +55,25 @@ public class LoginUI extends Application{
                     String password = pwf.getText();
                     // store login response model and
                     // call functions in scene manager in if else depending on designer or player.
-                    controller.loginUser(username, password);
+                    UserLoginResponseModel responseModel = controller.loginUser(username, password);
+                    Singleton.getInstance(responseModel.getUsername());
+
+                    if (responseModel.getUserType().equals("Player")){
+                        ScreenManager.changeScreen("play");
+                    } else if (responseModel.getUserType().equals("Designer")){
+                        ScreenManager.changeScreen("design");
+                    } else {
+                        // throw exception????????
+                    }
+
                 } else if (actionEvent.getSource() == regis){
-                    // call function in scene manager class
+                    ScreenManager.changeScreen("register");
                 }
             }
         };
+
+        login.setOnAction(eventButtonClick);
+        regis.setOnAction(eventButtonClick);
 
         primaryStage.setTitle("Log In");
         GridPane root = new GridPane();
