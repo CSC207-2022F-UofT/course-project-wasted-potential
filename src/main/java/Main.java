@@ -24,6 +24,7 @@ public class Main extends Application {
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
+        // comment to try smthing
         MazePublishInteractor mpi = new MazePublishInteractor(mpp, md);
         MazePublisherControl mpc = new MazePublisherControl(mpi);
         MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
