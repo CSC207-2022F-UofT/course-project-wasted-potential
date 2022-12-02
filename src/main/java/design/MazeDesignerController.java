@@ -1,5 +1,7 @@
 package design;
 
+import entities.DesignableMaze;
+
 /**
  * The Maze Designer Controller
  */
@@ -51,4 +53,6 @@ public class MazeDesignerController {
     public String[][] updateMaze(){
         return md.updateMaze();
     }
+
+    public DesignableMaze getDm() { return md.getDm();}
 }

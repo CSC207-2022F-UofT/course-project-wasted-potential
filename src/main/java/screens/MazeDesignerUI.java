@@ -20,15 +20,16 @@ import publish.MazePublisherPresenter;
 
 import java.util.ArrayList;
 
-public class MazeDesignerUI extends Application {
+public class MazeDesignerUI extends Application implements Screen{
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    final MazeDesignerController mdc;
+    private MazeDesignerController mdc;
 
-    final MazePublisherControl mpc;
+    private MazePublisherControl mpc;
 
     public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc) {
-        this.mdc - mdc;
+        this.mdc = mdc;
         this.mpc = mpc;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -109,20 +110,19 @@ public class MazeDesignerUI extends Application {
                     mdc.randoMaze();
                 }
                 updateMazeUI(mdc.updateMaze(), buttonarray);
-                mdc.updateMaze(buttonarray);
                 if (extrabuttons.getSource() == publisher) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                     Label label = new Label("Your maze " + mazeInfo.get(1) + " has been published!");
-                    GridPane popuppane = new GridPane();
-                    popuppane.addRow(0, label);
-                    popuppane.addRow(1, close);
-                    publishpopup.getContent().add(popuppane);
-                    popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+                    GridPane publishpopuppane = new GridPane();
+                    publishpopuppane.addRow(0, label);
+                    publishpopuppane.addRow(1, close);
+                    publishpopup.getContent().add(publishpopuppane);
+                    publishpopuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
                     close.setStyle("-fx-background-color: #BB86FC;");
 
-                    popuppane.setMinHeight(100);
-                    popuppane.setMinWidth(234);
-                    popuppane.setAlignment(Pos.CENTER);
+                    publishpopuppane.setMinHeight(100);
+                    publishpopuppane.setMinWidth(234);
+                    publishpopuppane.setAlignment(Pos.CENTER);
 
                     label.setMinWidth(80);
                     label.setMinHeight(50);
@@ -138,20 +138,17 @@ public class MazeDesignerUI extends Application {
                 if (popuphandle.getSource()==close){
                     publishpopup.hide();
                     mdc.resetMaze();
-                    mdc.updateMaze(buttonarray);
+                    updateMazeUI(mdc.updateMaze(), buttonarray);
                 }
             }
         };
 
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
-
-        updateMazeUI(mdc.updateMaze(), buttonarray);
         publisher.setOnAction(extrabuttons);
-
         close.setOnAction(popuphandle);
 
-        mdc.updateMaze(buttonarray);
+        updateMazeUI(mdc.updateMaze(), buttonarray);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 buttonarray[i][j].setOnAction(event);
@@ -165,7 +162,6 @@ public class MazeDesignerUI extends Application {
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
-        root.addRow(2, publish);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
