@@ -4,6 +4,7 @@ import design.MazeDesignerController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,14 +14,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
+import publish.MazePublishInteractor;
+import publish.MazePublisherControl;
+import publish.MazePublisherPresenter;
 
-public class MazeDesignerUI extends Application implements Screen {
+import java.util.ArrayList;
+
+public class MazeDesignerUI extends Application implements Screen{
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
-    public MazeDesignerUI(MazeDesignerController mdc) {
+    private MazePublisherControl mpc;
+
+    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc) {
         this.mdc = mdc;
+        this.mpc = mpc;
     }
 
     public static void main(String[] args) {
@@ -44,17 +52,21 @@ public class MazeDesignerUI extends Application implements Screen {
         Button resetter = new Button("Reset");
         resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
         Button randomizer = new Button("Random");
+        Button publisher = new Button("Publish");
+        publisher.setStyle(" -fx-background-color: #F2CC0F; \n -fx-text-fill: #121212;");
         randomizer.setStyle(" -fx-background-color:\n" +
                 "            linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),\n" +
                 "            #3700A3,\n" +
                 "            #372FF3,\n" +
                 "            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3); \n -fx-text-fill: #FFFFFF;");
-        HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, resetter);
+        HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, publisher, resetter);
         ToggleGroup choices = new ToggleGroup();
         builder.setToggleGroup(choices);
         bulldozer.setToggleGroup(choices);
         starter.setToggleGroup(choices);
         ender.setToggleGroup(choices);
+        Popup publishpopup = new Popup();
+        Button close = new Button("Close");
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event){
@@ -98,11 +110,43 @@ public class MazeDesignerUI extends Application implements Screen {
                     mdc.randoMaze();
                 }
                 updateMazeUI(mdc.updateMaze(), buttonarray);
+                if (extrabuttons.getSource() == publisher) {
+                    ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
+                    Label label = new Label("Your maze " + mazeInfo.get(1) + " has been published!");
+                    GridPane publishpopuppane = new GridPane();
+                    publishpopuppane.addRow(0, label);
+                    publishpopuppane.addRow(1, close);
+                    publishpopup.getContent().add(publishpopuppane);
+                    publishpopuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+                    close.setStyle("-fx-background-color: #BB86FC;");
+
+                    publishpopuppane.setMinHeight(100);
+                    publishpopuppane.setMinWidth(234);
+                    publishpopuppane.setAlignment(Pos.CENTER);
+
+                    label.setMinWidth(80);
+                    label.setMinHeight(50);
+
+                    publishpopup.show(primaryStage);
+                }
+            }
+
+        };
+
+        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent popuphandle){
+                if (popuphandle.getSource()==close){
+                    publishpopup.hide();
+                    mdc.resetMaze();
+                    updateMazeUI(mdc.updateMaze(), buttonarray);
+                }
             }
         };
 
         resetter.setOnAction(extrabuttons);
         randomizer.setOnAction(extrabuttons);
+        publisher.setOnAction(extrabuttons);
+        close.setOnAction(popuphandle);
 
         updateMazeUI(mdc.updateMaze(), buttonarray);
         for (int i = 0; i < row; i++) {
@@ -118,7 +162,6 @@ public class MazeDesignerUI extends Application implements Screen {
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
-        root.addRow(2, publish);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);

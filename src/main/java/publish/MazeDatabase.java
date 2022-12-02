@@ -12,7 +12,7 @@ import java.util.Map;
  * The type Maze database.
  */
 public class MazeDatabase implements MazePublisherGateway{
-    private final File csvFile;
+    private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<String, PublishedMaze> mazes = new HashMap<>();

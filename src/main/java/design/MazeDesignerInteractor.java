@@ -76,4 +76,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         return mdp.updateMazeUI(buttonarray);
     }
 
+    public DesignableMaze getDm() {
+        return dm;
+    }
 }

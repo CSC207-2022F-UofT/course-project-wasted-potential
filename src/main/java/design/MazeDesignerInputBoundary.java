@@ -1,5 +1,7 @@
 package design;
 
+import entities.DesignableMaze;
+
 public interface MazeDesignerInputBoundary {
     /**
      * Creates a new DesignableMaze with dimensions 11 x 17
@@ -50,4 +52,5 @@ public interface MazeDesignerInputBoundary {
      */
     public String[][] updateMaze();
 
+    DesignableMaze getDm();
 }

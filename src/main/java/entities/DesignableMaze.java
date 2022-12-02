@@ -1,5 +1,7 @@
 package entities;
 
+import com.sun.javafx.runtime.VersionInfo;
+
 public class DesignableMaze extends Maze{
 
     private int startLocation[] = new int[2];

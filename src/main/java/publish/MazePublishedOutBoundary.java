@@ -9,7 +9,7 @@ public interface MazePublishedOutBoundary {
      *
      * @param mazeInfo the maze info
      */
-    void reportSuccess(MazePublishedResponseModel mazeInfo);
+    MazePublishedResponseModel reportSuccess(MazePublishedResponseModel mazeInfo);
 
     /**
      * Report failure.
