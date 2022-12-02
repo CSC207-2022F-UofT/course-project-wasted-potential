@@ -38,6 +38,7 @@ public class UserLoginInteractor implements ULoginInputBoundary{
         } else {
             presenter.failView("No such user exists.");
         }
+
         return new UserLoginResponseModel(null, null);
     }
 

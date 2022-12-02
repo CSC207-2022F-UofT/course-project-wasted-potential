@@ -2,6 +2,8 @@ package UserRegistration;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.UserFactory;
 import entities.User;
+
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +35,8 @@ public class UserRegisterInteractor implements URegInputBoundary{
         boolean validPassword = userRequestModel.getPassword().equals(userRequestModel.getRepeatPassword());
         if (validPassword) {
             if (dsGateway.existsByName(userRequestModel.getUsername())) {
-                presenter.failView("This username is already in use.");
+                return presenter.failView("This username is already in use.");
+
             } else {
                 User user;
 
@@ -45,18 +48,18 @@ public class UserRegisterInteractor implements URegInputBoundary{
                     user = userFactory.createPlayer(userRequestModel.getUsername(), userRequestModel.getPassword(),
                             dateTimeString);
                 } else {
-                    user = userFactory.createDesigner(userRequestModel.getUserType(), userRequestModel.getPassword(),
+                    user = userFactory.createDesigner(userRequestModel.getUsername(), userRequestModel.getPassword(),
                             dateTimeString);
                 }
                 dsGateway.save(user);
 
                 UserRegisterResponseModel userResponseModel = new UserRegisterResponseModel(user.getUsername(),
                         user.getUserType(), user.getCreationTime());
-                presenter.successView(userResponseModel);
+                return presenter.successView(userResponseModel);
+
             }
         } else {
-            presenter.failView("Passwords do not match.");
+            return presenter.failView("Passwords do not match.");
         }
-        return new UserRegisterResponseModel(null, null, null);
     }
 }

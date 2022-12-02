@@ -13,7 +13,7 @@ import UserLogin.UserLoginController;
 import UserLogin.Singleton;
 
 
-public class LoginUI extends Application{
+public class LoginUI extends Application implements Screen{
 
     private UserLoginController controller;
 
@@ -59,9 +59,9 @@ public class LoginUI extends Application{
                     Singleton.getInstance(responseModel.getUsername());
 
                     if (responseModel.getUserType().equals("Player")){
-                        ScreenManager.changeScreen("play");
+                        // ScreenManager.changeScreen("play");
                     } else if (responseModel.getUserType().equals("Designer")){
-                        ScreenManager.changeScreen("design");
+                        // ScreenManager.changeScreen("design");
                     } else {
                         // throw exception????????
                     }

@@ -2,7 +2,6 @@ package screens;
 import UserRegistration.Singleton;
 import UserRegistration.UserRegisterController;
 import UserRegistration.UserRegisterResponseModel;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +17,10 @@ import javafx.stage.Popup;
 public class RegisterUI extends Application implements Screen{
 
     private UserRegisterController controller;
+
+    public RegisterUI(UserRegisterController controller){
+        this.controller = controller;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -68,8 +71,10 @@ public class RegisterUI extends Application implements Screen{
 
                 if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
                     userType = "Player";
+                    register(username, password, repeatPassword, userType);
                 } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
                     userType = "Designer";
+                    register(username, password, repeatPassword, userType);
                 } else {
                     Popup wallpopup = new Popup();
                     Button close = new Button("Close");
@@ -92,20 +97,6 @@ public class RegisterUI extends Application implements Screen{
                         public void handle(ActionEvent popuphandle){
                             if (popuphandle.getSource()==close){
                                 wallpopup.hide();
-                            }
-
-                            UserRegisterResponseModel responseModel = controller.registerUser(username, password,
-                                    repeatPassword, userType);
-                            Singleton.getInstance(responseModel.getUsername());
-
-                            if (responseModel.getUserType().equals("Player")){
-                                ScreenManager.changeScreen("play");
-
-                            } else if (responseModel.getUserType().equals("Designer")){
-                                ScreenManager.changeScreen("design");
-
-                            } else {
-                                //throw an exception??
                             }
                         }
                     };
@@ -137,6 +128,23 @@ public class RegisterUI extends Application implements Screen{
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void register(String username, String password, String repeatPassword, String userType){
+        UserRegisterResponseModel responseModel = controller.registerUser(username, password,
+                repeatPassword, userType);
+        Singleton.getInstance(responseModel.getUsername());
+
+        System.out.println(responseModel.getUserType());
+        if (responseModel.getUserType().equals("Player")){
+            //ScreenManager.changeScreen("play");
+
+        } else if (responseModel.getUserType().equals("Designer")){
+            // ScreenManager.changeScreen("designer");
+
+        } else {
+            //throw an exception??
+        }
     }
 
 }

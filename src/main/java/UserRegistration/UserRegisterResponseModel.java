@@ -39,4 +39,5 @@ public class UserRegisterResponseModel {
         return this.userType;
     }
 
+
 }

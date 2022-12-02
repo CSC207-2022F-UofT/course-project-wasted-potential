@@ -1,9 +1,6 @@
 package screens;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
@@ -48,7 +45,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
                     User user = new Designer(username, password, creationTime);
                     userAccounts.put(username, user);
                 } else {
-                    throw
+                    throw new InputMismatchException();
                 }
 
             }
