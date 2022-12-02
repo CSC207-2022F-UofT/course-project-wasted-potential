@@ -35,6 +35,7 @@ public class DesignableMaze extends Maze{
         startLocation[0] = row;
         startLocation[1] = col;
     }
+
     public void placeEnd(int row, int col) {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
@@ -46,6 +47,10 @@ public class DesignableMaze extends Maze{
         this.state[row][col] = Maze.ENCODING.get("end");
         endLocation[0] = row;
         endLocation[1] = col;
+    }
+
+    public char getCell(int row, int col){
+        return this.state[row][col];
     }
 
     public int[] getStartLocation() {
@@ -64,6 +69,22 @@ public class DesignableMaze extends Maze{
         }
     }
 
+    public void setButtonArray(String[][] buttonarray){
+        for (int i = 0; i < getNumRow(); i++) {
+            for (int j = 0; j < getNumCol(); j++) {
+                if(getCell(i, j) == '#'){
+                    buttonarray[i][j] = "#";
+                } else if (getCell(i, j) == '.'){
+                    buttonarray[i][j] = ".";
+                } else if (getCell(i, j) == 'S'){
+                    buttonarray[i][j] = "S";
+                } else {
+                    buttonarray[i][j] = "E";
+                }
+            }
+        }
+    }
+
 
     public void emptySetup() {
         for (int i = 0; i < this.getNumRow(); i++) {
@@ -75,8 +96,12 @@ public class DesignableMaze extends Maze{
                 }
             }
         }
+        startLocation[0] = 1;
+        startLocation[1] = 1;
+        endLocation[0] = this.getNumRow()-2;
+        endLocation[1] = this.getNumCol()-2;
+
         placeStart(1, 1);
         placeEnd(this.getNumRow()-2, this.getNumCol()-2);
     }
-
 }
