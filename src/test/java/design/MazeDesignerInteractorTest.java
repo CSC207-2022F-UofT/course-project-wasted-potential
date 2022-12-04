@@ -110,6 +110,18 @@ public class MazeDesignerInteractorTest {
         Assertions.assertTrue(MazeSolver.checkMazeSolvability(dm));
     }
 
+    @Test
+    public void getMazeStateTest() {
+        MazeDesignerOutputBoundary outputBoundary = new MazeDesignerPresenter();
+        MazeDesignerInteractor interactor = new MazeDesignerInteractor(outputBoundary);
+
+        interactor.buildWall(3, 3);
+
+        char[][] mazeState = interactor.getMazeState();
+        DesignableMaze dm = interactor.getDesignableMaze();
+
+        Assertions.assertEquals(mazeState[3][3], dm.getState()[3][3]);
+    }
 
 
 }
