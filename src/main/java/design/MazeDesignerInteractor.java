@@ -8,7 +8,7 @@ import entities.DesignableMaze;
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     private DesignableMaze dm;
-    private RandomizedPrim mg;
+    private MazeGenerator mg;
     private MazeDesignerOutputBoundary mdp;
 
 
