@@ -31,6 +31,12 @@ public class RandomizedPrim extends MazeGenerator {
 
     @Override
     public void generate() {
+        // reset helper instance attributes
+        visitedCells.clear();
+        frontierCells.clear();
+        emptyCells.clear();
+
+
         fillMaze();
 
         // start with first empty cell
