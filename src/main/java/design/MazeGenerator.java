@@ -2,13 +2,7 @@ package design;
 
 import entities.DesignableMaze;
 
-public abstract class MazeGenerator {
+public interface MazeGenerator {
 
-    DesignableMaze maze;
-
-    protected MazeGenerator(DesignableMaze maze) {
-        this.maze = maze;
-    }
-
-    public abstract void generate();
+    public void generate();
 }
