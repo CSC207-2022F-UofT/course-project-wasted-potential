@@ -28,6 +28,12 @@ public class MazeDesignerUI extends Application implements Screen {
 
     private MazeSolvabilityControl msc;
 
+    /**
+     * Constructor for the MazeDesignerUI
+     * @param mdc An instance of the MazeDesignController
+     * @param mpc An instance of the MazePublisherController
+     * @param msc An instance of the MazeSolvabilityController
+     */
     public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
         this.mdc = mdc;
         this.mpc = mpc;
@@ -48,6 +54,12 @@ public class MazeDesignerUI extends Application implements Screen {
         publishButton.setDisable(!responseMode.getIsSolvable());
     }
 
+    /**
+     * Function to start the MazeDesignerUI
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage){
         int row = 11;
@@ -189,7 +201,7 @@ public class MazeDesignerUI extends Application implements Screen {
         primaryStage.show();
     }
 
-    public void outerWallEdit(Stage primaryStage){
+    private void outerWallEdit(Stage primaryStage){
         Popup wallpopup = new Popup();
         Button close = new Button("Close");
         Label label = new Label("You cannot edit the outermost walls!");
@@ -218,7 +230,7 @@ public class MazeDesignerUI extends Application implements Screen {
         wallpopup.show(primaryStage);
     }
 
-    public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
+    private void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {
                 if(buttonarray[i][j] == null){

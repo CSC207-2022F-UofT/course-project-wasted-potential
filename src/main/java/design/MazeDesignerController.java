@@ -54,5 +54,8 @@ public class MazeDesignerController {
         return md.getMazeState();
     }
 
+    /**
+     * Gets the DesignableMaze
+     */
     public DesignableMaze getDm() { return md.getDesignableMaze();}
 }
