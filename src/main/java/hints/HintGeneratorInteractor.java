@@ -1,4 +1,4 @@
-package HintGenerator;
+package hints;
 
 import entities.GameState;
 import entities.MazeCell;
@@ -12,8 +12,9 @@ public class HintGeneratorInteractor implements HintGeneratorInBoundary {
         this.hintGeneratorOutBoundary = hintGeneratorOutBoundary;
     }
 
-    public void generateHint(GameState maze) {
-        List<MazeCell> hint_path = HintGenerator.generateHint(maze);
-        hintGeneratorOutBoundary.displayHint(hint_path);
+    public HintResponseModel generateHint(GameState maze) {
+        List<MazeCell> hintPath = HintGenerator.generateHint(maze);
+        HintResponseModel responseModel = new HintResponseModel(hintPath);
+        return hintGeneratorOutBoundary.displayHint(responseModel);
     }
 }

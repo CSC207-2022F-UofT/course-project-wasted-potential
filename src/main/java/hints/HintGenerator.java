@@ -1,4 +1,4 @@
-package HintGenerator;
+package hints;
 
 import entities.*;
 
