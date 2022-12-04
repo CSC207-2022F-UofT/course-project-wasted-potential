@@ -1,21 +1,24 @@
-package publish;
+package screens;
 
 import entities.PublishedMaze;
+import entities.SavedMaze;
+import publish.MazePublisherGateway;
 
 import java.io.*;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * The type Maze database.
  */
-public class MazeDatabase implements MazePublisherGateway{
+public class MazeDatabase implements MazePublisherGateway {
     private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, PublishedMaze> mazes = new HashMap<>();
+    private final PublishedMazeSingleton mazes = new PublishedMazeSingleton();
 
     /**
      * Instantiates a new Maze database.
@@ -23,7 +26,7 @@ public class MazeDatabase implements MazePublisherGateway{
      * @param csvPath the csv path
      * @throws IOException the io exception
      */
-    public MazeDatabase(String csvPath) throws IOException{
+    public MazeDatabase(String csvPath) throws IOException, ParseException {
         csvFile = new File(csvPath);
         headers.put("id", 0);
         headers.put("name", 1);
@@ -35,7 +38,6 @@ public class MazeDatabase implements MazePublisherGateway{
         if(csvFile.length() == 0){
             storeMaze();
         } else {
-
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
             reader.readLine();
 
@@ -48,6 +50,23 @@ public class MazeDatabase implements MazePublisherGateway{
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
                 String state = String.valueOf(col[headers.get("state")]);
                 String startPosition = String.valueOf(col[headers.get("startPosition")]);
+                char[] flatMaze = state.replace(":", "").replace(" ", "").toCharArray();
+                char[][] mazeState = new char[11][17];
+                for (int i = 0; i < 11; i++) {
+                    System.arraycopy(flatMaze, (i * 17), mazeState[i], 0, 17);
+                }
+                int[] position = new int[2];
+                String positionString = startPosition.replace("[", "")
+                                                      .replace("]", "");
+                position[0] = Integer.parseInt(String.valueOf(positionString.charAt(1)));
+                position[1] = Integer.parseInt(String.valueOf(positionString.charAt(3)));
+
+                mazes.addMaze(Integer.parseInt(id), new MazeInformation(name,
+                        author,
+                        LocalDate.parse(creationTime),
+                        mazeState,
+                        position));
+
                 // use singleton with map and put info into mazeinformation class and pass into singleton to create published maze and put the maze back into the map
             }
 
@@ -56,8 +75,12 @@ public class MazeDatabase implements MazePublisherGateway{
         }
     }
     @Override
-    public void storeMaze (PublishedMaze maze){
-        mazes.put(maze.getId(), maze);
+    public void storeMaze(SavedMaze maze){
+        mazes.addMaze(new MazeInformation(maze.getName(),
+                      maze.getAuthor(),
+                      maze.getPublishDate(),
+                      maze.getState(),
+                      maze.getStartPosition()));
         this.storeMaze();
     }
 
@@ -68,10 +91,10 @@ public class MazeDatabase implements MazePublisherGateway{
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for(PublishedMaze maze: mazes.values()){
+            for(PublishedMaze maze: mazes.getPublishedMazes().values()){
                 String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s, %6$s", maze.getId(),
                         maze.getName(), maze.getAuthor(),maze.getPublishDate(),
-                        maze, Arrays.toString(maze.getStartPosition()));
+                        maze, Arrays.toString(maze.getStartPosition()).replace(",", ""));
                 writer.write(info);
                 writer.newLine();
             }
@@ -89,8 +112,7 @@ public class MazeDatabase implements MazePublisherGateway{
      *
      * @return the mazes
      */
-    public Map<String, PublishedMaze> getMazes() {
-        return mazes;
+    public Map<Integer, PublishedMaze> getMazes() {
+        return mazes.getPublishedMazes();
     }
-    public PublishedMaze getMaze(String id) {return mazes.get(id);}
 }

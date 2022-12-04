@@ -2,11 +2,13 @@ import design.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import publish.*;
+import screens.MazeDatabase;
 import screens.MazeDesignerUI;
 import screens.Screen;
 import screens.ScreenManager;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class Main extends Application {
 
@@ -20,6 +22,8 @@ public class Main extends Application {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
+        } catch (ParseException e) {
+            throw new RuntimeException("Creation date is incorrect.");
         }
         MazePublishInteractor mpi = new MazePublishInteractor(mpp, md);
         MazePublisherControl mpc = new MazePublisherControl(mpi);

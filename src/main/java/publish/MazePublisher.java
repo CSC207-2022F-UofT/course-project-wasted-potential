@@ -1,9 +1,9 @@
 package publish;
 
 import entities.MazeSolver;
-import entities.PublishedMaze;
+import entities.SavedMaze;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * The type Maze publisher.
@@ -36,7 +36,7 @@ public class MazePublisher {
      *
      * @return the published maze
      */
-    public PublishedMaze publishMaze() {
+    public SavedMaze publishMaze() {
         if (checkSolvable()) {
             int[] startPosition = new int[2];
             for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
@@ -47,10 +47,10 @@ public class MazePublisher {
                     }
                 }
             }
-            return new PublishedMaze(this.mazeInfo.getAuthor(),
+            return new SavedMaze(this.mazeInfo.getAuthor(),
                     this.mazeInfo.getName(),
                     true,
-                    new Date(),
+                    LocalDate.now(),
                     this.mazeInfo.getDm().getState(),
                     startPosition,
                     this.mazeInfo.getDm().getNumRow(),

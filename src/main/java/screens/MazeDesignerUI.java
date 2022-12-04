@@ -14,9 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import publish.MazePublishInteractor;
 import publish.MazePublisherControl;
-import publish.MazePublisherPresenter;
 
 import java.util.ArrayList;
 
@@ -112,7 +110,7 @@ public class MazeDesignerUI extends Application implements Screen{
                 updateMazeUI(mdc.updateMaze(), buttonarray);
                 if (extrabuttons.getSource() == publisher) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
-                    Label label = new Label("Your maze " + mazeInfo.get(1) + " has been published!");
+                    Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                     GridPane publishpopuppane = new GridPane();
                     publishpopuppane.addRow(0, label);
                     publishpopuppane.addRow(1, close);
