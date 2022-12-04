@@ -2,48 +2,26 @@ package entities;
 
 import java.time.LocalDate;
 
-/**
- * The type Published maze.
- */
-public class PublishedMaze extends Maze{
+public class SavedMaze extends Maze{
     private String author;
     private String name;
     private Boolean published;
     private LocalDate publishDate;
-    private int id;
     private int[] startPosition;
 
-    /**
-     * Instantiates a new Published maze.
-     */
-    public PublishedMaze() {
-    }
-
-    /**
-     * Instantiates a new Published maze.
-     *
-     * @param author        the author
-     * @param name          the name
-     * @param published     the published
-     * @param date          the date
-     * @param state         the state
-     * @param startPosition the start position
-     */
-    public PublishedMaze(String author,
-                         String name,
-                         Boolean published,
-                         LocalDate date,
-                         char[][] state,
-                         int[] startPosition,
-                         int numRow,
-                         int numCol,
-                         int id) {
+    public SavedMaze(String author,
+                     String name,
+                     Boolean published,
+                     LocalDate date,
+                     char[][] state,
+                     int[] startPosition,
+                     int numRow,
+                     int numCol) {
         super(numRow, numCol, state);
         this.author = author;
         this.name = name;
         this.published = published;
         this.publishDate = date;
-        this.id = id;
         this.startPosition = startPosition;
     }
     /**
@@ -80,15 +58,6 @@ public class PublishedMaze extends Maze{
      */
     public LocalDate getPublishDate() {
         return publishDate;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public int getId() {
-        return id;
     }
 
     /**

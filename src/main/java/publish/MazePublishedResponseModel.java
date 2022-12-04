@@ -1,36 +1,24 @@
 package publish;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * The type Maze published response model.
  */
 public class MazePublishedResponseModel {
-    private String id;
     private String name;
-    private Date publishDate;
+    private LocalDate publishDate;
 
 
     /**
      * Instantiates a new Maze published response model.
      *
-     * @param id          the id
      * @param name        the name
      * @param publishDate the publish date
      */
-    public MazePublishedResponseModel(String id, String name, Date publishDate) {
-        this.id = id;
+    public MazePublishedResponseModel(String name, LocalDate publishDate) {
         this.name = name;
         this.publishDate = publishDate;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
     }
 
     /**
@@ -47,7 +35,7 @@ public class MazePublishedResponseModel {
      *
      * @return the publish date
      */
-    public Date getPublishDate() {
+    public LocalDate getPublishDate() {
         return publishDate;
     }
 }

@@ -1,7 +1,7 @@
 package publish;
 
 import entities.DesignableMaze;
-import entities.PublishedMaze;
+import entities.SavedMaze;
 
 /**
  * The type Maze publish interactor.
@@ -29,12 +29,11 @@ public class MazePublishInteractor implements MazePublishedInBoundary{
     public MazePublishedResponseModel publishMaze(String author, String name, DesignableMaze dm) {
         MazePublishedRequestModel mazeInfo = new MazePublishedRequestModel(author, name, dm);
         MazePublisher maze = new MazePublisher(mazeInfo);
-        PublishedMaze pm = maze.publishMaze();
-        if (pm != null) {
-            gateway.storeMaze(pm);
-            MazePublishedResponseModel info = new MazePublishedResponseModel(pm.getId(),
-                                                                             pm.getName(),
-                                                                             pm.getPublishDate());
+        SavedMaze sm = maze.publishMaze();
+        if (sm != null) {
+            gateway.storeMaze(sm);
+            MazePublishedResponseModel info = new MazePublishedResponseModel(sm.getName(),
+                                                                             sm.getPublishDate());
             return this.outBoundary.reportSuccess(info);
         }
         else {

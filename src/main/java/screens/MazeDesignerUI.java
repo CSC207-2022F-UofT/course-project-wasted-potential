@@ -110,7 +110,7 @@ public class MazeDesignerUI extends Application implements Screen{
                 updateMazeUI(mdc.getMazeState(), buttonarray);
                 if (extrabuttons.getSource() == publisher) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
-                    Label label = new Label("Your maze " + mazeInfo.get(1) + " has been published!");
+                    Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                     GridPane publishpopuppane = new GridPane();
                     publishpopuppane.addRow(0, label);
                     publishpopuppane.addRow(1, close);
