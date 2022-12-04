@@ -1,11 +1,11 @@
 package entities;
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Maze {
-    private int numRow;
-    private int numCol;
+    protected int numRow;
+    protected int numCol;
     protected char[][] state;
     final public static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
         put("empty", '.');

@@ -6,12 +6,12 @@ import java.time.LocalDate;
  * The type Published maze.
  */
 public class PublishedMaze extends Maze{
-    private String author;
-    private String name;
-    private Boolean published;
-    private LocalDate publishDate;
-    private int id;
-    private int[] startPosition;
+    protected String author;
+    protected String name;
+    protected Boolean published;
+    protected LocalDate publishDate;
+    protected int id;
+    protected int[] startPosition;
 
     /**
      * Instantiates a new Published maze.

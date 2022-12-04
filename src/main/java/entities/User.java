@@ -2,10 +2,10 @@ package entities;
 
 public abstract class User {
 
-    private String username;
-    private String password;
-    private String userType;
-    private String creationTime;
+    protected String username;
+    protected String password;
+    protected String userType;
+    protected String creationTime;
 
     public User(String username, String password, String userType, String creationTime){
         this.username = username;

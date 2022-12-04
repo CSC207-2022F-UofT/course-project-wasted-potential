@@ -1,11 +1,22 @@
 package entities;
 
+import java.time.LocalDate;
+
 public class GameState extends PublishedMaze {
 
-    int[] position;
+    private int[] position;
 
-    public GameState(int[] startPosition) {
-        super();
+    public GameState(String author,
+                     String name,
+                     Boolean published,
+                     LocalDate date,
+                     char[][] state,
+                     int[] startPosition,
+                     int numRow,
+                     int numCol,
+                     int id, int[] position) {
+        super(author, name, published, date,
+        state, startPosition, numRow, numCol, id);
         this.position = startPosition;
     }
 
