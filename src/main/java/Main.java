@@ -1,3 +1,4 @@
+import solvability.*;
 import design.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -25,12 +26,18 @@ public class Main extends Application {
         } catch (ParseException e) {
             throw new RuntimeException("Creation date is incorrect.");
         }
+        // Publisher use case
         MazePublishInteractor mpi = new MazePublishInteractor(mpp, md);
         MazePublisherControl mpc = new MazePublisherControl(mpi);
+        // Designer use case
         MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
         MazeDesignerInputBoundary mdi = new MazeDesignerInteractor(mdp);
         MazeDesignerController mdc = new MazeDesignerController(mdi);
-        Screen mdui = new MazeDesignerUI(mdc, mpc);
+        // Solvability use case
+        MazeSolvableOutBoundary msp = new MazeSolvablePresenter();
+        MazeSolvableInBoundary msi = new MazeSolvabilityInteractor(msp);
+        MazeSolvabilityControl msc = new MazeSolvabilityControl(msi);
+        Screen mdui = new MazeDesignerUI(mdc, mpc, msc);
 
         ScreenManager.setStage(primaryStage);
         ScreenManager.addScreen("designer", mdui);

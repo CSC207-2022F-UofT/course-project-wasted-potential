@@ -1,4 +1,4 @@
-package SolvabilityChecker;
+package solvability;
 
 import entities.DesignableMaze;
 import entities.MazeSolver;
@@ -9,14 +9,9 @@ public class MazeSolvabilityInteractor implements MazeSolvableInBoundary {
     public MazeSolvabilityInteractor(MazeSolvableOutBoundary mazeSolvableOutBoundary) {
         this.mazeSolvableOutBoundary = mazeSolvableOutBoundary;
     }
-    public void checkMazeSolvability(DesignableMaze maze) {
+    public MazeSolvabilityResponseModel checkMazeSolvability(DesignableMaze maze) {
         boolean isSolvable = MazeSolver.checkMazeSolvability(maze);
-        if (isSolvable) {
-            mazeSolvableOutBoundary.reportSuccess();
-        }
-        else {
-            mazeSolvableOutBoundary.reportFailure();
-        }
+        return mazeSolvableOutBoundary.reportSolvability(isSolvable);
     }
 
 

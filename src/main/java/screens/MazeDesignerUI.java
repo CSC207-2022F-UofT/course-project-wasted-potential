@@ -1,5 +1,6 @@
 package screens;
 
+import solvability.MazeSolvabilityControl;
 import design.MazeDesignerController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,25 +13,39 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import publish.MazePublisherControl;
-
+import solvability.MazeSolvabilityResponseModel;
 import java.util.ArrayList;
 
-public class MazeDesignerUI extends Application implements Screen{
+public class MazeDesignerUI extends Application implements Screen {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
     private MazePublisherControl mpc;
 
-    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc) {
+    private MazeSolvabilityControl msc;
+
+    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
         this.mdc = mdc;
         this.mpc = mpc;
+        this.msc = msc;
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private MazeSolvabilityResponseModel getSolvableStatus() {
+        return msc.checkMazeSolvability(mdc.getDm());
+    }
+    private void updateSolvability(Text solvableIndicator, Button publishButton) {
+        MazeSolvabilityResponseModel responseMode = getSolvableStatus();
+        solvableIndicator.setText(responseMode.getMessage());
+        solvableIndicator.setStyle("-fx-fill: " + responseMode.getMessageColor() + "; -fx-font-size: 14px;");
+        publishButton.setDisable(!responseMode.getIsSolvable());
     }
 
     @Override
@@ -40,7 +55,6 @@ public class MazeDesignerUI extends Application implements Screen{
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
-        Button publish = new Button("Publish");
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
@@ -48,6 +62,8 @@ public class MazeDesignerUI extends Application implements Screen{
         ToggleButton starter = new ToggleButton("Place Start");
         ToggleButton ender = new ToggleButton("Place End");
         Button resetter = new Button("Reset");
+        Text solvableIndicator = new Text("This maze is solvable");
+        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
         resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
         Button randomizer = new Button("Random");
         Button publisher = new Button("Publish");
@@ -96,6 +112,7 @@ public class MazeDesignerUI extends Application implements Screen{
                     }
                     mdc.handleBuild(handler, row, col);
                     updateMazeUI(mdc.getMazeState(), buttonarray);
+                    updateSolvability(solvableIndicator, publisher);
                 }
             }
         };
@@ -104,11 +121,13 @@ public class MazeDesignerUI extends Application implements Screen{
             public void handle(ActionEvent extrabuttons){
                 if (extrabuttons.getSource()==resetter){
                     mdc.resetMaze();
+                    updateSolvability(solvableIndicator, publisher);
                 } else if (extrabuttons.getSource()==randomizer){
                     mdc.randoMaze();
+                    updateSolvability(solvableIndicator, publisher);
                 }
                 updateMazeUI(mdc.getMazeState(), buttonarray);
-                if (extrabuttons.getSource() == publisher) {
+                if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                     Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                     GridPane publishpopuppane = new GridPane();
@@ -160,6 +179,7 @@ public class MazeDesignerUI extends Application implements Screen{
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
+        root.addRow(2, solvableIndicator);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);

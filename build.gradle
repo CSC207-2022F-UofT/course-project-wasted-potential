@@ -25,4 +25,4 @@ test {
     }
 }
 
-mainClassName = 'Main'
+mainClassName = "Main"
