@@ -7,8 +7,18 @@ import java.util.Set;
 import java.util.Queue;
 import java.util.LinkedList;
 
+/**
+ * The type Maze solver.
+ */
 public class MazeSolver {
 
+    /**
+     * Finds all valid moves in a given maze.
+     *
+     * @param maze     the maze being navigated
+     * @param position the position within the maze
+     * @return a list of all the valid moves
+     */
     public static List<MazeCell> getValidMoves(Maze maze, MazeCell position) {
         // Intialize an empty arrayList to store the valid moves
         List<MazeCell> validMoves = new ArrayList<MazeCell>();
@@ -29,6 +39,12 @@ public class MazeSolver {
         return validMoves;
     }
 
+    /**
+     * Check whether a maze is solvable.
+     *
+     * @param maze the maze to be checked
+     * @return a boolean value representing whether the maze is solvable
+     */
     public static boolean checkMazeSolvability(DesignableMaze maze) {
         // Store the maze's start cell
         int[] startLocation = maze.getStartLocation();
