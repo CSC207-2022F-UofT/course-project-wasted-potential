@@ -45,7 +45,6 @@ public class PublishedMaze extends Maze{
         this.id = this.publishDate.toString() + this.author;
         this.startPosition = startPosition;
     }
-
     /**
      * Gets author.
      *

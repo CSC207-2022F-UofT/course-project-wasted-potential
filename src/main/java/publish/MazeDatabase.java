@@ -48,6 +48,7 @@ public class MazeDatabase implements MazePublisherGateway{
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
                 String state = String.valueOf(col[headers.get("state")]);
                 String startPosition = String.valueOf(col[headers.get("startPosition")]);
+                // use singleton with map and put info into mazeinformation class and pass into singleton to create published maze and put the maze back into the map
             }
 
             reader.close();
@@ -91,4 +92,5 @@ public class MazeDatabase implements MazePublisherGateway{
     public Map<String, PublishedMaze> getMazes() {
         return mazes;
     }
+    public PublishedMaze getMaze(String id) {return mazes.get(id);}
 }

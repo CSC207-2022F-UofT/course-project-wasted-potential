@@ -1,10 +1,7 @@
 import design.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import publish.MazeDatabase;
-import publish.MazePublishInteractor;
-import publish.MazePublisherControl;
-import publish.MazePublisherPresenter;
+import publish.*;
 import screens.MazeDesignerUI;
 import screens.Screen;
 import screens.ScreenManager;
@@ -18,7 +15,7 @@ public class Main extends Application {
     }
     public void start(Stage primaryStage){
         MazePublisherPresenter mpp = new MazePublisherPresenter();
-        MazeDatabase md;
+        MazePublisherGateway md;
         try {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
