@@ -11,23 +11,26 @@ import java.util.LinkedList;
 
 public class HintGenerator {
 
+    private HintGenerator() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     public static List<MazeCell> generateHint(GameState maze) {
         // Store the maze's start cell
         int[] startLocation = maze.getPosition();
         MazeCell startCell = new MazeCell(startLocation[0], startLocation[1]);
         // Initialize an arrayList to store the paths to explore
-        Queue<List<MazeCell>> queue = new LinkedList<List<MazeCell>>();
+        Queue<List<MazeCell>> queue = new LinkedList<>();
         // Add a 1 cell path containing the start cell to the queue
-        queue.add(new ArrayList<MazeCell>() {
-            {add(startCell);}
-        });
+        List<MazeCell> initialPath = new ArrayList<>();
+        initialPath.add(startCell);
+        queue.add(initialPath);
         // Initialize a set to store all visited cells
-        Set<MazeCell> visited = new HashSet<MazeCell>() {
-            {add(startCell);}
-        };
+        Set<MazeCell> visited = new HashSet<>();
+        visited.add(startCell);
 
         // Perform breadth first search as long as there are still paths to explore in the queue
-        while (queue.size() > 0) {
+        while (!queue.isEmpty()) {
             // Store the next path to explore and remove it from the queue
             List<MazeCell> currPath = queue.remove();
             // Store the last cell in current path
@@ -42,7 +45,7 @@ public class HintGenerator {
             for (MazeCell move : validMoves) {
                 if (!visited.contains(move)) {
                     visited.add(move);
-                    List<MazeCell> newPath = new ArrayList(currPath);
+                    List<MazeCell> newPath = new ArrayList<>(currPath);
                     newPath.add(move);
                     queue.add(currPath);
                 }
@@ -50,6 +53,6 @@ public class HintGenerator {
         }
 
         // Return and empty path if the queue was exhausted and the end cell was not reached
-        return new ArrayList<MazeCell>();
+        return new ArrayList<>();
     }
 }
