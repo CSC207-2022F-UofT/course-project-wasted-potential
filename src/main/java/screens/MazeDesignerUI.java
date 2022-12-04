@@ -111,7 +111,7 @@ public class MazeDesignerUI extends Application implements Screen {
                         handler = "end";
                     }
                     mdc.handleBuild(handler, row, col);
-                    updateMazeUI(mdc.updateMaze(), buttonarray);
+                    updateMazeUI(mdc.getMazeState(), buttonarray);
                     updateSolvability(solvableIndicator, publisher);
                 }
             }
@@ -126,7 +126,7 @@ public class MazeDesignerUI extends Application implements Screen {
                     mdc.randoMaze();
                     updateSolvability(solvableIndicator, publisher);
                 }
-                updateMazeUI(mdc.updateMaze(), buttonarray);
+                updateMazeUI(mdc.getMazeState(), buttonarray);
                 if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
                     ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                     Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
@@ -155,7 +155,7 @@ public class MazeDesignerUI extends Application implements Screen {
                 if (popuphandle.getSource()==close){
                     publishpopup.hide();
                     mdc.resetMaze();
-                    updateMazeUI(mdc.updateMaze(), buttonarray);
+                    updateMazeUI(mdc.getMazeState(), buttonarray);
                 }
             }
         };
@@ -165,7 +165,7 @@ public class MazeDesignerUI extends Application implements Screen {
         publisher.setOnAction(extrabuttons);
         close.setOnAction(popuphandle);
 
-        updateMazeUI(mdc.updateMaze(), buttonarray);
+        updateMazeUI(mdc.getMazeState(), buttonarray);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 buttonarray[i][j].setOnAction(event);
@@ -218,19 +218,19 @@ public class MazeDesignerUI extends Application implements Screen {
         wallpopup.show(primaryStage);
     }
 
-    public void updateMazeUI(String[][] stringarray, Button[][] buttonarray){
+    public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {
                 if(buttonarray[i][j] == null){
                     buttonarray[i][j] = new Button();
                 }
-                if(stringarray[i][j].equals("#")){
+                if(mazeState[i][j] == '#'){
                     buttonarray[i][j].setText("#");
                     buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
-                } else if(stringarray[i][j].equals(".")){
+                } else if(mazeState[i][j] == '.'){
                     buttonarray[i][j].setText(".");
                     buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
-                } else if(stringarray[i][j].equals("S")){
+                } else if(mazeState[i][j] == 'S'){
                     buttonarray[i][j].setText("S");
                     buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
                 } else {
