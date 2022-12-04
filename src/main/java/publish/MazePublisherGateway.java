@@ -1,6 +1,6 @@
 package publish;
 
-import entities.PublishedMaze;
+import entities.SavedMaze;
 
 /**
  * The interface Maze publisher gateway.
@@ -11,5 +11,5 @@ public interface MazePublisherGateway {
      *
      * @param maze the maze
      */
-    public void storeMaze(PublishedMaze maze);
+    public void storeMaze(SavedMaze maze);
 }
