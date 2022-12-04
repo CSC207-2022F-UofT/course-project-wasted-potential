@@ -29,7 +29,6 @@ public class MazePublisherControl {
     public ArrayList<String> publishMaze(String author, String name, DesignableMaze dm) {
         MazePublishedResponseModel mazeInfo = inBoundary.publishMaze(author, name, dm);
         ArrayList<String> displayedInfo = new ArrayList<>();
-        displayedInfo.add(mazeInfo.getId());
         displayedInfo.add(mazeInfo.getName());
         displayedInfo.add(mazeInfo.getPublishDate().toString());
         return displayedInfo;
