@@ -3,9 +3,9 @@ package design;
 public interface MazeDesignerOutputBoundary {
     /**
      * Algorithm to return UI representation
-     * @param buttonarray the String[][] to be manipulated
-     * @return the String[][] that is the representation of the maze
+     * @param mazeState the char[][] to be manipulated
+     * @return the char[][] that is the representation of the maze
      */
-    public String[][] updateMazeUI(String[][] buttonarray);
+    public char[][] presentMazeState(char[][] mazeState);
 
 }
