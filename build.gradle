@@ -1,5 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+javafx {
+    version = '11'
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base', 'javafx.media', 'javafx.swing' ]
 }
 
 repositories {
@@ -17,3 +24,5 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+mainClassName = 'Main'
