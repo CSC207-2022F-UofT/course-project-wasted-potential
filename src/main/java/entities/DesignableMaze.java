@@ -5,6 +5,7 @@ package entities;
  */
 public class DesignableMaze extends Maze{
 
+    private static final String EMPTY = "empty";
     private int startLocation[] = new int[2];
     private int endLocation[] = new int[2];
 
@@ -50,7 +51,7 @@ public class DesignableMaze extends Maze{
      * @param col the column of the specified location
      */
     public void deleteWall(int row, int col) {
-        this.state[row][col] = Maze.ENCODING.get("empty");
+        this.state[row][col] = Maze.ENCODING.get(EMPTY);
     }
 
     /**
@@ -63,7 +64,7 @@ public class DesignableMaze extends Maze{
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
                 if (this.state[i][j] == Maze.ENCODING.get("start")){
-                    this.state[i][j] = Maze.ENCODING.get("empty");
+                    this.state[i][j] = Maze.ENCODING.get(EMPTY);
                 }
             }
         }
@@ -82,7 +83,7 @@ public class DesignableMaze extends Maze{
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
                 if (this.state[i][j] == Maze.ENCODING.get("end")){
-                    this.state[i][j] = Maze.ENCODING.get("empty");
+                    this.state[i][j] = Maze.ENCODING.get(EMPTY);
                 }
             }
         }
