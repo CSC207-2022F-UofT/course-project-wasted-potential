@@ -1,43 +1,47 @@
 package screens;
 
-import maze_nav_use_case.*;
+import navigation.*;
 
 /**
- * The Presenter for the Maze Navigation Use Case.
+ * The presenter for the maze navigation use case.
  *
  * @author Oscar Tuvey
  */
 public class MazeNavPresenter implements MazeNavOutputBoundary {
 
-    final MazeNavViewInterface viewInterface;
-
     /**
-     * The constructor for the MazeNavPresenter class.
+     * Returns a response model back to the controller.
      *
-     * @param viewInterface the interface which passes information to the view
+     * @param responseModel a response model containing the old position of the icon and the new position of the icon
+     * @return the response model to be returned to the controller and subsequently to the view
      */
-    public MazeNavPresenter(MazeNavViewInterface viewInterface) {
-        this.viewInterface = viewInterface;
-    }
-
     @Override
     public MazeNavResponseModel moveIcon(MazeNavResponseModel responseModel) {
-        viewInterface.moveIcon(responseModel.getRequestedPosition());
 
         return responseModel;
     }
 
+    /**
+     * Returns a MazeComplete exception back to the controller and subsequently to the view.
+     *
+     * @param message a message to notify the user that the maze is complete
+     * @return an exception to be returned to the controller and subsequently to the view
+     */
     @Override
-    public MazeNavResponseModel mazeComplete(MazeNavResponseModel responseModel) {
-        viewInterface.mazeComplete("Congratulations! You've completed the maze.");
+    public MazeNavResponseModel mazeComplete(String message) {
 
-        return responseModel;
+        throw new MazeComplete(message);
     }
 
+    /**
+     * Returns an InvalidMove exception back to the controller and subsequently to the view
+     *
+     * @param error an error message to be returned
+     * @return an exception to be returned to the controller and subsequently to the view
+     */
     @Override
-    public MazeNavResponseModel prepareFailView(MazeNavResponseModel responseModel) {
-        viewInterface.prepareFailView("Invalid move. Please try again");
+    public MazeNavResponseModel prepareFailView(String error) {
 
-        throw new InvalidMove("Invalid move. Please try again"); // Necessary?
+        throw new InvalidMove(error);
     }
 }

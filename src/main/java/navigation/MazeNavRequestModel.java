@@ -1,21 +1,21 @@
-package maze_nav_use_case;
+package navigation;
 
 import entities.*;
 
 /**
- * The Input Data for the Maze Navigation Use Case.
+ * The input Data for the maze navigation use case.
  *
  * @author Oscar Tuvey
  */
 public class MazeNavRequestModel {
 
-    private char keyStroke;
+    private final char keyStroke;
 
-    private int[] position;
+    private final int[] position;
 
-    private int[] requestedPosition;
+    private final int[] requestedPosition;
 
-    private GameState maze;
+    private final GameState maze;
 
     /**
      * The constructor for the MazeNavRequestModel class.
@@ -41,25 +41,11 @@ public class MazeNavRequestModel {
             this.requestedPosition = new int[]{position[0], position[1] - 1};
         }
 
-        else if (keyStroke == 'd') {
+        else {
             this.requestedPosition = new int[]{position[0] + 1, position[1]};
         }
 
-        else {
-            this.requestedPosition = null; // This isn't what you want to do
-            // need to ignore invalid keystrokes completely
-        }
-
         this.maze = maze;
-    }
-
-    /**
-     * A getter method which returns the user input.
-     *
-     * @return keyStroke the user input
-     */
-    public char getKeyStroke() {
-        return this.keyStroke;
     }
 
     /**
@@ -74,7 +60,7 @@ public class MazeNavRequestModel {
     /**
      * A getter method which returns the icon's requested position.
      *
-     * @return requestedPosition an array representing the icon's requested position
+     * @return an array representing the icon's requested position
      */
     public int[] getRequestedPosition() {
         return this.requestedPosition;

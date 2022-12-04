@@ -1,5 +1,6 @@
 package entities;
 
+// Pretty sure this class doesnt run properly but check with team
 public class GameState extends PublishedMaze {
 
     int[] position;
