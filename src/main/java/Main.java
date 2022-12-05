@@ -9,6 +9,7 @@ import screens.ScreenManager;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.NoSuchElementException;
 
 public class Main extends Application {
 
@@ -21,9 +22,9 @@ public class Main extends Application {
         try {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
+            throw new IndexOutOfBoundsException("Could not create file.");
         } catch (ParseException e) {
-            throw new RuntimeException("Creation date is incorrect.");
+            throw new NoSuchElementException("Creation date is incorrect.");
         }
         PublishMazeInteractor mpi = new PublishMazeInteractor(mpp, md);
         PublishMazeController mpc = new PublishMazeController(mpi);
