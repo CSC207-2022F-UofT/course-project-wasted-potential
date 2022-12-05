@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 
-// Could you possibly combine the two classes InvalidMoveAlertBox and MazeCompleteAlertBox?
 public class MazeCompleteAlertBox {
 
     public static void display(String title, String message) {
@@ -27,7 +26,7 @@ public class MazeCompleteAlertBox {
         EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                ScreenManager.changeScreen("PlayerHomeScreen");
+                ScreenManager.changeScreen("home");
                 window.close();
             }
         };

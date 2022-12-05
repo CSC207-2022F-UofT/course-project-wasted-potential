@@ -129,11 +129,12 @@ public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
     }
 
     /**
-     * Gets the maze corresponding to the given maze ID.
+     * Gets the maze singleton. This method is only used in testing.
      *
-     * @param mazeId the unique identifier for the maze to be retrieved
-     * @return
+     * @return the maze singleton
      */
+    public PublishedMazeSingleton getMazeSingleton() { return mazes; }
+
     @Override
     public PublishedMaze retrieveMaze(int mazeId) {
         return mazes.getPublishedMaze(mazeId);
