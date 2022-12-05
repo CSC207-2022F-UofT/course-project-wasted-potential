@@ -1,6 +1,4 @@
-package screens;
-
-import retrieval.*;
+package retrieval;
 
 /**
  * The controller for the maze retriever use case.
@@ -27,7 +25,7 @@ public class MazeRetrieverController {
      * @param username the user who's logged in
      * @return the output data for the maze retriever use case
      */
-    MazeRetrieverResponseModel create(String username) {
+    public MazeRetrieverResponseModel create(String username) {
         MazeRetrieverRequestModel requestModel = new MazeRetrieverRequestModel(username);
 
         return userInput.create(requestModel);

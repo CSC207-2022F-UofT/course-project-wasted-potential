@@ -1,4 +1,4 @@
-package screens;
+package retrieval;
 
 import retrieval.*;
 

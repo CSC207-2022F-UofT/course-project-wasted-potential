@@ -14,5 +14,4 @@ public interface MazeDisplayOutputBoundary {
      * @return a response model
      */
     MazeDisplayResponseModel displayMaze(MazeDisplayResponseModel responseModel);
-    // should the method be public?
 }

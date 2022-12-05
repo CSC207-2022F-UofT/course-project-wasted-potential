@@ -1,4 +1,4 @@
-package screens;
+package display;
 
 import display.MazeDisplayInputBoundary;
 import display.MazeDisplayRequestModel;

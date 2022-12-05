@@ -1,5 +1,8 @@
 package screens;
 import java.util.ArrayList;
+
+import display.MazeDisplayController;
+import retrieval.MazeRetrieverController;
 import retrieval.MazeRetrieverResponseModel;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
@@ -7,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import display.MazeDisplayResponseModel;
+
 
 /**
  * The view for the maze retriever use case.
