@@ -27,7 +27,7 @@ public class MazeCompleteAlertBox {
         EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                ScreenManager.changeScreen("PlayerHomeScreen");
+                ScreenManager.changeScreen("home");
                 window.close();
             }
         };

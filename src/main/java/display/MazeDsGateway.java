@@ -15,6 +15,6 @@ public interface MazeDsGateway {
      * @param mazeId the unique identifier for the maze to be retrieved
      * @return the maze with the given mazeId
      */
-    PublishedMaze retrieveMaze(int mazeId);
+    public PublishedMaze retrieveMaze(int mazeId);
 
 }
