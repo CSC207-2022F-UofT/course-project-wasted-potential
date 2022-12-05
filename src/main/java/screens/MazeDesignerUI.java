@@ -1,6 +1,5 @@
 package screens;
 
-import solvability.MazeSolvabilityControl;
 import design.MazeDesignerController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,24 +15,44 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import publish.MazePublisherControl;
-import solvability.MazeSolvabilityResponseModel;
-import java.util.ArrayList;
+import publish.PublishMazeController;
 
-public class MazeDesignerUI extends Application implements Screen {
+import solvability.MazeSolvabilityControl;
+import solvability.MazeSolvabilityResponseModel;
+import java.util.List;
+
+/**
+ * The UI for designing a maze.
+ */
+public class MazeDesignerUI extends Application implements Screen{
+    /**
+     * The Css file containing visual information.
+     */
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
-    private MazePublisherControl mpc;
+    private PublishMazeController mpc;
 
     private MazeSolvabilityControl msc;
 
-    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
+    /**
+     * Instantiates a new Maze designer ui.
+     *
+     * @param mdc the MazeDesignerController
+     * @param mpc the PublishMazeController
+     * @param msc the MazeSolvabilityControl
+     */
+    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc, MazeSolvabilityControl msc) {
         this.mdc = mdc;
         this.mpc = mpc;
         this.msc = msc;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -125,7 +144,7 @@ public class MazeDesignerUI extends Application implements Screen {
             }
             updateMazeUI(mdc.getMazeState(), buttonarray);
             if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
-                ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
+                List<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                 Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                 GridPane publishpopuppane = new GridPane();
                 publishpopuppane.addRow(0, label);
@@ -182,6 +201,11 @@ public class MazeDesignerUI extends Application implements Screen {
         primaryStage.show();
     }
 
+    /**
+     * Creates a popup if the user tries to edit an outer wall.
+     *
+     * @param primaryStage the primary stage
+     */
     public void outerWallEdit(Stage primaryStage){
         Popup wallpopup = new Popup();
         Button close = new Button("Close");
@@ -208,7 +232,12 @@ public class MazeDesignerUI extends Application implements Screen {
         close.setOnAction(popupHandler);
         wallpopup.show(primaryStage);
     }
-
+    /**
+     * Update the UI.
+     *
+     * @param mazeState the state of the maze
+     * @param buttonarray the buttonarray
+     */
     public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {
