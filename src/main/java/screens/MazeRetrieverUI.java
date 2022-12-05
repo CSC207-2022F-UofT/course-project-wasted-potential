@@ -17,7 +17,7 @@ import display.MazeDisplayResponseModel;
  *
  * @author Oscar Tuvey
  */
-public class MazeRetrieverUI {
+public class MazeRetrieverUI implements Screen {
 
     /**
      * The constructor for the MazeRetrieverView class.

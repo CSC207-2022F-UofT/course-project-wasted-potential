@@ -14,7 +14,7 @@ import navigation.MazeNavResponseModel;
 /**
  * The view class for the maze navigation use case.
  */
-public class MazeNavUI {
+public class MazeNavUI implements Screen {
 
     private final Color[] color;
     private final GraphicsContext g;

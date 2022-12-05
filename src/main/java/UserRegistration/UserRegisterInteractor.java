@@ -5,6 +5,7 @@ import entities.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * The interactor which implements the input boundary and creates the user,
@@ -45,7 +46,7 @@ public class UserRegisterInteractor implements URegInputBoundary{
 
                 if (userRequestModel.getUserType().equals("Player")) {
                     user = userFactory.createPlayer(userRequestModel.getUsername(), userRequestModel.getPassword(),
-                            dateTimeString);
+                            dateTimeString, new ArrayList<>());
                 } else {
                     user = userFactory.createDesigner(userRequestModel.getUsername(), userRequestModel.getPassword(),
                             dateTimeString);

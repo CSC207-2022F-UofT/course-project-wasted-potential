@@ -1,19 +1,17 @@
 import design.*;
 import UserLogin.*;
 import UserRegistration.*;
+import display.*;
 import entities.UserFactory;
 import javafx.stage.Stage;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
-import screens.LoginUI;
-import screens.RegisterUI;
-import screens.UserDatabase;
+import retrieval.*;
+import screens.*;
 import publish.*;
-import screens.MazeDatabase;
-import screens.MazeDesignerUI;
+import navigation.*;
+
 import java.io.IOException;
 import javafx.application.Application;
-import screens.Screen;
-import screens.ScreenManager;
 import solvability.*;
 import java.text.ParseException;
 import java.util.NoSuchElementException;
@@ -64,11 +62,36 @@ public class Main extends Application {
         MazeSolvableInBoundary msi = new MazeSolvabilityInteractor(msp);
         MazeSolvabilityControl msc = new MazeSolvabilityControl(msi);
         Screen mdui = new MazeDesignerUI(mdc, mpc, msc);
+        // Retrieval use case
+        MazeRetrieverOutputBoundary mob = new MazeRetrieverPresenter();
+        MazeRetrieverDsGateway mdg = (MazeRetrieverDsGateway) gateway;
+        MazeRetrieverInputBoundary mib = new MazeRetrieverInteractor(mdg, mob);
+        MazeRetrieverController mrc = new MazeRetrieverController(mib);
+        // Display use case
+        MazeDisplayOutputBoundary mdb = new MazeDisplayPresenter();
+        MazeDsGateway mazeDsGateway = (MazeDsGateway)md;
+        PlayerDsGateway playerDsGateway = (PlayerDsGateway)gateway;
+        MazeDisplayInputBoundary mdib = new MazeDisplayInteractor(playerDsGateway, mazeDsGateway, mdb);
+        MazeDisplayController mdcr = new MazeDisplayController(mdib);
+        // Navigation use case
+        MazeNavOutputBoundary mnob = new MazeNavPresenter();
+        MazeNavInputBoundary mnib = new MazeNavInteractor(mnob);
+        MazeNavController mnc = new MazeNavController(mnib);
+
+        MazeNavUI mazeNavUI = new MazeNavUI(mnc);
+        MazeRetrieverUI mazeRetrieverUI = new MazeRetrieverUI(mrc, mdcr);
+
+
+
 
         ScreenManager.setStage(primaryStage);
         ScreenManager.addScreen("designer", mdui);
         ScreenManager.addScreen("login", lui);
         ScreenManager.addScreen("register", rui);
+        ScreenManager.addScreen("home", mazeRetrieverUI);
+        ScreenManager.addScreen("game", mazeNavUI);
+
         ScreenManager.changeScreen("login");
+
     }
 }
