@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.List;
+
 /**
  * The type User factory.
  */
@@ -12,8 +14,8 @@ public class UserFactory {
      * @param creationTime the creation time of the account
      * @return a player instance
      */
-    public Player createPlayer(String name, String password, String creationTime) {
-        return new Player(name, password, creationTime);
+    public Player createPlayer(String name, String password, String creationTime, List<Integer> mazesPlayed) {
+        return new Player(name, password, creationTime, mazesPlayed);
     }
 
     /**

@@ -15,9 +15,11 @@ public class Player extends User{
      * @param username     the username of the Player
      * @param password     the password of the Player
      * @param creationTime the time the account was created
+     * @param mazesPlayed the mazes played by the user
      */
-    public Player(String username, String password, String creationTime){
+    public Player(String username, String password, String creationTime, List<Integer> mazesPlayed){
         super(username, password, "Player", creationTime);
+        this.mazesPlayed = mazesPlayed;
     }
 
     /**

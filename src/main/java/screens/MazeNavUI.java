@@ -15,7 +15,7 @@ import navigation.MazeNavResponseModel;
 /**
  * The view class for the maze navigation use case.
  */
-public class MazeNavView {
+public class MazeNavUI {
 
     private final Color[] color;
     private final GraphicsContext g;
@@ -27,7 +27,7 @@ public class MazeNavView {
      *
      * @param controller the controller for the maze navigation use case
      */
-    public MazeNavView(MazeNavController controller) {
+    public MazeNavUI(MazeNavController controller) {
 
         GridPane root = new GridPane();
         MazeSingleton singleton;

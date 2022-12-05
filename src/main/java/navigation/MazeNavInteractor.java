@@ -46,9 +46,10 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
 
         else {
             requestModel.getMaze().updatePosition(x, y);
-            MazeNavResponseModel responseModel = new MazeNavResponseModel(requestModel.getPosition(), requestModel.getRequestedPosition());
+            MazeNavResponseModel responseModel = new MazeNavResponseModel(requestModel.getPosition(),
+                    requestModel.getRequestedPosition());
+            requestModel.getMaze().updatePosition(x, y);
             return outputBoundary.moveIcon(responseModel);
-            // Update the position in here
         }
     }
 }

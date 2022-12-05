@@ -38,19 +38,19 @@ public class GameState extends PublishedMaze {
     }
 
     /**
-     * Get position int [ ].
+     * Get the current position of the icon.
      *
-     * @return the int [ ]
+     * @return an integer array representing the icon's current position
      */
     public int[] getPosition() {
         return this.position;
     }
 
     /**
-     * Update position.
+     * Update position of the icon.
      *
-     * @param x the x
-     * @param y the y
+     * @param x the x co-ordinate of the new position
+     * @param y the y co-ordinate of the new position
      */
     public void updatePosition(int x, int y) {
         this.position[0] = x;
