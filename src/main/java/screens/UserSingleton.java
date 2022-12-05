@@ -5,13 +5,12 @@ public class UserSingleton {
     private static UserSingleton instance;
     private String username;
 
-    private UserSingleton(String username) {
-        this.username = username;
+    private UserSingleton() {
     }
 
-    public UserSingleton getInstance(String username) {
+    public static UserSingleton getInstance() {
         if (instance == null) {
-            instance = new UserSingleton(username);
+            instance = new UserSingleton();
         }
         return instance;
     }
@@ -20,4 +19,7 @@ public class UserSingleton {
         return this.username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

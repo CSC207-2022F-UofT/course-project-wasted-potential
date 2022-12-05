@@ -24,7 +24,9 @@ public class MazeRetrieverView {
     public MazeRetrieverView(MazeRetrieverController retrieverController, MazeDisplayController displayController) {
 
 
-        UserSingleton singleton;
+        UserSingleton singleton = UserSingleton.getInstance();
+
+
         MazeRetrieverResponseModel retrieverRespModel = retrieverController.create(singleton.getUsername());
         ArrayList<Integer> played = (ArrayList<Integer>) retrieverRespModel.getPlayed();
         ArrayList<Integer> notPlayed = (ArrayList<Integer>) retrieverRespModel.getNotPlayed();
