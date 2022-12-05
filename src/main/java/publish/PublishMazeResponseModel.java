@@ -3,26 +3,26 @@ package publish;
 import java.time.LocalDate;
 
 /**
- * The type Maze published response model.
+ * The response model class for the use case of publishing mazes.
  */
-public class MazePublishedResponseModel {
+public class PublishMazeResponseModel {
     private String name;
     private LocalDate publishDate;
 
 
     /**
-     * Instantiates a new Maze published response model.
+     * Instantiates a new PublishedMazeResponseModel.
      *
-     * @param name        the name
+     * @param name        the name of the maze.
      * @param publishDate the publish date
      */
-    public MazePublishedResponseModel(String name, LocalDate publishDate) {
+    public PublishMazeResponseModel(String name, LocalDate publishDate) {
         this.name = name;
         this.publishDate = publishDate;
     }
 
     /**
-     * Gets name.
+     * Gets the maze's name.
      *
      * @return the name
      */
@@ -31,7 +31,7 @@ public class MazePublishedResponseModel {
     }
 
     /**
-     * Gets publish date.
+     * Gets the publish date.
      *
      * @return the publish date
      */

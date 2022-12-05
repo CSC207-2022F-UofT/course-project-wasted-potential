@@ -1,5 +1,4 @@
 package entities;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,5 +62,4 @@ public abstract class Maze {
 
         return returnString.toString();
     }
-
 }
