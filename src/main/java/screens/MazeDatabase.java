@@ -133,4 +133,8 @@ public class MazeDatabase implements PublishMazeGateway {
      * @return the maze singleton
      */
     public PublishedMazeSingleton getMazeSingleton() { return mazes; }
+
+    public PublishedMaze retrieveMaze(Integer mazeId) {
+        return mazes.getPublishedMaze(mazeId);
+    }
 }
