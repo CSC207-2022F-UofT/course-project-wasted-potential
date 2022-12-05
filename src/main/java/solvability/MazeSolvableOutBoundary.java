@@ -1,5 +1,5 @@
 package solvability;
 
 public interface MazeSolvableOutBoundary {
-    public MazeSolvabilityResponseModel reportSolvability(boolean solvable);
+    MazeSolvabilityResponseModel reportSolvability(boolean solvable);
 }
