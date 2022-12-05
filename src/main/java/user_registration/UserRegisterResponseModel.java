@@ -1,4 +1,4 @@
-package UserRegistration;
+package user_registration;
 
 /**
  * The response model which stores the user's username, user type and password.

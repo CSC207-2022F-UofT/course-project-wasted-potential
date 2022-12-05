@@ -1,4 +1,4 @@
-package UserLogin;
+package user_login;
 
 /**
  * The user request model which stores all the information the user inputs in the login screen.

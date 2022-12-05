@@ -1,4 +1,4 @@
-package UserRegistration;
+package user_registration;
 
 /**
  * The user request model which stores all the information the user inputs.

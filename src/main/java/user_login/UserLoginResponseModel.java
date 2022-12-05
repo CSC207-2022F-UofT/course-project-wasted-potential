@@ -1,4 +1,4 @@
-package UserLogin;
+package user_login;
 
 /**
  * The response model which stores the user's username and user type.

@@ -15,7 +15,7 @@ import retrieval.MazeRetrieverDsGateway;
  */
 public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGateway, MazeRetrieverDsGateway {
 
-    private File csvFile;
+    private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, User> userAccounts = new HashMap<>();
 
@@ -127,7 +127,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
      * @return the mazes
      */
     public List<Integer> getMazes(String mazesPlayed) {
-        List<Integer> playedMazes = new ArrayList<Integer>();
+        List<Integer> playedMazes = new ArrayList<>();
         String[] mazeList = mazesPlayed.split(":");
         for (String maze : mazeList) {
             playedMazes.add(Integer.parseInt(maze));
@@ -144,8 +144,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
     public String mazeListToString (List<Integer> playedMazes) {
         String mazeList = "";
         for (Integer mazeId : playedMazes) {
-            mazeList += mazeId.toString();
-            mazeList += ":";
+            mazeList = mazeList + mazeId.toString() + ":";
         }
         return mazeList;
     }

@@ -1,4 +1,4 @@
-package UserRegistration;
+package user_registration;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.UserFactory;
 import entities.User;

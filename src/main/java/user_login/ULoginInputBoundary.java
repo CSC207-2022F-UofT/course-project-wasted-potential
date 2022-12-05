@@ -1,4 +1,4 @@
-package UserLogin;
+package user_login;
 
 public interface ULoginInputBoundary {
     /**

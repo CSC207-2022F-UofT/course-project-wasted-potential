@@ -1,4 +1,4 @@
-package UserLogin;
+package user_login;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 
 /**

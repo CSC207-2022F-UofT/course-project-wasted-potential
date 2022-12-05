@@ -1,6 +1,6 @@
 import design.*;
-import UserLogin.*;
-import UserRegistration.*;
+import user_login.*;
+import user_registration.*;
 import display.*;
 import entities.UserFactory;
 import javafx.stage.Stage;
@@ -69,7 +69,7 @@ public class Main extends Application {
         MazeRetrieverController mrc = new MazeRetrieverController(mib);
         // Display use case
         MazeDisplayOutputBoundary mdb = new MazeDisplayPresenter();
-        MazeDsGateway mazeDsGateway = (MazeDsGateway)md;
+        MazeDsGateway mazeDsGateway = md;
         PlayerDsGateway playerDsGateway = (PlayerDsGateway)gateway;
         MazeDisplayInputBoundary mdib = new MazeDisplayInteractor(playerDsGateway, mazeDsGateway, mdb);
         MazeDisplayController mdcr = new MazeDisplayController(mdib);

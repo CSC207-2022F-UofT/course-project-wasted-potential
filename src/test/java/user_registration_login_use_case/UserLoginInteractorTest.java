@@ -1,11 +1,13 @@
 package user_registration_login_use_case;
 
-import UserLogin.*;
+import user_login.*;
 import entities.Player;
 import entities.User;
 import org.junit.jupiter.api.Test;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import screens.TemporaryMemoryAccess;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +20,7 @@ import static org.junit.Assert.*;
         UserLoginInteractor interactor = new UserLoginInteractor(gateway, outputBoundary);
         UserLoginRequestModel inputData = new UserLoginRequestModel("rick", "rick123");
 
-        User user = new Player("rick", "123", "2022-12-04 17:19");
+        User user = new Player("rick", "123", "2022-12-04 17:19", new ArrayList<>());
         gateway.save(user);
 
         try{
@@ -37,7 +39,7 @@ import static org.junit.Assert.*;
         UserLoginInteractor interactor = new UserLoginInteractor(gateway, outputBoundary);
         UserLoginRequestModel inputData = new UserLoginRequestModel("nick", "yeah");
 
-        User user = new Player("nick", "yeah", "2022-12-04 17:19");
+        User user = new Player("nick", "yeah", "2022-12-04 17:19", new ArrayList<>());
         gateway.save(user);
 
 

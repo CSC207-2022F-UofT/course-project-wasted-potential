@@ -1,7 +1,6 @@
 package screens;
-import UserRegistration.Singleton;
-import UserRegistration.UserRegisterController;
-import UserRegistration.UserRegisterResponseModel;
+import user_registration.UserRegisterController;
+import user_registration.UserRegisterResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +15,7 @@ import javafx.stage.Popup;
 
 public class RegisterUI extends Application implements Screen{
 
-    private UserRegisterController controller;
+    private final UserRegisterController controller;
 
     public RegisterUI(UserRegisterController controller){
         this.controller = controller;
@@ -28,6 +27,9 @@ public class RegisterUI extends Application implements Screen{
 
     @Override
     public void start(Stage primaryStage){
+        String designerText = "Designer";
+        String playerText = "Player";
+
         Label userl = new Label("Create Username");
         Label pwdl = new Label("Create Password");
         Label rpwdl = new Label("Reconfirm Password");
@@ -52,12 +54,10 @@ public class RegisterUI extends Application implements Screen{
 
         Label choose = new Label("Please choose a user type:");
         Label error = new Label();
-        Button designer = new Button("Designer");
-        Button player = new Button("Player");
         Button regis = new Button("Register");
 
-        ToggleButton designerButton = new ToggleButton("Designer");
-        ToggleButton playerButton = new ToggleButton("Player");
+        ToggleButton designerButton = new ToggleButton(designerText);
+        ToggleButton playerButton = new ToggleButton(playerText);
         ToggleGroup chooseUserType = new ToggleGroup();
         designerButton.setToggleGroup(chooseUserType);
         playerButton.setToggleGroup(chooseUserType);
@@ -71,7 +71,7 @@ public class RegisterUI extends Application implements Screen{
                 String userType;
 
                 if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
-                    userType = "Player";
+                    userType = playerText;
 
                     // Repeated code needed to set the error message onto the label. Otherwise, the
                     // method has to be repeated and that's more code being repeated.
@@ -81,7 +81,7 @@ public class RegisterUI extends Application implements Screen{
                         error.setText(e.getMessage());
                     }
                 } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
-                    userType = "Designer";
+                    userType = designerText;
                     try {
                         register(username, password, repeatPassword, userType);
                     } catch (RuntimeException e){
@@ -147,10 +147,11 @@ public class RegisterUI extends Application implements Screen{
 
         UserRegisterResponseModel responseModel = controller.registerUser(username, password,
                 repeatPassword, userType);
-        Singleton.getInstance(responseModel.getUsername());
+        UserSingleton singleton = UserSingleton.getInstance();
+        singleton.setUsername(responseModel.getUsername());
 
         if (responseModel.getUserType().equals("Player")) {
-            //ScreenManager.changeScreen("play");
+            ScreenManager.changeScreen("home");
 
         } else if (responseModel.getUserType().equals("Designer")) {
             ScreenManager.changeScreen("designer");

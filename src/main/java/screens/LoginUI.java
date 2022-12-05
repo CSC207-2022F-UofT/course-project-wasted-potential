@@ -1,5 +1,5 @@
 package screens;
-import UserLogin.UserLoginResponseModel;
+import user_login.UserLoginResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,19 +9,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import UserLogin.UserLoginController;
-import UserLogin.Singleton;
-
-import java.io.IOException;
+import user_login.UserLoginController;
 
 
+/**
+ * The Login User Interface
+ */
 public class LoginUI extends Application implements Screen{
 
-    private UserLoginController controller;
+    private final UserLoginController controller;
 
+    /**
+     * The constructor that instantiates the Login UI.
+     *
+     * @param controller the controller.
+     */
     public LoginUI(UserLoginController controller){
         this.controller = controller;
     }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -58,10 +64,11 @@ public class LoginUI extends Application implements Screen{
                     String password = pwf.getText();
                     try {
                         UserLoginResponseModel responseModel = controller.loginUser(username, password);
-                        Singleton.getInstance(responseModel.getUsername());
+                        UserSingleton singleton = UserSingleton.getInstance();
+                        singleton.setUsername(responseModel.getUsername());
 
                         if (responseModel.getUserType().equals("Player")) {
-                            // ScreenManager.changeScreen("play");
+                            ScreenManager.changeScreen("home");
                         } else if (responseModel.getUserType().equals("Designer")) {
                             ScreenManager.changeScreen("designer");
                         }

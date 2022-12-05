@@ -1,7 +1,6 @@
 package user_registration_login_use_case;
 
-import UserLogin.*;
-import UserRegistration.*;
+import user_registration.*;
 import entities.Designer;
 import entities.User;
 import entities.UserFactory;

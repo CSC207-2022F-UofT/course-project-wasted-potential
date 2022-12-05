@@ -1,4 +1,4 @@
-package UserRegistration;
+package user_registration;
 
 public class URegisterPresenter implements URegOutputBoundary {
 
