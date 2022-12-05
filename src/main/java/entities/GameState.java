@@ -2,8 +2,6 @@ package entities;
 
 public class GameState extends PublishedMaze {
 
-
-
     int[] position;
 
     public GameState(int[] startPosition) {
@@ -19,7 +17,4 @@ public class GameState extends PublishedMaze {
         this.position[0] = x;
         this.position[1] = y;
     }
-
-
-
 }
