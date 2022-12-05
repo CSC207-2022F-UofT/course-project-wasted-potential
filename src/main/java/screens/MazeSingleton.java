@@ -34,6 +34,7 @@ public class MazeSingleton {
         return this.maze;
     }
 
+
     /**
      * Sets the maze to be the maze within the parameter.
      *
@@ -42,5 +43,4 @@ public class MazeSingleton {
     public void setMaze(GameState maze) {
         this.maze = maze;
     }
-
 }
