@@ -1,4 +1,4 @@
-package SolvabilityChecker;
+package solvability;
 
 import entities.DesignableMaze;
 
@@ -9,7 +9,7 @@ public class MazeSolvabilityControl {
         this.mazeSolvabilityInBoundary = mazeSolvabilityInBoundary;
     }
 
-    public void checkMazeSolvability(DesignableMaze maze) {
-        mazeSolvabilityInBoundary.checkMazeSolvability(maze);
+    public MazeSolvabilityResponseModel checkMazeSolvability(DesignableMaze maze) {
+        return mazeSolvabilityInBoundary.checkMazeSolvability(maze);
     }
 }

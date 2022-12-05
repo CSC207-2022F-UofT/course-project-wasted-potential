@@ -91,4 +91,12 @@ public class PublishedMazeSingleton { // Need to create a static int object
         updateId(id);
     }
 
+    /**
+     * Gets the current id. Only used in testing.
+     *
+     * @return the id
+     */
+    public static int getId() {
+        return id;
+    }
 }

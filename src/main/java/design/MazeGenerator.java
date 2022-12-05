@@ -1,14 +1,12 @@
 package design;
 
-import entities.DesignableMaze;
+/**
+ * The interface Maze generator.
+ */
+public interface MazeGenerator {
 
-public abstract class MazeGenerator {
-
-    DesignableMaze maze;
-
-    protected MazeGenerator(DesignableMaze maze) {
-        this.maze = maze;
-    }
-
-    public abstract void generate();
+    /**
+     * Randomly generate a maze
+     */
+    public void generate();
 }
