@@ -1,4 +1,4 @@
-package HintGenerator;
+package hints;
 
 import entities.GameState;
 
@@ -9,8 +9,8 @@ public class HintGeneratorControl {
         this.hintGeneratorInBoundary = hintGeneratorInBoundary;
     }
 
-    public void generateHint(GameState maze) {
-        hintGeneratorInBoundary.generateHint(maze);
+    public HintResponseModel generateHint(GameState maze) {
+        return hintGeneratorInBoundary.generateHint(maze);
     }
 
 }

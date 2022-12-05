@@ -4,10 +4,10 @@ import entities.DesignableMaze;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class MazeSolvabilityInteractorTest {
+class MazeSolvabilityInteractorTest {
 
     @Test
-    public void SolvableTest1() {
+    void SolvableTest1() {
         MazeSolvableOutBoundary presenter = new MazeSolvablePresenter();
         MazeSolvableInBoundary interactor = new MazeSolvabilityInteractor(presenter);
 
@@ -16,11 +16,11 @@ public class MazeSolvabilityInteractorTest {
 
         MazeSolvabilityResponseModel resp = interactor.checkMazeSolvability(maze);
         Assertions.assertTrue(resp.getIsSolvable());
-        Assertions.assertEquals(resp.getMessage(), "This maze is solvable");
+        Assertions.assertEquals("This maze is solvable", resp.getMessage());
     }
 
     @Test
-    public void SolvableTest2() {
+    void SolvableTest2() {
         MazeSolvableOutBoundary presenter = new MazeSolvablePresenter();
         MazeSolvableInBoundary interactor = new MazeSolvabilityInteractor(presenter);
 
@@ -29,11 +29,11 @@ public class MazeSolvabilityInteractorTest {
 
         MazeSolvabilityResponseModel resp = interactor.checkMazeSolvability(maze);
         Assertions.assertTrue(resp.getIsSolvable());
-        Assertions.assertEquals(resp.getMessage(), "This maze is solvable");
+        Assertions.assertEquals("This maze is solvable", resp.getMessage());
     }
 
     @Test
-    public void UnsolvableTest1() {
+    void UnsolvableTest1() {
         MazeSolvableOutBoundary presenter = new MazeSolvablePresenter();
         MazeSolvableInBoundary interactor = new MazeSolvabilityInteractor(presenter);
 
@@ -42,11 +42,11 @@ public class MazeSolvabilityInteractorTest {
 
         MazeSolvabilityResponseModel resp = interactor.checkMazeSolvability(maze);
         Assertions.assertFalse(resp.getIsSolvable());
-        Assertions.assertEquals(resp.getMessage(), "This maze is not solvable");
+        Assertions.assertEquals( "This maze is not solvable", resp.getMessage());
     }
 
     @Test
-    public void UnsolvableTest2() {
+    void UnsolvableTest2() {
         MazeSolvableOutBoundary presenter = new MazeSolvablePresenter();
         MazeSolvableInBoundary interactor = new MazeSolvabilityInteractor(presenter);
 
@@ -55,6 +55,6 @@ public class MazeSolvabilityInteractorTest {
 
         MazeSolvabilityResponseModel resp = interactor.checkMazeSolvability(maze);
         Assertions.assertFalse(resp.getIsSolvable());
-        Assertions.assertEquals(resp.getMessage(), "This maze is not solvable");
+        Assertions.assertEquals("This maze is not solvable", resp.getMessage());
     }
 }
