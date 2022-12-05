@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import navigation.InvalidMove;
-import navigation.MazeComplete;
 import navigation.MazeNavResponseModel;
 
 /**
@@ -30,7 +29,7 @@ public class MazeNavUI {
     public MazeNavUI(MazeNavController controller) {
 
         GridPane root = new GridPane();
-        MazeSingleton singleton;
+        MazeSingleton singleton = MazeSingleton.getInstance();
         this.maze = singleton.getMaze();
         Canvas canvas = new Canvas(maze.getNumCol(), maze.getNumRow());
 
@@ -70,29 +69,29 @@ public class MazeNavUI {
 
         try {
             canvas.setOnKeyPressed(e -> {
+                MazeNavResponseModel responseModel;
                 if (e.getCode() == KeyCode.W) {
-                    MazeNavResponseModel responseModel = controller.create('w', maze.getPosition(), maze); // This should be a method but keep it for a code smell
-                    updateUI(responseModel);
+                    responseModel = controller.create('w', maze.getPosition(), maze);
                 } else if (e.getCode() == KeyCode.A) {
-                    MazeNavResponseModel responseModel = controller.create('a', maze.getPosition(), maze);
-                    updateUI(responseModel);
+                    responseModel = controller.create('a', maze.getPosition(), maze);
                 } else if (e.getCode() == KeyCode.S) {
-                    MazeNavResponseModel responseModel = controller.create('s', maze.getPosition(), maze);
-                    updateUI(responseModel);
-                } else if (e.getCode() == KeyCode.D) {
-                    MazeNavResponseModel responseModel = controller.create('d', maze.getPosition(), maze);
-                    updateUI(responseModel);
+                    responseModel = controller.create('s', maze.getPosition(), maze);
+                } else {
+                    responseModel = controller.create('d', maze.getPosition(), maze);
                 }
 
+                if (responseModel.getIsComplete()) {
+                    MazeCompleteAlertBox.display("Maze Complete!", "Maze Complete Window");
+                }
+                else {
+                    updateUI(responseModel);
+                }
             });
         }
         catch (InvalidMove e) {
             InvalidMoveAlertBox.display("Invalid Move", e.getMessage());
         }
 
-        catch (MazeComplete e) {
-            MazeCompleteAlertBox.display("Maze Complete!", e.getMessage());
-        }
         root.addRow(1, canvas);
         Scene scene = new Scene(root, 640, 480);
     }

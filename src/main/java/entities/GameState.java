@@ -7,7 +7,7 @@ import java.time.LocalDate;
  */
 public class GameState extends PublishedMaze {
 
-    private final int[] position;
+    private int[] position;
 
     /**
      * Instantiates a new Game state.

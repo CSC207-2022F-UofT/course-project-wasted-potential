@@ -14,12 +14,6 @@ public class PublishedMaze extends Maze{
     protected int[] startPosition;
 
     /**
-     * Instantiates a new Published maze. This is a default constructor.
-     */
-    public PublishedMaze() {
-    }
-
-    /**
      * Instantiates a new Published maze.
      *
      * @param author        the author of the maze
@@ -46,6 +40,13 @@ public class PublishedMaze extends Maze{
         this.id = id;
         this.startPosition = startPosition;
     }
+
+    /**
+     * Instantiates a new Published maze. This is a default constructor.
+     */
+    public PublishedMaze() {
+    }
+
     /**
      * Gets the author of the maze
      *

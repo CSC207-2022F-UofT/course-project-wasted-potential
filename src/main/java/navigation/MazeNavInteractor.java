@@ -1,5 +1,7 @@
 package navigation;
 
+import entities.Maze;
+
 /**
  * The use case interactor for the maze navigation use case.
  *
@@ -29,25 +31,39 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
     @Override
     public MazeNavResponseModel create(MazeNavRequestModel requestModel) {
 
-        int[] requestedPosition = requestModel.getRequestedPosition();
+        int[] position = requestModel.getPosition();
+        char keyStroke = requestModel.getKeyStroke();
+        int[] requestedPosition;
+
+        if (keyStroke == 'w') {
+            requestedPosition = new int[]{position[0], (position[1] + 1)};
+        }
+
+        else if (keyStroke == 'a') {
+            requestedPosition = new int[]{position[0] - 1, position[1]};
+        }
+
+        else if (keyStroke == 's') {
+            requestedPosition = new int[]{position[0], position[1] - 1};
+        }
+
+        else {
+            requestedPosition = new int[]{position[0] + 1, position[1]};
+        }
 
         int x = requestedPosition[0];
         int y = requestedPosition[1];
 
         char[][] mazeState = requestModel.getMaze().getState();
 
-        if (mazeState[x][y] == '#') {
+        if (mazeState[x][y] == Maze.ENCODING.get("wall")) {
             return outputBoundary.prepareFailView("Invalid move. Please try again.");
-        }
-
-        else if (mazeState[x][y] == 'E') {
-            return outputBoundary.mazeComplete("Congratulations! You've completed the maze.");
         }
 
         else {
             requestModel.getMaze().updatePosition(x, y);
             MazeNavResponseModel responseModel = new MazeNavResponseModel(requestModel.getPosition(),
-                    requestModel.getRequestedPosition());
+                    requestedPosition, mazeState[x][y] == Maze.ENCODING.get("end"));
             requestModel.getMaze().updatePosition(x, y);
             return outputBoundary.moveIcon(responseModel);
         }

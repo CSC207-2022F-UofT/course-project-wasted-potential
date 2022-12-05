@@ -22,18 +22,6 @@ public class MazeNavPresenter implements MazeNavOutputBoundary {
     }
 
     /**
-     * Returns a MazeComplete exception back to the controller and subsequently to the view.
-     *
-     * @param message a message to notify the user that the maze is complete
-     * @return an exception to be returned to the controller and subsequently to the view
-     */
-    @Override
-    public MazeNavResponseModel mazeComplete(String message) {
-
-        throw new MazeComplete(message);
-    }
-
-    /**
      * Returns an InvalidMove exception back to the controller and subsequently to the view
      *
      * @param error an error message to be returned

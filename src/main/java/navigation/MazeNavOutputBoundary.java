@@ -16,14 +16,6 @@ public interface MazeNavOutputBoundary {
     MazeNavResponseModel moveIcon(MazeNavResponseModel responseModel);
 
     /**
-     * Notifies the user that the maze has been completed.
-     *
-     * @param message a message to notify the user that the maze is complete.
-     * @return a response model
-     */
-    MazeNavResponseModel mazeComplete(String message);
-
-    /**
      * Notifies the user that the requested move is invalid.
      *
      * @param error an error message to be returned

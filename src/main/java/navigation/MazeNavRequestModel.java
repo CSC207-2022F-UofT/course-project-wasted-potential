@@ -10,11 +10,7 @@ import entities.*;
 public class MazeNavRequestModel {
 
     private final char keyStroke;
-
     private final int[] position;
-
-    private final int[] requestedPosition;
-
     private final GameState maze;
 
     /**
@@ -27,23 +23,7 @@ public class MazeNavRequestModel {
     public MazeNavRequestModel(char keyStroke, int[] position, GameState maze) {
         this.keyStroke = keyStroke;
 
-        this.position = maze.getPosition();
-
-        if (keyStroke == 'w') { // Check that '==' is okay
-            this.requestedPosition = new int[]{position[0], (position[1] + 1)};
-        }
-
-        else if (keyStroke == 'a') {
-            this.requestedPosition = new int[]{position[0] - 1, position[1]};
-        }
-
-        else if (keyStroke == 's') {
-            this.requestedPosition = new int[]{position[0], position[1] - 1};
-        }
-
-        else {
-            this.requestedPosition = new int[]{position[0] + 1, position[1]};
-        }
+        this.position = position;
 
         this.maze = maze;
     }
@@ -58,20 +38,20 @@ public class MazeNavRequestModel {
     }
 
     /**
-     * A getter method which returns the icon's requested position.
-     *
-     * @return an array representing the icon's requested position
-     */
-    public int[] getRequestedPosition() {
-        return this.requestedPosition;
-    }
-
-    /**
      * A getter method which returns the maze being played.
      *
      * @return maze the maze being played
      */
     public GameState getMaze() {
         return this.maze;
+    }
+
+    /**
+     * A getter method which returns the keystroke.
+     *
+     * @return the user input
+     */
+    public char getKeyStroke() {
+        return this.keyStroke;
     }
 }

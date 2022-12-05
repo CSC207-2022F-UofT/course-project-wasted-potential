@@ -4,6 +4,7 @@ import entities.PublishedMaze;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * The type Published maze singleton. Stores a list of all published mazes.
@@ -40,14 +41,13 @@ public class PublishedMazeSingleton { // Need to create a static int object
      * @param mazeId the maze id of the requested maze
      * @return the published maze with the given maze id
      */
-    public PublishedMaze getPublishedMaze(int mazeId) {
+    public PublishedMaze getPublishedMaze(int mazeId) throws NoSuchElementException {
         if (this.publishedMazes.containsKey(mazeId)) {
             return publishedMazes.get(mazeId);
         }
-
         else {
-            return null;
-        } // Redo this
+            throw new NoSuchElementException("Invalid maze ID");
+        }
     }
 
     /**
