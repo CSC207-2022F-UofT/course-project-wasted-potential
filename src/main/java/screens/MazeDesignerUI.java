@@ -12,10 +12,12 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import publish.PublishMazeController;
 
+import solvability.MazeSolvabilityResponseModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,9 @@ public class MazeDesignerUI extends Application implements Screen{
 
     private PublishMazeController mpc;
 
+    private MazeSolvabilityControl msc;
+
+    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
     /**
      * Instantiates a new Maze designer ui.
      *
@@ -40,6 +45,7 @@ public class MazeDesignerUI extends Application implements Screen{
     public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc) {
         this.mdc = mdc;
         this.mpc = mpc;
+        this.msc = msc;
     }
 
     /**
@@ -49,6 +55,16 @@ public class MazeDesignerUI extends Application implements Screen{
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private MazeSolvabilityResponseModel getSolvableStatus() {
+        return msc.checkMazeSolvability(mdc.getDm());
+    }
+    private void updateSolvability(Text solvableIndicator, Button publishButton) {
+        MazeSolvabilityResponseModel responseMode = getSolvableStatus();
+        solvableIndicator.setText(responseMode.getMessage());
+        solvableIndicator.setStyle("-fx-fill: " + responseMode.getMessageColor() + "; -fx-font-size: 14px;");
+        publishButton.setDisable(!responseMode.getIsSolvable());
     }
 
     @Override
@@ -65,6 +81,8 @@ public class MazeDesignerUI extends Application implements Screen{
         ToggleButton starter = new ToggleButton("Place Start");
         ToggleButton ender = new ToggleButton("Place End");
         Button resetter = new Button("Reset");
+        Text solvableIndicator = new Text("This maze is solvable");
+        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
         resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
         Button randomizer = new Button("Random");
         Button publisher = new Button("Publish");
@@ -112,7 +130,8 @@ public class MazeDesignerUI extends Application implements Screen{
                         handler = "end";
                     }
                     mdc.handleBuild(handler, row, col);
-                    updateMazeUI(mdc.updateMaze(), buttonarray);
+                    updateMazeUI(mdc.getMazeState(), buttonarray);
+                    updateSolvability(solvableIndicator, publisher);
                 }
             }
         };
@@ -121,11 +140,13 @@ public class MazeDesignerUI extends Application implements Screen{
             public void handle(ActionEvent extrabuttons){
                 if (extrabuttons.getSource()==resetter){
                     mdc.resetMaze();
+                    updateSolvability(solvableIndicator, publisher);
                 } else if (extrabuttons.getSource()==randomizer){
                     mdc.randoMaze();
+                    updateSolvability(solvableIndicator, publisher);
                 }
-                updateMazeUI(mdc.updateMaze(), buttonarray);
-                if (extrabuttons.getSource() == publisher) {
+                updateMazeUI(mdc.getMazeState(), buttonarray);
+                if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
                     List<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                     Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                     GridPane publishpopuppane = new GridPane();
@@ -153,7 +174,7 @@ public class MazeDesignerUI extends Application implements Screen{
                 if (popuphandle.getSource()==close){
                     publishpopup.hide();
                     mdc.resetMaze();
-                    updateMazeUI(mdc.updateMaze(), buttonarray);
+                    updateMazeUI(mdc.getMazeState(), buttonarray);
                 }
             }
         };
@@ -163,7 +184,7 @@ public class MazeDesignerUI extends Application implements Screen{
         publisher.setOnAction(extrabuttons);
         close.setOnAction(popuphandle);
 
-        updateMazeUI(mdc.updateMaze(), buttonarray);
+        updateMazeUI(mdc.getMazeState(), buttonarray);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 buttonarray[i][j].setOnAction(event);
@@ -177,6 +198,7 @@ public class MazeDesignerUI extends Application implements Screen{
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
+        root.addRow(2, solvableIndicator);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
@@ -219,26 +241,25 @@ public class MazeDesignerUI extends Application implements Screen{
         close.setOnAction(popuphandle);
         wallpopup.show(primaryStage);
     }
-
     /**
      * Update the UI.
      *
      * @param stringarray the stringarray
      * @param buttonarray the buttonarray
      */
-    public void updateMazeUI(String[][] stringarray, Button[][] buttonarray){
+    public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {
                 if(buttonarray[i][j] == null){
                     buttonarray[i][j] = new Button();
                 }
-                if(stringarray[i][j].equals("#")){
+                if(mazeState[i][j] == '#'){
                     buttonarray[i][j].setText("#");
                     buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
-                } else if(stringarray[i][j].equals(".")){
+                } else if(mazeState[i][j] == '.'){
                     buttonarray[i][j].setText(".");
                     buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
-                } else if(stringarray[i][j].equals("S")){
+                } else if(mazeState[i][j] == 'S'){
                     buttonarray[i][j].setText("S");
                     buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
                 } else {

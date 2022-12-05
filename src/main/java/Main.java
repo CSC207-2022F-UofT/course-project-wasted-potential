@@ -9,7 +9,6 @@ import screens.ScreenManager;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.NoSuchElementException;
 
 public class Main extends Application {
 
@@ -31,7 +30,11 @@ public class Main extends Application {
         MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
         MazeDesignerInputBoundary mdi = new MazeDesignerInteractor(mdp);
         MazeDesignerController mdc = new MazeDesignerController(mdi);
-        Screen mdui = new MazeDesignerUI(mdc, mpc);
+        // Solvability use case
+        MazeSolvableOutBoundary msp = new MazeSolvablePresenter();
+        MazeSolvableInBoundary msi = new MazeSolvabilityInteractor(msp);
+        MazeSolvabilityControl msc = new MazeSolvabilityControl(msi);
+        Screen mdui = new MazeDesignerUI(mdc, mpc, msc);
 
         ScreenManager.setStage(primaryStage);
         ScreenManager.addScreen("designer", mdui);

@@ -50,9 +50,9 @@ public class MazeDesignerController {
     /**
      * Updates the current maze
      */
-    public String[][] updateMaze(){
-        return md.updateMaze();
+    public char[][] getMazeState(){
+        return md.getMazeState();
     }
 
-    public DesignableMaze getDm() { return md.getDm();}
+    public DesignableMaze getDm() { return md.getDesignableMaze();}
 }

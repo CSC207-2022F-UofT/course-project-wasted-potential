@@ -71,23 +71,6 @@ public class DesignableMaze extends Maze{
         }
     }
 
-    public void setButtonArray(String[][] buttonarray){
-        for (int i = 0; i < getNumRow(); i++) {
-            for (int j = 0; j < getNumCol(); j++) {
-                if(getCell(i, j) == '#'){
-                    buttonarray[i][j] = "#";
-                } else if (getCell(i, j) == '.'){
-                    buttonarray[i][j] = ".";
-                } else if (getCell(i, j) == 'S'){
-                    buttonarray[i][j] = "S";
-                } else {
-                    buttonarray[i][j] = "E";
-                }
-            }
-        }
-    }
-
-
     public void emptySetup() {
         for (int i = 0; i < this.getNumRow(); i++) {
             for (int j = 0; j < this.getNumCol(); j++) {
