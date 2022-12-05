@@ -48,9 +48,9 @@ public interface MazeDesignerInputBoundary {
 
     /**
      * Updates the Maze
-     * @return returns a String[][] that represents the current maze state for the UI to manipulate visuals
+     * @return returns a char[][] that represents the current maze state for the UI to manipulate visuals
      */
-    public String[][] updateMaze();
+    public char[][] getMazeState();
 
-    DesignableMaze getDm();
+    DesignableMaze getDesignableMaze();
 }

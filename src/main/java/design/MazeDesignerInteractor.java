@@ -8,7 +8,7 @@ import entities.DesignableMaze;
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     private DesignableMaze dm;
-    private RandomizedPrim mg;
+    private MazeGenerator mg;
     private MazeDesignerOutputBoundary mdp;
 
 
@@ -70,13 +70,11 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
         return dm.getNumCol();
     }
 
-    public String[][] updateMaze(){
-        String[][] buttonarray = new String[getRows()][getCols()];
-        dm.setButtonArray(buttonarray);
-        return mdp.updateMazeUI(buttonarray);
+    public char[][] getMazeState(){
+        return mdp.presentMazeState(dm.getState());
     }
 
-    public DesignableMaze getDm() {
+    public DesignableMaze getDesignableMaze() {
         return dm;
     }
 }

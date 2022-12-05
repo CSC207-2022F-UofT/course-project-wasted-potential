@@ -10,8 +10,9 @@ import java.util.Random;
 /**
  * The Randomized prim strategy to generate a maze.
  */
-public class RandomizedPrim extends MazeGenerator {
+public class RandomizedPrim implements MazeGenerator {
 
+    private DesignableMaze maze;
     private static final int[][] DELTA = {
             {2, 0}, {-2, 0}, {0,-2}, {0, 2}
     };
@@ -26,11 +27,16 @@ public class RandomizedPrim extends MazeGenerator {
      * @param maze the maze
      */
     public RandomizedPrim(DesignableMaze maze) {
-        super(maze);
+        this.maze = maze;
     }
 
-    @Override
     public void generate() {
+        // reset helper instance attributes
+        visitedCells.clear();
+        frontierCells.clear();
+        emptyCells.clear();
+
+
         fillMaze();
 
         // start with first empty cell
