@@ -43,7 +43,7 @@ public class MazePublishInteractorTest {
                 designerController.getDm().getStartLocation(),
                 11,
                 17,
-                PublishedMazeSingleton.getId());
+                PublishedMazeSingleton.getId() - 1);
         Assertions.assertTrue(mazes.containsValue(publishedMaze));
     }
 

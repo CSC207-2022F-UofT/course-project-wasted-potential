@@ -3,34 +3,25 @@ package entities;
 import java.time.LocalDate;
 
 /**
- * The type Published maze.  This is the type of maze that will be in the database.
+ * The type Published maze.
  */
 public class PublishedMaze extends Maze{
-    private String author;
-    private String name;
-    private Boolean published;
-    private LocalDate publishDate;
-    private int id;
-    private int[] startPosition;
-
-    /**
-     * Instantiates a new Published maze.
-     */
-    public PublishedMaze() {
-    }
+    protected String author;
+    protected String name;
+    protected Boolean published;
+    protected LocalDate publishDate;
+    protected int id;
+    protected int[] startPosition;
 
     /**
      * Instantiates a new Published maze.
      *
-     * @param author        the author
+     * @param author        the author of the maze
      * @param name          the name of the maze
-     * @param published     whether or not the maze has been published
+     * @param published     a boolean value representing whether the maze has been published
      * @param date          the date the maze was published
-     * @param state         the state of the maze
-     * @param startPosition the start position
-     * @param numRow        the number of rows in the maze
-     * @param numCol        the numof columns in the maze
-     * @param id            the id of the maze
+     * @param state         the layout of the maze
+     * @param startPosition the start position of the maze
      */
     public PublishedMaze(String author,
                          String name,
@@ -51,9 +42,15 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets the author.
+     * Instantiates a new Published maze. This is a default constructor.
+     */
+    public PublishedMaze() {
+    }
+
+    /**
+     * Gets the author of the maze
      *
-     * @return the author
+     * @return the author of the maze
      */
     public String getAuthor() {
         return author;
@@ -62,23 +59,23 @@ public class PublishedMaze extends Maze{
     /**
      * Gets the name of the maze.
      *
-     * @return the name
+     * @return the name of the maze
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Gets whether or not the maze has been published.
+     * Gets the boolean value published.
      *
-     * @return the published
+     * @return the boolean value published
      */
     public Boolean getPublished() {
         return published;
     }
 
     /**
-     * Gets the publish date.
+     * Gets publish date.
      *
      * @return the publish date
      */
@@ -87,23 +84,31 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets the id.
+     * Gets the unique identifier for the maze.
      *
-     * @return the id
+     * @return the unique identifier for the maze
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Get the start position in an integer array.
+     * Gets the start position of the maze.
      *
-     * @return the int [ ]
+     * @return an integer array representing the co-ordinates of the start position
      */
     public int[] getStartPosition() {
         return startPosition;
     }
 
+    /**
+     * A string representation of the published maze.
+     * This string representation is slightly different to the Maze toString() method.
+     * This is because published mazes must be stored in a csv file.
+     * Therefore, toString() returns a representation which makes this easier.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder returnString = new StringBuilder();
