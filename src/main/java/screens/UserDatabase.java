@@ -6,6 +6,7 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 import entities.Designer;
+import entities.PublishedMaze;
 
 public class UserDatabase implements UserRegisterAndLoginDsGateway {
 
@@ -38,9 +39,13 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
                 String userType = String.valueOf(col[headers.get("user_type")]);
                 String password = String.valueOf(col[headers.get("password")]);
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
+                String mazesPlayed = String.valueOf(col[headers.get("mazes_played")]);
+                List<Integer> playedMazes = getMazes(mazesPlayed);
+
+
 
                 if (userType.equals("Player")){
-                    User user = new Player(username, password, creationTime);
+                    User user = new Player(username, password, creationTime,playedMazes);
                     userAccounts.put(username, user);
                 } else if (userType.equals("Designer")){
                     User user = new Designer(username, password, creationTime);
@@ -69,8 +74,8 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
             writer.newLine();
 
             for(User user: userAccounts.values()){
-                String info = String.format("%1$s,%2$s,%3$s,%4$s", user.getUsername(),
-                        user.getUserType(), user.getPassword(),user.getCreationTime());
+                String info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", user.getUsername(),
+                        user.getUserType(), user.getPassword(),user.getCreationTime(), user.getMazesPlayed().mazeListToString());
                 writer.write(info);
                 writer.newLine();
             }
@@ -78,7 +83,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
             writer.close();
 
         } catch (IOException e){
-            throw new RuntimeException(e);
+            throw new IndexOutOfBoundsException(e.getMessage());
         }
 
     }
@@ -98,6 +103,42 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
     @Override
     public boolean existsByName(String username) {
         return userAccounts.containsKey(username);
+    }
+
+    public List<Integer> getMazes(String mazesPlayed) {
+        List<Integer> playedMazes = new ArrayList<Integer>();
+        String[] mazeList = mazesPlayed.split(":");
+        for (String maze : mazeList) {
+            playedMazes.add(Integer.parseInt(maze));
+        }
+        return playedMazes;
+    }
+
+    public String azeListToString (List<Integer> playedMazes) {
+        String mazeList = "";
+        for (Integer mazeId : playedMazes) {
+            mazeList += mazeId.toString();
+            mazeList += ":";
+        }
+        return mazeList;
+    }
+
+    void addToPlayed(int mazeId, String username) {
+        userAccounts.get(username).getMazesPlayed().put(username, mazeId);
+        this.save();
+    }
+
+    ArrayList<Integer> retrievePlayed(String username) {
+        return userAccounts.get(username).getMazesPlayed();
+    }
+
+    ArrayList<Integer> retrieveNotPlayed(String username) {
+        PublishedMazeSingleton singleton;
+        ArrayList<Integer> played = retrievePlayed(username);
+        ArrayList<Integer> allMazes = (ArrayList<Integer>)singleton.getPublishedMazes().values();
+        allMazes.removeAll(played); // Check this works
+        return allMazes;
+
     }
 }
 
