@@ -3,7 +3,6 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.UserFactory;
 import entities.User;
 
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class UserRegisterInteractor implements URegInputBoundary{
 
     final UserRegisterAndLoginDsGateway dsGateway;
-    final URegPresenter presenter;
+    final URegOutputBoundary presenter;
     final UserFactory userFactory;
 
     /**
@@ -24,7 +23,7 @@ public class UserRegisterInteractor implements URegInputBoundary{
      * @param presenter   the presenter
      * @param userFactory the user factory
      */
-    public UserRegisterInteractor(UserRegisterAndLoginDsGateway dsGateway, URegPresenter presenter, UserFactory userFactory){
+    public UserRegisterInteractor(UserRegisterAndLoginDsGateway dsGateway, URegOutputBoundary presenter, UserFactory userFactory){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
         this.userFactory = userFactory;

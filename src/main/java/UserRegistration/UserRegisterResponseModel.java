@@ -39,5 +39,14 @@ public class UserRegisterResponseModel {
         return this.userType;
     }
 
+    /**
+     * Returns the user's creation time as a string.
+     *
+     * @return the user's creation time
+     */
+    public String getCreationTime(){
+        return this.creationTime;
+    }
+
 
 }

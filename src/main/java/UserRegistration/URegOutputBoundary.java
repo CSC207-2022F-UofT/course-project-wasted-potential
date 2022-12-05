@@ -1,6 +1,6 @@
 package UserRegistration;
 
-public interface URegPresenter{
+public interface URegOutputBoundary {
     /**
      * Returns the user response model containing username, user type and creation time.
      *

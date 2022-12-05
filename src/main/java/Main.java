@@ -32,12 +32,12 @@ public class Main extends Application {
             throw new RuntimeException("Could not create file.");
         }
 
-        ULoginPresenter logPresenter = new UserLoginResponseFormatter();
+        ULoginOutputBoundary logPresenter = new UserLoginPresenter();
         ULoginInputBoundary logInteractor = new UserLoginInteractor(gateway, logPresenter);
         UserLoginController logController = new UserLoginController(logInteractor);
         Screen lui = new LoginUI(logController);
 
-        URegPresenter regPresenter = new URegisterResponseFormatter();
+        URegOutputBoundary regPresenter = new URegisterPresenter();
         UserFactory userFactory = new UserFactory();
         URegInputBoundary regInteractor = new UserRegisterInteractor(gateway, regPresenter, userFactory);
         UserRegisterController regController = new UserRegisterController(regInteractor);

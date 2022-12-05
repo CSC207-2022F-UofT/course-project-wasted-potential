@@ -1,6 +1,6 @@
 package UserLogin;
 
-public class UserLoginResponseFormatter implements ULoginPresenter{
+public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override
     public UserLoginResponseModel successView(UserLoginResponseModel userResponseModel) {

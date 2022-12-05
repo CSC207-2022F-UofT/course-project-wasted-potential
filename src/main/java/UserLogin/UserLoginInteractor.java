@@ -9,7 +9,7 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 public class UserLoginInteractor implements ULoginInputBoundary{
 
     final UserRegisterAndLoginDsGateway dsGateway;
-    final ULoginPresenter presenter;
+    final ULoginOutputBoundary presenter;
 
     /**
      * The constructor that instantiates a new UserLoginInteractor.
@@ -18,7 +18,7 @@ public class UserLoginInteractor implements ULoginInputBoundary{
      * @param presenter the presenter
      */
 
-    public UserLoginInteractor(UserRegisterAndLoginDsGateway dsGateway, ULoginPresenter presenter){
+    public UserLoginInteractor(UserRegisterAndLoginDsGateway dsGateway, ULoginOutputBoundary presenter){
         this.dsGateway = dsGateway;
         this.presenter = presenter;
     }

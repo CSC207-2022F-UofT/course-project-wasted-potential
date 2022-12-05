@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import UserLogin.UserLoginController;
 import UserLogin.Singleton;
 
+import java.io.IOException;
+
 
 public class LoginUI extends Application implements Screen{
 
@@ -28,6 +30,7 @@ public class LoginUI extends Application implements Screen{
 
         Label userl = new Label("Username");
         Label pwdl = new Label("Password");
+        Label error = new Label();
 
         TextField utf = new TextField();
         PasswordField pwf = new PasswordField();
@@ -53,17 +56,18 @@ public class LoginUI extends Application implements Screen{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
-                    // store login response model and
-                    // call functions in scene manager in if else depending on designer or player.
-                    UserLoginResponseModel responseModel = controller.loginUser(username, password);
-                    Singleton.getInstance(responseModel.getUsername());
+                    try {
+                        UserLoginResponseModel responseModel = controller.loginUser(username, password);
+                        Singleton.getInstance(responseModel.getUsername());
 
-                    if (responseModel.getUserType().equals("Player")){
-                        // ScreenManager.changeScreen("play");
-                    } else if (responseModel.getUserType().equals("Designer")){
-                        ScreenManager.changeScreen("designer");
-                    } else {
-                        // throw exception????????
+                        if (responseModel.getUserType().equals("Player")) {
+                            // ScreenManager.changeScreen("play");
+                        } else if (responseModel.getUserType().equals("Designer")) {
+                            ScreenManager.changeScreen("designer");
+                        }
+
+                    } catch (RuntimeException e){
+                        error.setText(e.getMessage());
                     }
 
                 } else if (actionEvent.getSource() == regis){
@@ -82,8 +86,9 @@ public class LoginUI extends Application implements Screen{
 
         root.setVgap(10);
         root.addRow(0, formgp);
-        root.addRow(1, regis);
-        root.addRow(2, login);
+        root.addRow(1, error);
+        root.addRow(2, regis);
+        root.addRow(3, login);
 
         GridPane maze = new GridPane();
 

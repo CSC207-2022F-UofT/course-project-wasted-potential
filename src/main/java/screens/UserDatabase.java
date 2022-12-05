@@ -25,10 +25,11 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
             save();
         } else {
 
+            // Code Smell left alone because it makes the code harder to read through.
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
 
             String userInfo;
-            //Skips the first line of the csv file.
+            //Code smell left alone because this code skips the first line of the csv file.
             reader.readLine();
 
             while ((userInfo = reader.readLine()) != null){
@@ -99,3 +100,4 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
         return userAccounts.containsKey(username);
     }
 }
+

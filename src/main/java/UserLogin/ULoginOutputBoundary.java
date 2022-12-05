@@ -1,6 +1,6 @@
 package UserLogin;
 
-public interface ULoginPresenter {
+public interface ULoginOutputBoundary {
     /**
      * Returns the user response model containing username and user type.
      *

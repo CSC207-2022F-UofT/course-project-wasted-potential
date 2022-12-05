@@ -51,6 +51,7 @@ public class RegisterUI extends Application implements Screen{
         formgp.add(rpwf,2,2);
 
         Label choose = new Label("Please choose a user type:");
+        Label error = new Label();
         Button designer = new Button("Designer");
         Button player = new Button("Player");
         Button regis = new Button("Register");
@@ -66,15 +67,26 @@ public class RegisterUI extends Application implements Screen{
             public void handle(ActionEvent actionEvent) {
                 String username = utf.getText();
                 String password = pwf.getText();
-                String repeatPassword = pwf.getText();
-                String userType = " ";
+                String repeatPassword = rpwf.getText();
+                String userType;
 
                 if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
                     userType = "Player";
-                    register(username, password, repeatPassword, userType);
+
+                    // Repeated code needed to set the error message onto the label. Otherwise, the
+                    // method has to be repeated and that's more code being repeated.
+                    try {
+                        register(username, password, repeatPassword, userType);
+                    } catch (RuntimeException e){
+                        error.setText(e.getMessage());
+                    }
                 } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
                     userType = "Designer";
-                    register(username, password, repeatPassword, userType);
+                    try {
+                        register(username, password, repeatPassword, userType);
+                    } catch (RuntimeException e){
+                        error.setText(e.getMessage());
+                    }
                 } else {
                     Popup wallpopup = new Popup();
                     Button close = new Button("Close");
@@ -119,8 +131,9 @@ public class RegisterUI extends Application implements Screen{
 
         root.setVgap(10);
         root.addRow(0, formgp);
-        root.addRow(1, choose);
-        root.addRow(2, buttons);
+        root.addRow(1, error);
+        root.addRow(2, choose);
+        root.addRow(3, buttons);
 
         Scene scene = new Scene(root, 432, 321);
         String css = this.getClass().getResource("/logres.css").toExternalForm();
@@ -130,21 +143,17 @@ public class RegisterUI extends Application implements Screen{
         primaryStage.show();
     }
 
-    public void register(String username, String password, String repeatPassword, String userType){
+    public void register(String username, String password, String repeatPassword, String userType) {
+
         UserRegisterResponseModel responseModel = controller.registerUser(username, password,
                 repeatPassword, userType);
         Singleton.getInstance(responseModel.getUsername());
 
-        System.out.println(responseModel.getUserType());
-        if (responseModel.getUserType().equals("Player")){
+        if (responseModel.getUserType().equals("Player")) {
             //ScreenManager.changeScreen("play");
 
-        } else if (responseModel.getUserType().equals("Designer")){
+        } else if (responseModel.getUserType().equals("Designer")) {
             ScreenManager.changeScreen("designer");
-
-        } else {
-            //throw an exception??
         }
     }
-
 }

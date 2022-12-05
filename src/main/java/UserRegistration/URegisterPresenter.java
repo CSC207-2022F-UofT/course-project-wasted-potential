@@ -1,6 +1,6 @@
 package UserRegistration;
 
-public class URegisterResponseFormatter implements URegPresenter {
+public class URegisterPresenter implements URegOutputBoundary {
 
     @Override
     public UserRegisterResponseModel successView(UserRegisterResponseModel userResponseModel) {
