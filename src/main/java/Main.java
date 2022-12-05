@@ -6,9 +6,11 @@ import screens.MazeDatabase;
 import screens.MazeDesignerUI;
 import screens.Screen;
 import screens.ScreenManager;
+import solvability.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.NoSuchElementException;
 
 public class Main extends Application {
 

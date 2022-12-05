@@ -17,8 +17,8 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import publish.PublishMazeController;
 
+import solvability.MazeSolvabilityControl;
 import solvability.MazeSolvabilityResponseModel;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,14 +35,14 @@ public class MazeDesignerUI extends Application implements Screen{
 
     private MazeSolvabilityControl msc;
 
-    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
     /**
      * Instantiates a new Maze designer ui.
      *
      * @param mdc the MazeDesignerController
      * @param mpc the PublishMazeController
+     * @param msc the MazeSolvabilityControl
      */
-    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc) {
+    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc, MazeSolvabilityControl msc) {
         this.mdc = mdc;
         this.mpc = mpc;
         this.msc = msc;
@@ -244,7 +244,7 @@ public class MazeDesignerUI extends Application implements Screen{
     /**
      * Update the UI.
      *
-     * @param stringarray the stringarray
+     * @param mazeState the state of the maze
      * @param buttonarray the buttonarray
      */
     public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
