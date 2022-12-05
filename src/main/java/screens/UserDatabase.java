@@ -6,14 +6,22 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 import entities.Designer;
-import entities.PublishedMaze;
 
+/**
+ * The User Database
+ */
 public class UserDatabase implements UserRegisterAndLoginDsGateway {
 
     private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, User> userAccounts = new HashMap<>();
 
+    /**
+     * Instantiates a new User database.
+     *
+     * @param csvPath the CSV file path
+     * @throws IOException the io exception
+     */
     public UserDatabase(String csvPath) throws IOException{
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -75,7 +83,8 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
 
             for(User user: userAccounts.values()){
                 String info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", user.getUsername(),
-                        user.getUserType(), user.getPassword(),user.getCreationTime(), user.getMazesPlayed().mazeListToString());
+                        user.getUserType(), user.getPassword(),user.getCreationTime(),
+                        user.getMazesPlayed().mazeListToString());
                 writer.write(info);
                 writer.newLine();
             }
@@ -105,6 +114,12 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
         return userAccounts.containsKey(username);
     }
 
+    /**
+     * Gets mazes.
+     *
+     * @param mazesPlayed the mazes played
+     * @return the mazes
+     */
     public List<Integer> getMazes(String mazesPlayed) {
         List<Integer> playedMazes = new ArrayList<Integer>();
         String[] mazeList = mazesPlayed.split(":");
@@ -114,7 +129,13 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
         return playedMazes;
     }
 
-    public String azeListToString (List<Integer> playedMazes) {
+    /**
+     * Maze list to string string.
+     *
+     * @param playedMazes the played mazes
+     * @return the string
+     */
+    public String MazeListToString (List<Integer> playedMazes) {
         String mazeList = "";
         for (Integer mazeId : playedMazes) {
             mazeList += mazeId.toString();
@@ -123,15 +144,33 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
         return mazeList;
     }
 
+    /**
+     * Add to played.
+     *
+     * @param mazeId   the maze id
+     * @param username the username
+     */
     void addToPlayed(int mazeId, String username) {
         userAccounts.get(username).getMazesPlayed().put(username, mazeId);
         this.save();
     }
 
+    /**
+     * Retrieve played array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
     ArrayList<Integer> retrievePlayed(String username) {
         return userAccounts.get(username).getMazesPlayed();
     }
 
+    /**
+     * Retrieve not played array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
     ArrayList<Integer> retrieveNotPlayed(String username) {
         PublishedMazeSingleton singleton;
         ArrayList<Integer> played = retrievePlayed(username);
