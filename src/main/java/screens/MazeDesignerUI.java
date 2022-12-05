@@ -1,6 +1,5 @@
 package screens;
 
-import solvability.MazeSolvabilityControl;
 import design.MazeDesignerController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,24 +15,44 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import publish.MazePublisherControl;
-import solvability.MazeSolvabilityResponseModel;
-import java.util.ArrayList;
+import publish.PublishMazeController;
 
-public class MazeDesignerUI extends Application implements Screen {
+import solvability.MazeSolvabilityControl;
+import solvability.MazeSolvabilityResponseModel;
+import java.util.List;
+
+/**
+ * The UI for designing a maze.
+ */
+public class MazeDesignerUI extends Application implements Screen{
+    /**
+     * The Css file containing visual information.
+     */
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
-    private MazePublisherControl mpc;
+    private PublishMazeController mpc;
 
     private MazeSolvabilityControl msc;
 
-    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc, MazeSolvabilityControl msc) {
+    /**
+     * Instantiates a new Maze designer ui.
+     *
+     * @param mdc the MazeDesignerController
+     * @param mpc the PublishMazeController
+     * @param msc the MazeSolvabilityControl
+     */
+    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc, MazeSolvabilityControl msc) {
         this.mdc = mdc;
         this.mpc = mpc;
         this.msc = msc;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -50,9 +69,9 @@ public class MazeDesignerUI extends Application implements Screen {
 
     @Override
     public void start(Stage primaryStage){
-        int row = 11;
-        int col = 17;
-        Button buttonarray[][] = new Button[row][col];
+        int mazeRows = 11;
+        int mazeCols = 17;
+        Button[][] buttonarray = new Button[mazeRows][mazeCols];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
@@ -82,93 +101,86 @@ public class MazeDesignerUI extends Application implements Screen {
         Popup publishpopup = new Popup();
         Button close = new Button("Close");
 
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event){
-                int row=buttonarray.length;
-                int col=buttonarray[0].length;
+        EventHandler<ActionEvent> eventHandler = (ActionEvent event) -> {
+            int row=buttonarray.length;
+            int col=buttonarray[0].length;
 
-                for (int i = 0; i < row; i++) {
-                    for (int j = 0; j < col; j++) {
-                        if (event.getSource()==buttonarray[i][j]){
-                            row = i;
-                            col = j;
-                        }
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    if (event.getSource()==buttonarray[i][j]){
+                        row = i;
+                        col = j;
                     }
-                }
-                if (row == 0 || col == 0 || row == buttonarray.length-1 || col == buttonarray[0].length-1){
-                    if(event.getSource()!=resetter && event.getSource()!=randomizer) {
-                        outerWallEdit(primaryStage);
-                    }
-                } else {
-                    String handler = "";
-                    if (builder == choices.getSelectedToggle()) {
-                        handler = "build";
-                    } else if (bulldozer == choices.getSelectedToggle()) {
-                        handler = "remove";
-                    } else if (starter == choices.getSelectedToggle()) {
-                        handler = "start";
-                    } else if (ender == choices.getSelectedToggle()) {
-                        handler = "end";
-                    }
-                    mdc.handleBuild(handler, row, col);
-                    updateMazeUI(mdc.getMazeState(), buttonarray);
-                    updateSolvability(solvableIndicator, publisher);
                 }
             }
-        };
-
-        EventHandler<ActionEvent> extrabuttons = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent extrabuttons){
-                if (extrabuttons.getSource()==resetter){
-                    mdc.resetMaze();
-                    updateSolvability(solvableIndicator, publisher);
-                } else if (extrabuttons.getSource()==randomizer){
-                    mdc.randoMaze();
-                    updateSolvability(solvableIndicator, publisher);
+            if (row == 0 || col == 0 || row == buttonarray.length-1 || col == buttonarray[0].length-1){
+                if(event.getSource()!=resetter && event.getSource()!=randomizer) {
+                    outerWallEdit(primaryStage);
                 }
+            } else {
+                String handler = "";
+                if (builder == choices.getSelectedToggle()) {
+                    handler = "build";
+                } else if (bulldozer == choices.getSelectedToggle()) {
+                    handler = "remove";
+                } else if (starter == choices.getSelectedToggle()) {
+                    handler = "start";
+                } else if (ender == choices.getSelectedToggle()) {
+                    handler = "end";
+                }
+                mdc.handleBuild(handler, row, col);
                 updateMazeUI(mdc.getMazeState(), buttonarray);
-                if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
-                    ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
-                    Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
-                    GridPane publishpopuppane = new GridPane();
-                    publishpopuppane.addRow(0, label);
-                    publishpopuppane.addRow(1, close);
-                    publishpopup.getContent().add(publishpopuppane);
-                    publishpopuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
-                    close.setStyle("-fx-background-color: #BB86FC;");
-
-                    publishpopuppane.setMinHeight(100);
-                    publishpopuppane.setMinWidth(234);
-                    publishpopuppane.setAlignment(Pos.CENTER);
-
-                    label.setMinWidth(80);
-                    label.setMinHeight(50);
-
-                    publishpopup.show(primaryStage);
-                }
-            }
-
-        };
-
-        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent popuphandle){
-                if (popuphandle.getSource()==close){
-                    publishpopup.hide();
-                    mdc.resetMaze();
-                    updateMazeUI(mdc.getMazeState(), buttonarray);
-                }
+                updateSolvability(solvableIndicator, publisher);
             }
         };
 
-        resetter.setOnAction(extrabuttons);
-        randomizer.setOnAction(extrabuttons);
-        publisher.setOnAction(extrabuttons);
-        close.setOnAction(popuphandle);
+        EventHandler<ActionEvent> extrabuttonHandler = (ActionEvent extrabuttons) -> {
+            if (extrabuttons.getSource()==resetter){
+                mdc.resetMaze();
+                updateSolvability(solvableIndicator, publisher);
+            } else if (extrabuttons.getSource()==randomizer){
+                mdc.randoMaze();
+                updateSolvability(solvableIndicator, publisher);
+            }
+            updateMazeUI(mdc.getMazeState(), buttonarray);
+            if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
+                List<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
+                Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
+                GridPane publishpopuppane = new GridPane();
+                publishpopuppane.addRow(0, label);
+                publishpopuppane.addRow(1, close);
+                publishpopup.getContent().add(publishpopuppane);
+                publishpopuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+                close.setStyle("-fx-background-color: #BB86FC;");
+
+                publishpopuppane.setMinHeight(100);
+                publishpopuppane.setMinWidth(234);
+                publishpopuppane.setAlignment(Pos.CENTER);
+
+                label.setMinWidth(80);
+                label.setMinHeight(50);
+
+                publishpopup.show(primaryStage);
+            }
+        };
+
+        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
+            if (popuphandle.getSource()==close){
+                publishpopup.hide();
+                mdc.resetMaze();
+                updateMazeUI(mdc.getMazeState(), buttonarray);
+            }
+        };
+
+        resetter.setOnAction(extrabuttonHandler);
+        randomizer.setOnAction(extrabuttonHandler);
+        publisher.setOnAction(extrabuttonHandler);
+        close.setOnAction(popupHandler);
 
         updateMazeUI(mdc.getMazeState(), buttonarray);
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                buttonarray[i][j].setOnAction(event);
+        for (int i = 0; i < mazeRows; i++) {
+            for (int j = 0; j < mazeCols; j++) {
+                buttonarray[i][j].setOnAction(eventHandler);
             }
         }
 
@@ -189,6 +201,11 @@ public class MazeDesignerUI extends Application implements Screen {
         primaryStage.show();
     }
 
+    /**
+     * Creates a popup if the user tries to edit an outer wall.
+     *
+     * @param primaryStage the primary stage
+     */
     public void outerWallEdit(Stage primaryStage){
         Popup wallpopup = new Popup();
         Button close = new Button("Close");
@@ -207,17 +224,20 @@ public class MazeDesignerUI extends Application implements Screen {
         label.setMinWidth(80);
         label.setMinHeight(50);
 
-        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent popuphandle){
-                if (popuphandle.getSource()==close){
-                    wallpopup.hide();
-                }
+        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
+            if (popuphandle.getSource() == close) {
+                wallpopup.hide();
             }
         };
-        close.setOnAction(popuphandle);
+        close.setOnAction(popupHandler);
         wallpopup.show(primaryStage);
     }
-
+    /**
+     * Update the UI.
+     *
+     * @param mazeState the state of the maze
+     * @param buttonarray the buttonarray
+     */
     public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {

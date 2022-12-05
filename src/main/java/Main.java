@@ -1,4 +1,3 @@
-import solvability.*;
 import design.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,9 +6,11 @@ import screens.MazeDatabase;
 import screens.MazeDesignerUI;
 import screens.Screen;
 import screens.ScreenManager;
+import solvability.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.NoSuchElementException;
 
 public class Main extends Application {
 
@@ -17,19 +18,17 @@ public class Main extends Application {
         launch(args);
     }
     public void start(Stage primaryStage){
-        MazePublisherPresenter mpp = new MazePublisherPresenter();
-        MazePublisherGateway md;
+        PublishMazePresenter mpp = new PublishMazePresenter();
+        PublishMazeGateway md;
         try {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
+            throw new IndexOutOfBoundsException("Could not create file.");
         } catch (ParseException e) {
-            throw new RuntimeException("Creation date is incorrect.");
+            throw new NoSuchElementException("Creation date is incorrect.");
         }
-        // Publisher use case
-        MazePublishInteractor mpi = new MazePublishInteractor(mpp, md);
-        MazePublisherControl mpc = new MazePublisherControl(mpi);
-        // Designer use case
+        PublishMazeInteractor mpi = new PublishMazeInteractor(mpp, md);
+        PublishMazeController mpc = new PublishMazeController(mpi);
         MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
         MazeDesignerInputBoundary mdi = new MazeDesignerInteractor(mdp);
         MazeDesignerController mdc = new MazeDesignerController(mdi);
