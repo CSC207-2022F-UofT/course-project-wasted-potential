@@ -14,21 +14,39 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import publish.MazePublisherControl;
+import publish.PublishMazeController;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * The UI for designing a maze.
+ */
 public class MazeDesignerUI extends Application implements Screen{
+    /**
+     * The Css file containing visual information.
+     */
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
     private MazeDesignerController mdc;
 
-    private MazePublisherControl mpc;
+    private PublishMazeController mpc;
 
-    public MazeDesignerUI(MazeDesignerController mdc, MazePublisherControl mpc) {
+    /**
+     * Instantiates a new Maze designer ui.
+     *
+     * @param mdc the MazeDesignerController
+     * @param mpc the PublishMazeController
+     */
+    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc) {
         this.mdc = mdc;
         this.mpc = mpc;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -40,7 +58,6 @@ public class MazeDesignerUI extends Application implements Screen{
         Button buttonarray[][] = new Button[row][col];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
-        Button publish = new Button("Publish");
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
@@ -109,7 +126,7 @@ public class MazeDesignerUI extends Application implements Screen{
                 }
                 updateMazeUI(mdc.updateMaze(), buttonarray);
                 if (extrabuttons.getSource() == publisher) {
-                    ArrayList<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
+                    List<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                     Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                     GridPane publishpopuppane = new GridPane();
                     publishpopuppane.addRow(0, label);
@@ -169,6 +186,11 @@ public class MazeDesignerUI extends Application implements Screen{
         primaryStage.show();
     }
 
+    /**
+     * Creates a popup if the user tries to edit an outer wall.
+     *
+     * @param primaryStage the primary stage
+     */
     public void outerWallEdit(Stage primaryStage){
         Popup wallpopup = new Popup();
         Button close = new Button("Close");
@@ -198,6 +220,12 @@ public class MazeDesignerUI extends Application implements Screen{
         wallpopup.show(primaryStage);
     }
 
+    /**
+     * Update the UI.
+     *
+     * @param stringarray the stringarray
+     * @param buttonarray the buttonarray
+     */
     public void updateMazeUI(String[][] stringarray, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {

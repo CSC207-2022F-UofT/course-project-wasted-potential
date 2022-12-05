@@ -3,7 +3,7 @@ package entities;
 import java.time.LocalDate;
 
 /**
- * The type Published maze.
+ * The type Published maze.  This is the type of maze that will be in the database.
  */
 public class PublishedMaze extends Maze{
     private String author;
@@ -23,11 +23,14 @@ public class PublishedMaze extends Maze{
      * Instantiates a new Published maze.
      *
      * @param author        the author
-     * @param name          the name
-     * @param published     the published
-     * @param date          the date
-     * @param state         the state
+     * @param name          the name of the maze
+     * @param published     whether or not the maze has been published
+     * @param date          the date the maze was published
+     * @param state         the state of the maze
      * @param startPosition the start position
+     * @param numRow        the number of rows in the maze
+     * @param numCol        the numof columns in the maze
+     * @param id            the id of the maze
      */
     public PublishedMaze(String author,
                          String name,
@@ -46,8 +49,9 @@ public class PublishedMaze extends Maze{
         this.id = id;
         this.startPosition = startPosition;
     }
+
     /**
-     * Gets author.
+     * Gets the author.
      *
      * @return the author
      */
@@ -56,7 +60,7 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets name.
+     * Gets the name of the maze.
      *
      * @return the name
      */
@@ -65,7 +69,7 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets published.
+     * Gets whether or not the maze has been published.
      *
      * @return the published
      */
@@ -74,7 +78,7 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets publish date.
+     * Gets the publish date.
      *
      * @return the publish date
      */
@@ -83,7 +87,7 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Gets id.
+     * Gets the id.
      *
      * @return the id
      */
@@ -92,7 +96,7 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Get start position int [ ].
+     * Get the start position in an integer array.
      *
      * @return the int [ ]
      */
@@ -111,5 +115,14 @@ public class PublishedMaze extends Maze{
             returnString.append(curRow + ":");
         }
         return returnString.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PublishedMaze)) {
+            return false;
+        }
+        PublishedMaze pm = (PublishedMaze) obj;
+        return pm.getState() == ((PublishedMaze) obj).getState() && pm.getId() == ((PublishedMaze) obj).getId();
     }
 }

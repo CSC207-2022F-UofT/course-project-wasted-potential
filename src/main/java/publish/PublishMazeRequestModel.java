@@ -3,29 +3,29 @@ package publish;
 import entities.DesignableMaze;
 
 /**
- * The type Maze published request model.
+ * The request model class for the use case of publishing mazes.
  */
-public class MazePublishedRequestModel {
+public class PublishMazeRequestModel {
     private String author;
     private String name;
 
     private DesignableMaze dm;
 
     /**
-     * Instantiates a new Maze published request model.
+     * Instantiates a new PublishedMazeRequestModel.
      *
      * @param author the author
-     * @param name   the name
-     * @param dm     the dm
+     * @param name   the name of the maze
+     * @param dm     the DesignableMaze being published.
      */
-    public MazePublishedRequestModel(String author, String name, DesignableMaze dm) {
+    public PublishMazeRequestModel(String author, String name, DesignableMaze dm) {
         this.author = author;
         this.name = name;
         this.dm = dm;
     }
 
     /**
-     * Gets author.
+     * Gets the author.
      *
      * @return the author
      */
@@ -34,7 +34,7 @@ public class MazePublishedRequestModel {
     }
 
     /**
-     * Gets name.
+     * Gets the maze's name.
      *
      * @return the name
      */
@@ -43,9 +43,9 @@ public class MazePublishedRequestModel {
     }
 
     /**
-     * Gets dm.
+     * Gets the DesignableMaze.
      *
-     * @return the dm
+     * @return the DesignableMaze
      */
     public DesignableMaze getDm() {
         return dm;

@@ -2,6 +2,9 @@ package entities;
 
 import java.time.LocalDate;
 
+/**
+ * The type Saved maze.
+ */
 public class SavedMaze extends Maze{
     private String author;
     private String name;
@@ -9,6 +12,18 @@ public class SavedMaze extends Maze{
     private LocalDate publishDate;
     private int[] startPosition;
 
+    /**
+     * Instantiates a new Saved maze.
+     *
+     * @param author        the author
+     * @param name          the name
+     * @param published     the published
+     * @param date          the date
+     * @param state         the state
+     * @param startPosition the start position
+     * @param numRow        the num row
+     * @param numCol        the num col
+     */
     public SavedMaze(String author,
                      String name,
                      Boolean published,
@@ -24,6 +39,7 @@ public class SavedMaze extends Maze{
         this.publishDate = date;
         this.startPosition = startPosition;
     }
+
     /**
      * Gets author.
      *

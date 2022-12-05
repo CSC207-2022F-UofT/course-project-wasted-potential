@@ -16,8 +16,8 @@ public class Main extends Application {
         launch(args);
     }
     public void start(Stage primaryStage){
-        MazePublisherPresenter mpp = new MazePublisherPresenter();
-        MazePublisherGateway md;
+        PublishMazePresenter mpp = new PublishMazePresenter();
+        PublishMazeGateway md;
         try {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
@@ -25,8 +25,8 @@ public class Main extends Application {
         } catch (ParseException e) {
             throw new RuntimeException("Creation date is incorrect.");
         }
-        MazePublishInteractor mpi = new MazePublishInteractor(mpp, md);
-        MazePublisherControl mpc = new MazePublisherControl(mpi);
+        PublishMazeInteractor mpi = new PublishMazeInteractor(mpp, md);
+        PublishMazeController mpc = new PublishMazeController(mpi);
         MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
         MazeDesignerInputBoundary mdi = new MazeDesignerInteractor(mdp);
         MazeDesignerController mdc = new MazeDesignerController(mdi);
