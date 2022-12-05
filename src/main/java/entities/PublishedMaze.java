@@ -121,4 +121,13 @@ public class PublishedMaze extends Maze{
         }
         return returnString.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PublishedMaze)) {
+            return false;
+        }
+        PublishedMaze pm = (PublishedMaze) obj;
+        return pm.getState() == ((PublishedMaze) obj).getState() && pm.getId() == ((PublishedMaze) obj).getId();
+    }
 }
