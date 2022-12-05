@@ -1,6 +1,6 @@
 package retrieval;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The use case interactor for the maze retriever use case.
@@ -33,8 +33,8 @@ public class MazeRetrieverInteractor implements MazeRetrieverInputBoundary {
      */
     @Override
     public MazeRetrieverResponseModel create(MazeRetrieverRequestModel requestModel) {
-        ArrayList<Integer> played = mazeRetrieverDsGateway.retrievePlayed(requestModel.getUsername());
-        ArrayList<Integer> notPlayed = mazeRetrieverDsGateway.retrieveNotPlayed(requestModel.getUsername());
+        List<Integer> played = mazeRetrieverDsGateway.retrievePlayed(requestModel.getUsername());
+        List<Integer> notPlayed = mazeRetrieverDsGateway.retrieveNotPlayed(requestModel.getUsername());
 
         MazeRetrieverResponseModel responseModel = new MazeRetrieverResponseModel(played, notPlayed);
 

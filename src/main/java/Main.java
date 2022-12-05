@@ -7,10 +7,6 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import screens.LoginUI;
 import screens.RegisterUI;
 import screens.UserDatabase;
-import publish.MazeDatabase;
-import publish.MazePublishInteractor;
-import publish.MazePublisherControl;
-import publish.MazePublisherPresenter;
 import publish.*;
 import screens.MazeDatabase;
 import screens.MazeDesignerUI;
@@ -19,8 +15,6 @@ import javafx.application.Application;
 import screens.Screen;
 import screens.ScreenManager;
 import solvability.*;
-
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.NoSuchElementException;
 
@@ -51,10 +45,8 @@ public class Main extends Application {
         Screen rui = new RegisterUI(regController);
 
 
-        MazePublisherPresenter mpp = new MazePublisherPresenter();
         MazeDatabase md;
         PublishMazePresenter mpp = new PublishMazePresenter();
-        PublishMazeGateway md;
         try {
             md = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {

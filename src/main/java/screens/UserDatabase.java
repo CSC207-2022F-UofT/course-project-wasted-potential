@@ -2,15 +2,18 @@ package screens;
 import java.io.*;
 import java.util.*;
 
+import display.PlayerDsGateway;
+import entities.PublishedMaze;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import entities.User;
 import entities.Player;
 import entities.Designer;
+import retrieval.MazeRetrieverDsGateway;
 
 /**
  * The User Database
  */
-public class UserDatabase implements UserRegisterAndLoginDsGateway {
+public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGateway, MazeRetrieverDsGateway {
 
     private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -82,11 +85,14 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
             writer.newLine();
 
             for(User user: userAccounts.values()){
-                String info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", user.getUsername(),
-                        user.getUserType(), user.getPassword(),user.getCreationTime(),
-                        user.getMazesPlayed().mazeListToString());
-                writer.write(info);
-                writer.newLine();
+                if (user instanceof Player) {
+                    Player player = (Player)(user);
+                    String info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
+                            player.getUserType(), player.getPassword(), player.getCreationTime(),
+                            mazeListToString(player.getMazesPlayed()));
+                    writer.write(info);
+                    writer.newLine();
+                }
             }
 
             writer.close();
@@ -135,7 +141,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
      * @param playedMazes the played mazes
      * @return the string
      */
-    public String MazeListToString (List<Integer> playedMazes) {
+    public String mazeListToString (List<Integer> playedMazes) {
         String mazeList = "";
         for (Integer mazeId : playedMazes) {
             mazeList += mazeId.toString();
@@ -150,8 +156,10 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
      * @param mazeId   the maze id
      * @param username the username
      */
-    void addToPlayed(int mazeId, String username) {
-        userAccounts.get(username).getMazesPlayed().put(username, mazeId);
+    @Override
+    public void addToPlayed(int mazeId, String username) {
+        Player player = (Player)userAccounts.get(username);
+        player.getMazesPlayed().add(mazeId);
         this.save();
     }
 
@@ -161,8 +169,10 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
      * @param username the username
      * @return the array list
      */
-    ArrayList<Integer> retrievePlayed(String username) {
-        return userAccounts.get(username).getMazesPlayed();
+    @Override
+    public List<Integer> retrievePlayed(String username) {
+        Player player = (Player)userAccounts.get(username);
+        return player.getMazesPlayed();
     }
 
     /**
@@ -171,12 +181,17 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway {
      * @param username the username
      * @return the array list
      */
-    ArrayList<Integer> retrieveNotPlayed(String username) {
-        PublishedMazeSingleton singleton;
-        ArrayList<Integer> played = retrievePlayed(username);
-        ArrayList<Integer> allMazes = (ArrayList<Integer>)singleton.getPublishedMazes().values();
-        allMazes.removeAll(played); // Check this works
-        return allMazes;
+    @Override
+    public List<Integer> retrieveNotPlayed(String username) {
+        PublishedMazeSingleton singleton = PublishedMazeSingleton.getInstance();
+        List<Integer> played = retrievePlayed(username);
+        List<PublishedMaze> mazes = (List<PublishedMaze>) singleton.getPublishedMazes().values();
+        List<Integer> mazeIds = new ArrayList<>();
+        for (PublishedMaze maze : mazes) {
+            mazeIds.add(maze.getId());
+        }
+        mazeIds.removeAll(played);
+        return mazeIds;
 
     }
 }
