@@ -4,9 +4,10 @@ import entities.PublishedMaze;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
- * The Singleton containing published mazes and their IDs.
+ * The type Published maze singleton. Stores a list of all published mazes.
  */
 public class PublishedMazeSingleton { // Need to create a static int object
 
@@ -16,16 +17,16 @@ public class PublishedMazeSingleton { // Need to create a static int object
     private static int id = 0;
 
     /**
-     * Instantiates a new PublishedMazeSingleton.
+     * Instantiates a new Published maze singleton.
      */
     public PublishedMazeSingleton() {
         this.publishedMazes = new HashMap<>();
     }
 
     /**
-     * Gets instance.
+     * Gets an instance of PublishedMazeSingleton or creates one if there is no instance.
      *
-     * @return the instance
+     * @return the instance of PublishedMazeSingleton
      */
     public static PublishedMazeSingleton getInstance() {
         if (instance == null) {
@@ -35,23 +36,22 @@ public class PublishedMazeSingleton { // Need to create a static int object
     }
 
     /**
-     * Gets the published maze at the given ID.
+     * Gets published maze with the given maze id.
      *
-     * @param mazeId the maze id
-     * @return the published maze at the given ID
+     * @param mazeId the maze id of the requested maze
+     * @return the published maze with the given maze id
      */
-    public PublishedMaze getPublishedMaze(int mazeId) {
+    public PublishedMaze getPublishedMaze(int mazeId) throws NoSuchElementException {
         if (this.publishedMazes.containsKey(mazeId)) {
             return publishedMazes.get(mazeId);
         }
-
         else {
-            return null;
-        } // Redo this
+            throw new NoSuchElementException("Invalid maze ID");
+        }
     }
 
     /**
-     * Gets all the published mazes.
+     * Gets published mazes.
      *
      * @return the published mazes
      */
@@ -62,17 +62,17 @@ public class PublishedMazeSingleton { // Need to create a static int object
     /**
      * Update id.
      *
-     * @param id the id to update to
+     * @param id the id
      */
     public static void updateId(int id) {
         PublishedMazeSingleton.id = id + 1;
     }
 
     /**
-     * Add maze to the map.
+     * Add maze.
      *
-     * @param id   the id of the maze
-     * @param info the maze information
+     * @param id   the id
+     * @param info the info
      */
     public void addMaze(int id, MazeInformation info) {
         publishedMazes.put(id, new PublishedMaze(info.getAuthor(), info.getName(), true, info.getCreationTime(),
@@ -81,9 +81,9 @@ public class PublishedMazeSingleton { // Need to create a static int object
     }
 
     /**
-     * Add maze to the map.
+     * Add maze.
      *
-     * @param info the maze information
+     * @param info the info
      */
     public void addMaze(MazeInformation info) {
         publishedMazes.put(id, new PublishedMaze(info.getAuthor(), info.getName(), true, info.getCreationTime(),

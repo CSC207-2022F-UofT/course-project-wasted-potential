@@ -48,8 +48,9 @@ public class MazeRetrieverUI {
                 Button button = (Button) event.getSource();
                 MazeDisplayResponseModel respModel =
                         displayController.create(singleton.getUsername(), Integer.valueOf(button.getText()));
-                MazeSingleton maze = MazeSingleton.getInstance(respModel.getMaze()); // Explain why this
-                // isn't a warning
+                MazeSingleton maze = MazeSingleton.getInstance();
+                maze.setMaze(respModel.getMaze());
+
                 ScreenManager.changeScreen("kill me"); // Need to send the maze to it too
             });
             playedHBox.getChildren().add(buttonsPlayed[i]);
@@ -62,8 +63,8 @@ public class MazeRetrieverUI {
                 Button button = (Button) event.getSource();
                 MazeDisplayResponseModel respModel =
                         displayController.create(singleton.getUsername(), Integer.valueOf(button.getText()));
-                MazeSingleton maze = MazeSingleton.getInstance(respModel.getMaze()); // Explain why this
-                // isn't a warning
+                MazeSingleton maze = MazeSingleton.getInstance();
+                maze.setMaze(respModel.getMaze());
                 ScreenManager.changeScreen("kill me"); // Need to send the maze to it too
 
             });
