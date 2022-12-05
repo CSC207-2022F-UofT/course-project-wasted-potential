@@ -1,4 +1,4 @@
-package screens;
+package navigation;
 
 import navigation.*;
 

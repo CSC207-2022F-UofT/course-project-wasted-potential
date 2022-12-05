@@ -1,23 +1,28 @@
 package screens;
-import java.util.ArrayList;
 
 import display.MazeDisplayController;
-import retrieval.MazeRetrieverController;
-import retrieval.MazeRetrieverResponseModel;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import display.MazeDisplayResponseModel;
+import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import display.MazeDisplayResponseModel;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import retrieval.MazeRetrieverController;
+import retrieval.MazeRetrieverResponseModel;
 
+import java.util.ArrayList;
 
 /**
  * The view for the maze retriever use case.
  *
  * @author Oscar Tuvey
  */
-public class MazeRetrieverUI {
+public class MazeRetrieverUI extends Application implements Screen {
+
+    private final MazeRetrieverController retrieverController;
+    private final MazeDisplayController displayController;
 
     /**
      * The constructor for the MazeRetrieverView class.
@@ -26,6 +31,20 @@ public class MazeRetrieverUI {
      * @param displayController the controller for the maze display use case.
      */
     public MazeRetrieverUI(MazeRetrieverController retrieverController, MazeDisplayController displayController) {
+        this.retrieverController = retrieverController;
+        this.displayController = displayController;
+    }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String args[]) {
+        launch(args);
+    }
+
+    public void start(Stage primaryStage) {
 
 
         UserSingleton singleton = UserSingleton.getInstance();
@@ -51,7 +70,7 @@ public class MazeRetrieverUI {
                 MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
 
-                ScreenManager.changeScreen("kill me"); // Need to send the maze to it too
+                ScreenManager.changeScreen("game");
             });
             playedHBox.getChildren().add(buttonsPlayed[i]);
         }
@@ -65,7 +84,7 @@ public class MazeRetrieverUI {
                         displayController.create(singleton.getUsername(), Integer.valueOf(button.getText()));
                 MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
-                ScreenManager.changeScreen("kill me"); // Need to send the maze to it too
+                ScreenManager.changeScreen("game");
 
             });
             notPlayedHBox.getChildren().add(buttonsNotPlayed[i]);
@@ -83,5 +102,11 @@ public class MazeRetrieverUI {
         root.addRow(1, notPlayedHBox);
 
         Scene scene = new Scene(root, 1234, 750);
+
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
+        primaryStage.show();
+
+
     }
 }
