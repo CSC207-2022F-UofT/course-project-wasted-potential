@@ -13,7 +13,7 @@ import display.MazeDisplayResponseModel;
  *
  * @author Oscar Tuvey
  */
-public class MazeRetrieverView {
+public class MazeRetrieverUI {
 
     /**
      * The constructor for the MazeRetrieverView class.
@@ -21,7 +21,7 @@ public class MazeRetrieverView {
      * @param retrieverController the controller for the maze retriever use case.
      * @param displayController the controller for the maze display use case.
      */
-    public MazeRetrieverView(MazeRetrieverController retrieverController, MazeDisplayController displayController) {
+    public MazeRetrieverUI(MazeRetrieverController retrieverController, MazeDisplayController displayController) {
 
 
         UserSingleton singleton = UserSingleton.getInstance();
