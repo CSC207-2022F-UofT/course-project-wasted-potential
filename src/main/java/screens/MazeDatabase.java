@@ -115,4 +115,8 @@ public class MazeDatabase implements MazePublisherGateway {
     public Map<Integer, PublishedMaze> getMazes() {
         return mazes.getPublishedMazes();
     }
+
+    public PublishedMaze retrieveMaze(Integer mazeId) {
+        return mazes.getPublishedMaze(mazeId);
+    }
 }
