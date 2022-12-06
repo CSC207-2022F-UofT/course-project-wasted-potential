@@ -1,5 +1,6 @@
 package screens;
 
+import display.MazeDsGateway;
 import entities.PublishedMaze;
 import entities.SavedMaze;
 import publish.PublishMazeGateway;
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * The gateway to write mazes into the database.
  */
-public class MazeDatabase implements PublishMazeGateway {
+public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
     private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -134,7 +135,8 @@ public class MazeDatabase implements PublishMazeGateway {
      */
     public PublishedMazeSingleton getMazeSingleton() { return mazes; }
 
-    public PublishedMaze retrieveMaze(Integer mazeId) {
+    @Override
+    public PublishedMaze retrieveMaze(int mazeId) {
         return mazes.getPublishedMaze(mazeId);
     }
 }
