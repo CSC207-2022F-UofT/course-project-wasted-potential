@@ -213,11 +213,8 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
 
         List<Integer> mazes = new ArrayList<>(singleton.getPublishedMazes().keySet());
 
-        try {
-            mazes.removeAll(played);
-        } catch (NullPointerException e){
-            return mazes;
-        }
+        mazes.removeAll(played);
+
         return mazes;
 
     }

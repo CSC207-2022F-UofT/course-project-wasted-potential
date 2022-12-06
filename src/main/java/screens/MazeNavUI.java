@@ -1,6 +1,7 @@
 package screens;
 
 import entities.GameState;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -91,6 +92,7 @@ public class MazeNavUI extends Application implements Screen {
                 } else if (e.getCode() == KeyCode.A) {
                     responseModel = controller.create('a', maze.getPosition(), maze);
                 } else if (e.getCode() == KeyCode.S) {
+                    System.out.println("WASSSUPPPPPPPPPPPP");
                     responseModel = controller.create('s', maze.getPosition(), maze);
                 } else {
                     responseModel = controller.create('d', maze.getPosition(), maze);
@@ -108,7 +110,11 @@ public class MazeNavUI extends Application implements Screen {
             InvalidMoveAlertBox.display("Invalid Move", e.getMessage());
         }
 
+
+        canvas.setScaleX(20);
+        canvas.setScaleY(20);
         root.addRow(1, canvas);
+        root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root, 1234, 750);
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);

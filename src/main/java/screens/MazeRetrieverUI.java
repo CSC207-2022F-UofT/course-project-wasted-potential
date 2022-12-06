@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @author Oscar Tuvey
  */
 public class MazeRetrieverUI extends Application implements Screen {
+    String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
 
     private final MazeRetrieverController retrieverController;
     private final MazeDisplayController displayController;
@@ -44,6 +45,7 @@ public class MazeRetrieverUI extends Application implements Screen {
         launch(args);
     }
 
+    @Override
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Menu");
@@ -77,11 +79,11 @@ public class MazeRetrieverUI extends Application implements Screen {
 
         for (int i = 0; i < played.size(); i++) {
             buttonsPlayed[i] = new Button(played.get(i).toString());
-            buttonsPlayed[i].setText(buttonsPlayed[i].toString());
+            buttonsPlayed[i].setText(played.get(i).toString());
             buttonsPlayed[i].setOnAction(event -> {
                 Button button = (Button) event.getSource();
                 MazeDisplayResponseModel respModel =
-                        displayController.create(singleton.getUsername(), Integer.valueOf(button.getText()));
+                        displayController.create(singleton.getUsername(), Integer.parseInt(button.getText()));
                 MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
 
@@ -92,11 +94,11 @@ public class MazeRetrieverUI extends Application implements Screen {
 
         for (int i = 0; i < notPlayed.size(); i++) {
             buttonsNotPlayed[i] = new Button(notPlayed.get(i).toString());
-            buttonsNotPlayed[i].setText(buttonsNotPlayed[i].toString());
+            buttonsNotPlayed[i].setText(notPlayed.get(i).toString());
             buttonsNotPlayed[i].setOnAction(event -> {
                 Button button = (Button) event.getSource();
                 MazeDisplayResponseModel respModel =
-                        displayController.create(singleton.getUsername(), Integer.valueOf(button.getText()));
+                        displayController.create(singleton.getUsername(), Integer.parseInt(button.getText()));
                 MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
                 ScreenManager.changeScreen("game");
@@ -110,7 +112,7 @@ public class MazeRetrieverUI extends Application implements Screen {
 
         root.setAlignment(Pos.CENTER);
 
-        root.setVgap(10.0);
+        root.setVgap(10);
 
         root.addRow(0, playedHBox);
 
@@ -119,6 +121,7 @@ public class MazeRetrieverUI extends Application implements Screen {
         Scene scene = new Scene(root, 1234, 750);
 
         primaryStage.setScene(scene);
+        scene.getStylesheets().add(css);
         primaryStage.setMaximized(true);
         primaryStage.show();
 
