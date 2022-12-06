@@ -46,13 +46,23 @@ public class MazeRetrieverUI extends Application implements Screen {
 
     public void start(Stage primaryStage) {
 
-
+        primaryStage.setTitle("Menu");
         UserSingleton singleton = UserSingleton.getInstance();
 
 
         MazeRetrieverResponseModel retrieverRespModel = retrieverController.create(singleton.getUsername());
-        ArrayList<Integer> played = (ArrayList<Integer>) retrieverRespModel.getPlayed();
-        ArrayList<Integer> notPlayed = (ArrayList<Integer>) retrieverRespModel.getNotPlayed();
+        ArrayList<Integer> played;
+        ArrayList<Integer> notPlayed;
+        try {
+            played = (ArrayList<Integer>) retrieverRespModel.getPlayed();
+        } catch (ClassCastException e) {
+            played = new ArrayList<>();
+        }
+        try {
+            notPlayed = (ArrayList<Integer>) retrieverRespModel.getNotPlayed();
+        } catch (ClassCastException e) {
+            notPlayed = new ArrayList<>();
+        }
 
         HBox playedHBox = new HBox();
         HBox notPlayedHBox = new HBox();

@@ -1,14 +1,14 @@
 package screens;
-import java.io.*;
-import java.util.*;
 
 import display.PlayerDsGateway;
-import entities.PublishedMaze;
-import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
-import entities.User;
-import entities.Player;
 import entities.Designer;
+import entities.Player;
+import entities.User;
+import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import retrieval.MazeRetrieverDsGateway;
+
+import java.io.*;
+import java.util.*;
 
 /**
  * The User Database
@@ -46,20 +46,13 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
 
             while ((userInfo = reader.readLine()) != null){
                 String[] col = userInfo.split(",");
-                List<Integer> playedMazes;
-                String username;
-                String userType;
-                String password;
-                String creationTime;
-                String mazesPlayed;
 
-
-                    username = String.valueOf(col[headers.get("username")]);
-                    userType = String.valueOf(col[headers.get("user_type")]);
-                    password = String.valueOf(col[headers.get("password")]);
-                    creationTime = String.valueOf(col[headers.get("creation_time")]);
-                    mazesPlayed = String.valueOf(col[headers.get("mazes_played")]);
-                    playedMazes = getMazes(mazesPlayed);
+                String username = String.valueOf(col[headers.get("username")]);
+                String userType = String.valueOf(col[headers.get("user_type")]);
+                String password = String.valueOf(col[headers.get("password")]);
+                String creationTime = String.valueOf(col[headers.get("creation_time")]);
+                String mazesPlayed = String.valueOf(col[headers.get("mazes_played")]);
+                List<Integer> playedMazes = getMazes(mazesPlayed);
 
 
 
@@ -96,17 +89,17 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
                 if (user instanceof Player) {
                     Player player = (Player)(user);
                     String info;
-
-                    String mazes = mazeListToString(player.getMazesPlayed());
-                    if (mazes.length() == 0){
-                         info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
-                                player.getUserType(), player.getPassword(), player.getCreationTime(),
-                                new ArrayList<>());
-                    } else {
-                         info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
+                    if (mazeListToString(player.getMazesPlayed()).length() != 0) {
+                        info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
                                 player.getUserType(), player.getPassword(), player.getCreationTime(),
                                 mazeListToString(player.getMazesPlayed()));
                     }
+                    else {
+                        info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
+                                player.getUserType(), player.getPassword(), player.getCreationTime(),
+                                new ArrayList<>());
+                    }
+
 
                     writer.write(info);
                     writer.newLine();
@@ -158,7 +151,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
             try {
                 playedMazes.add(Integer.parseInt(maze));
             } catch (NumberFormatException e){
-                return null;
+                return new ArrayList<>();
             }
         }
         return playedMazes;
@@ -200,7 +193,11 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
     @Override
     public List<Integer> retrievePlayed(String username) {
         Player player = (Player)userAccounts.get(username);
-        return player.getMazesPlayed();
+        try {
+            return player.getMazesPlayed();
+        } catch (NullPointerException e) {
+            return Collections.emptyList();
+        }
     }
 
     /**
@@ -213,11 +210,8 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
     public List<Integer> retrieveNotPlayed(String username) {
         PublishedMazeSingleton singleton = PublishedMazeSingleton.getInstance();
         List<Integer> played = retrievePlayed(username);
-        List<Integer> mazes = new ArrayList<>();
 
-        for (Integer value: singleton.getPublishedMazes().keySet()){
-            mazes.add(value);
-        }
+        List<Integer> mazes = new ArrayList<>(singleton.getPublishedMazes().keySet());
 
         try {
             mazes.removeAll(played);
