@@ -56,14 +56,14 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
 
         char[][] mazeState = requestModel.getMaze().getState();
 
-        if (mazeState[x][y] == Maze.ENCODING.get("wall")) {
+        if (mazeState[x][y] == Maze.getEncoding("wall")) {
             return outputBoundary.prepareFailView("Invalid move. Please try again.");
         }
 
         else {
             requestModel.getMaze().updatePosition(x, y);
             MazeNavResponseModel responseModel = new MazeNavResponseModel(requestModel.getPosition(),
-                    requestedPosition, mazeState[x][y] == Maze.ENCODING.get("end"));
+                    requestedPosition, mazeState[x][y] == Maze.getEncoding("end"));
             requestModel.getMaze().updatePosition(x, y);
             return outputBoundary.moveIcon(responseModel);
         }
