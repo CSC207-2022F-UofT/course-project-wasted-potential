@@ -57,7 +57,12 @@ public class MazeRetrieverUI extends Application implements Screen {
         HBox playedHBox = new HBox();
         HBox notPlayedHBox = new HBox();
 
-        Button[] buttonsPlayed = new Button[played.size()];
+        Button[] buttonsPlayed;
+        try {
+            buttonsPlayed = new Button[played.size()];
+        } catch (NullPointerException e){
+            buttonsPlayed = new Button[0];
+        }
         Button[] buttonsNotPlayed = new Button[notPlayed.size()];
 
         for (int i = 0; i < played.size(); i++) {

@@ -17,7 +17,7 @@ import user_login.UserLoginController;
  */
 public class LoginUI extends Application implements Screen{
 
-    private final UserLoginController controller;
+    private UserLoginController controller;
 
     /**
      * The constructor that instantiates the Login UI.
@@ -62,7 +62,7 @@ public class LoginUI extends Application implements Screen{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
-                    try {
+                    // try {
                         UserLoginResponseModel responseModel = controller.loginUser(username, password);
                         UserSingleton singleton = UserSingleton.getInstance();
                         singleton.setUsername(responseModel.getUsername());
@@ -73,9 +73,9 @@ public class LoginUI extends Application implements Screen{
                             ScreenManager.changeScreen("designer");
                         }
 
-                    } catch (RuntimeException e){
-                        error.setText(e.getMessage());
-                    }
+                    // } catch (RuntimeException e){
+                        //error.setText(e.getMessage());
+                    //}
 
                 } else if (actionEvent.getSource() == regis){
                     ScreenManager.changeScreen("register");

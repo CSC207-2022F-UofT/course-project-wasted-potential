@@ -15,7 +15,7 @@ import javafx.stage.Popup;
 
 public class RegisterUI extends Application implements Screen{
 
-    private final UserRegisterController controller;
+    private UserRegisterController controller;
 
     public RegisterUI(UserRegisterController controller){
         this.controller = controller;

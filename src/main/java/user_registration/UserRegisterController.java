@@ -1,7 +1,7 @@
 package user_registration;
 
 public class UserRegisterController {
-    final URegInputBoundary userInput;
+     URegInputBoundary userInput;
 
     /**
      * The constructor that instantiates the UserRegisterController class.

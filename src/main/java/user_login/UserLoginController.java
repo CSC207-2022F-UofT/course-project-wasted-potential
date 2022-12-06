@@ -1,7 +1,7 @@
 package user_login;
 
 public class UserLoginController {
-    final ULoginInputBoundary userInput;
+     ULoginInputBoundary userInput;
 
     /**
      * The constructor that instantiates a new UserLoginController.
