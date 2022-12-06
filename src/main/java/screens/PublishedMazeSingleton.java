@@ -76,7 +76,7 @@ public class PublishedMazeSingleton { // Need to create a static int object
      */
     public void addMaze(int id, MazeInformation info) {
         publishedMazes.put(id, new PublishedMaze(info.getAuthor(), info.getName(), true, info.getCreationTime(),
-                info.getState(), info.getStartPosition(), 11, 17, id));
+                info.getState(), info.getStartPosition(), 17, 19, id));
         updateId(id);
     }
 
@@ -87,7 +87,7 @@ public class PublishedMazeSingleton { // Need to create a static int object
      */
     public void addMaze(MazeInformation info) {
         publishedMazes.put(id, new PublishedMaze(info.getAuthor(), info.getName(), true, info.getCreationTime(),
-                info.getState(), info.getStartPosition(), 11, 17, id));
+                info.getState(), info.getStartPosition(), 17, 25, id));
         updateId(id);
     }
 
