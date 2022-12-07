@@ -76,15 +76,20 @@ public class MazeDesignerUI extends Application implements Screen{
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
-        ToggleButton bulldozer = new ToggleButton("Bulldoze");
-        ToggleButton starter = new ToggleButton("Place Start");
-        ToggleButton ender = new ToggleButton("Place End");
+        ToggleButton bulldozer = new ToggleButton("Destroy");
+        ToggleButton starter = new ToggleButton("Start");
+        ToggleButton ender = new ToggleButton("End");
+
+        builder.getStyleClass().add("edit-button");
+        bulldozer.getStyleClass().add("edit-button");
+        starter.getStyleClass().add("edit-button");
+        ender.getStyleClass().add("edit-button");
 
         Button resetter = new Button("Reset");
-        resetter.getStyleClass().add("reset-button");
+        resetter.getStyleClass().add("edit-button");
 
         Button randomizer = new Button("Random");
-        randomizer.getStyleClass().add("random-button");
+        randomizer.getStyleClass().add("edit-button");
 
         Button publisher = new Button("Publish");
         publisher.getStyleClass().add("publish-button");
@@ -94,10 +99,9 @@ public class MazeDesignerUI extends Application implements Screen{
         logOutButton.getStyleClass().add("log-out-button");
         logOutButton.setLayoutX(100);
 
-        TextField mazeNameField = new TextField("Maze name");
+        TextField mazeNameField = new TextField(UserSingleton.getInstance().getUsername() + "'s Maze");
         mazeNameField.getStyleClass().add("maze-name-field");
 
-        HBox topRow = new HBox(mazeNameField, builder, bulldozer, starter, ender, randomizer, publisher, resetter, logOutButton);
 
         ToggleGroup choices = new ToggleGroup();
         builder.setToggleGroup(choices);
@@ -109,6 +113,16 @@ public class MazeDesignerUI extends Application implements Screen{
 
         Text solvableIndicator = new Text("This maze is solvable");
         solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
+
+        HBox editGroup1 = new HBox(builder, bulldozer, starter, ender);
+        HBox editGroup2 = new HBox(resetter, randomizer);
+        editGroup1.setLayoutX(180);
+        editGroup2.setLayoutX(503);
+        logOutButton.setLayoutX(680);
+        AnchorPane topRow = new AnchorPane(mazeNameField, editGroup1, editGroup2, logOutButton);
+        AnchorPane bottomRow = new AnchorPane(solvableIndicator, publisher);
+        solvableIndicator.setLayoutY(15);
+        publisher.setLayoutX(683);
 
 
         EventHandler<ActionEvent> eventHandler = (ActionEvent event) -> {
@@ -206,7 +220,7 @@ public class MazeDesignerUI extends Application implements Screen{
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
-        root.addRow(2, solvableIndicator);
+        root.addRow(2, bottomRow);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
