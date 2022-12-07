@@ -39,8 +39,8 @@ public class LoginUI extends Application implements Screen{
         Label pwdl = new Label("Password");
         Label error = new Label();
 
-        Text title = new Text("Maze Gae");
-        Text subtitle = new Text("Made by: Team Wasted Pot");
+        Text title = new Text("Maze Game");
+        Text subtitle = new Text("Made by: Team Wasted Potential");
         title.getStyleClass().add("title-text");
         subtitle.getStyleClass().add("subtitle-text");
 
@@ -68,7 +68,7 @@ public class LoginUI extends Application implements Screen{
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
-                    // try {
+                    try {
                         UserLoginResponseModel responseModel = controller.loginUser(username, password);
                         UserSingleton singleton = UserSingleton.getInstance();
                         singleton.setUsername(responseModel.getUsername());
@@ -79,9 +79,9 @@ public class LoginUI extends Application implements Screen{
                             ScreenManager.changeScreen("designer");
                         }
 
-                    // } catch (RuntimeException e){
-                        //error.setText(e.getMessage());
-                    //}
+                    } catch (RuntimeException e){
+                        error.setText(e.getMessage());
+                    }
 
                 } else if (actionEvent.getSource() == regis){
                     ScreenManager.changeScreen("register");
