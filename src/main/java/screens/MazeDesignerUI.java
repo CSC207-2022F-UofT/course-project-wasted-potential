@@ -145,6 +145,7 @@ public class MazeDesignerUI extends Application implements Screen{
             }
             updateMazeUI(mdc.getMazeState(), buttonarray);
             if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
+
                 List<String> mazeInfo = mpc.publishMaze("author", "coolMaze", mdc.getDm());
                 Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                 GridPane publishpopuppane = new GridPane();
@@ -178,7 +179,7 @@ public class MazeDesignerUI extends Application implements Screen{
         publisher.setOnAction(extrabuttonHandler);
         close.setOnAction(popupHandler);
 
-        System.out.println(mdc.getMazeState().length + " " + mdc.getMazeState()[0].length);
+
         updateMazeUI(mdc.getMazeState(), buttonarray);
         for (int i = 0; i < mazeRows; i++) {
             for (int j = 0; j < mazeCols; j++) {
