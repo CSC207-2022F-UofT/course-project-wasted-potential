@@ -6,21 +6,21 @@ import entities.DesignableMaze;
  * The Maze Designer Controller
  */
 public class MazeDesignerController {
-    private MazeDesignerInputBoundary md;
+    private MazeDesignerInputBoundary mazeDesignerInteractor;
 
     /**
      * Constructor for the Controller
-     * @param md The MazeDesignerInputBoundary; expected to be the MazeDesignerInteractor
+     * @param mazeDesignerInteractor The MazeDesignerInputBoundary; expected to be the MazeDesignerInteractor
      */
-    public MazeDesignerController(MazeDesignerInputBoundary md) {
-        this.md = md;
+    public MazeDesignerController(MazeDesignerInputBoundary mazeDesignerInteractor) {
+        this.mazeDesignerInteractor = mazeDesignerInteractor;
     }
 
     /**
      * Resets the current maze md
      */
     public void resetMaze(){
-        md.resetMaze();
+        mazeDesignerInteractor.resetMaze();
     }
 
     /**
@@ -30,13 +30,13 @@ public class MazeDesignerController {
      */
     public void handleBuild(String action, int row, int col){
         if (action.equals("build")){
-            md.buildWall(row,col);
+            mazeDesignerInteractor.buildWall(row,col);
         } else if (action.equals("remove")){
-            md.removeWall(row, col);
+            mazeDesignerInteractor.removeWall(row, col);
         } else if (action.equals("start")){
-            md.startPoint(row,col);
+            mazeDesignerInteractor.startPoint(row,col);
         } else if (action.equals("end")) {
-            md.endPoint(row,col);
+            mazeDesignerInteractor.endPoint(row,col);
         }
     }
 
@@ -44,15 +44,18 @@ public class MazeDesignerController {
      * Randomizes the maze md
      */
     public void randoMaze(){
-        md.randomMaze();
+        mazeDesignerInteractor.randomMaze();
     }
 
     /**
      * Updates the current maze
      */
     public char[][] getMazeState(){
-        return md.getMazeState();
+        return mazeDesignerInteractor.getMazeState();
     }
 
-    public DesignableMaze getDm() { return md.getDesignableMaze();}
+    /**
+     * Gets the DesignableMaze
+     */
+    public DesignableMaze getDesignableMaze() { return mazeDesignerInteractor.getDesignableMaze();}
 }

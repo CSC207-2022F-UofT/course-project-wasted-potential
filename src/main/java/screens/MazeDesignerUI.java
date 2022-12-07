@@ -27,23 +27,23 @@ public class MazeDesignerUI extends Application implements Screen{
      * The Css file containing visual information.
      */
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    private MazeDesignerController mdc;
+    private MazeDesignerController mazeDesignerController;
 
-    private PublishMazeController mpc;
+    private PublishMazeController publishMazeController;
 
-    private MazeSolvabilityControl msc;
+    private MazeSolvabilityControl mazeSolvabilityControl;
 
     /**
      * Instantiates a new Maze designer ui.
      *
-     * @param mdc the MazeDesignerController
-     * @param mpc the PublishMazeController
-     * @param msc the MazeSolvabilityControl
+     * @param mazeDesignerController the MazeDesignerController
+     * @param publishMazeController the PublishMazeController
+     * @param mazeSolvabilityControl the MazeSolvabilityControl
      */
-    public MazeDesignerUI(MazeDesignerController mdc, PublishMazeController mpc, MazeSolvabilityControl msc) {
-        this.mdc = mdc;
-        this.mpc = mpc;
-        this.msc = msc;
+    public MazeDesignerUI(MazeDesignerController mazeDesignerController, PublishMazeController publishMazeController, MazeSolvabilityControl mazeSolvabilityControl) {
+        this.mazeDesignerController = mazeDesignerController;
+        this.publishMazeController = publishMazeController;
+        this.mazeSolvabilityControl = mazeSolvabilityControl;
     }
 
     /**
@@ -56,7 +56,7 @@ public class MazeDesignerUI extends Application implements Screen{
     }
 
     private MazeSolvabilityResponseModel getSolvableStatus() {
-        return msc.checkMazeSolvability(mdc.getDm());
+        return mazeSolvabilityControl.checkMazeSolvability(mazeDesignerController.getDesignableMaze());
     }
     private void updateSolvability(Text solvableIndicator, Button publishButton) {
         MazeSolvabilityResponseModel responseMode = getSolvableStatus();
@@ -67,8 +67,8 @@ public class MazeDesignerUI extends Application implements Screen{
 
     @Override
     public void start(Stage primaryStage){
-        int mazeRows = mdc.getDm().getNumRow();
-        int mazeCols = mdc.getDm().getNumCol();
+        int mazeRows = mazeDesignerController.getDesignableMaze().getNumRow();
+        int mazeCols = mazeDesignerController.getDesignableMaze().getNumCol();
 
         Button[][] buttonarray = new Button[mazeRows][mazeCols];
         primaryStage.setTitle("Maze Designer");
@@ -154,8 +154,8 @@ public class MazeDesignerUI extends Application implements Screen{
                 } else if (ender == choices.getSelectedToggle()) {
                     handler = "end";
                 }
-                mdc.handleBuild(handler, row, col);
-                updateMazeUI(mdc.getMazeState(), buttonarray);
+                mazeDesignerController.handleBuild(handler, row, col);
+                updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
                 updateSolvability(solvableIndicator, publisher);
             }
         };
@@ -163,30 +163,30 @@ public class MazeDesignerUI extends Application implements Screen{
         EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
             if (popuphandle.getSource()==close){
                 publishpopup.hide();
-                mdc.resetMaze();
-                updateMazeUI(mdc.getMazeState(), buttonarray);
+                mazeDesignerController.resetMaze();
+                updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
             }
         };
 
         resetter.setOnAction(actionEvent -> {
-            mdc.resetMaze();
+            mazeDesignerController.resetMaze();
             updateSolvability(solvableIndicator, publisher);
-            updateMazeUI(mdc.getMazeState(), buttonarray);
+            updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
         });
 
         randomizer.setOnAction(actionEvent -> {
-            mdc.randoMaze();
+            mazeDesignerController.randoMaze();
             updateSolvability(solvableIndicator, publisher);
-            updateMazeUI(mdc.getMazeState(), buttonarray);
+            updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
         });
 
         logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
 
         publisher.setOnAction(actionEvent -> {
             if (getSolvableStatus().getIsSolvable()) {
-                List<String> mazeInfo = mpc.publishMaze(UserSingleton.getInstance().getUsername(),
+                List<String> mazeInfo = publishMazeController.publishMaze(UserSingleton.getInstance().getUsername(),
                         mazeNameField.getText(),
-                        mdc.getDm());
+                        mazeDesignerController.getDesignableMaze());
                 Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                 GridPane publishpopuppane = new GridPane();
                 publishpopuppane.addRow(0, label);
@@ -209,7 +209,7 @@ public class MazeDesignerUI extends Application implements Screen{
         close.setOnAction(popupHandler);
 
 
-        updateMazeUI(mdc.getMazeState(), buttonarray);
+        updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
         for (int i = 0; i < mazeRows; i++) {
             for (int j = 0; j < mazeCols; j++) {
                 buttonarray[i][j].setOnAction(eventHandler);
