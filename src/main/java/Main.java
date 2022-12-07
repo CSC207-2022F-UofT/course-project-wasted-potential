@@ -31,63 +31,63 @@ public class Main extends Application {
             throw new RuntimeException("Could not create file.");
         }
 
-        ULoginOutputBoundary logPresenter = new UserLoginPresenter();
-        ULoginInputBoundary logInteractor = new UserLoginInteractor(gateway, logPresenter);
-        UserLoginController logController = new UserLoginController(logInteractor);
-        Screen lui = new LoginUI(logController);
+        ULoginOutputBoundary userLoginPresenter = new UserLoginPresenter();
+        ULoginInputBoundary userLoginInteractor = new UserLoginInteractor(gateway, userLoginPresenter);
+        UserLoginController userLoginController = new UserLoginController(userLoginInteractor);
+        Screen loginUI = new LoginUI(userLoginController);
 
-        URegOutputBoundary regPresenter = new URegisterPresenter();
+        URegOutputBoundary userRegisterPresenter = new URegisterPresenter();
         UserFactory userFactory = new UserFactory();
-        URegInputBoundary regInteractor = new UserRegisterInteractor(gateway, regPresenter, userFactory);
-        UserRegisterController regController = new UserRegisterController(regInteractor);
-        Screen rui = new RegisterUI(regController);
+        URegInputBoundary userRegisterInteractor = new UserRegisterInteractor(gateway, userRegisterPresenter, userFactory);
+        UserRegisterController userRegisterController = new UserRegisterController(userRegisterInteractor);
+        Screen registerUI = new RegisterUI(userRegisterController);
 
 
-        MazeDatabase md;
-        PublishMazePresenter mpp = new PublishMazePresenter();
+        MazeDatabase mazeDatabase;
+        PublishMazePresenter publishMazePresenter = new PublishMazePresenter();
         try {
-            md = new MazeDatabase("./mazes.csv");
+            mazeDatabase = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
             throw new IndexOutOfBoundsException("Could not create file.");
         } catch (ParseException e) {
             throw new NoSuchElementException("Creation date is incorrect.");
         }
-        PublishMazeInteractor mpi = new PublishMazeInteractor(mpp, md);
-        PublishMazeController mpc = new PublishMazeController(mpi);
-        MazeDesignerOutputBoundary mdp = new MazeDesignerPresenter();
-        MazeDesignerInputBoundary mdi = new MazeDesignerInteractor(mdp);
-        MazeDesignerController mdc = new MazeDesignerController(mdi);
+        PublishMazeInteractor publishMazeInteractor = new PublishMazeInteractor(publishMazePresenter, mazeDatabase);
+        PublishMazeController publishMazeController = new PublishMazeController(publishMazeInteractor);
+        MazeDesignerOutputBoundary mazeDesignerPresenter = new MazeDesignerPresenter();
+        MazeDesignerInputBoundary mazeDesignerInteractor = new MazeDesignerInteractor(mazeDesignerPresenter);
+        MazeDesignerController mazeDesignerController = new MazeDesignerController(mazeDesignerInteractor);
         // Solvability use case
-        MazeSolvableOutBoundary msp = new MazeSolvablePresenter();
-        MazeSolvableInBoundary msi = new MazeSolvabilityInteractor(msp);
-        MazeSolvabilityControl msc = new MazeSolvabilityControl(msi);
-        Screen mdui = new MazeDesignerUI(mdc, mpc, msc);
+        MazeSolvableOutBoundary mazeSolvablePresenter = new MazeSolvablePresenter();
+        MazeSolvableInBoundary mazeSolvabilityInteractor = new MazeSolvabilityInteractor(mazeSolvablePresenter);
+        MazeSolvabilityControl mazeSolvabilityControl = new MazeSolvabilityControl(mazeSolvabilityInteractor);
+        Screen mazeDesignerUI = new MazeDesignerUI(mazeDesignerController, publishMazeController, mazeSolvabilityControl);
         // Retrieval use case
-        MazeRetrieverOutputBoundary mob = new MazeRetrieverPresenter();
-        MazeRetrieverDsGateway mdg = (MazeRetrieverDsGateway) gateway;
-        MazeRetrieverInputBoundary mib = new MazeRetrieverInteractor(mdg, mob);
-        MazeRetrieverController mrc = new MazeRetrieverController(mib);
+        MazeRetrieverOutputBoundary mazeRetrieverPresenter = new MazeRetrieverPresenter();
+        MazeRetrieverDsGateway mazeRetrieverDsGateway = (MazeRetrieverDsGateway) gateway;
+        MazeRetrieverInputBoundary mazeRetrieverInteractor = new MazeRetrieverInteractor(mazeRetrieverDsGateway, mazeRetrieverPresenter);
+        MazeRetrieverController mazeRetrieverController = new MazeRetrieverController(mazeRetrieverInteractor);
         // Display use case
-        MazeDisplayOutputBoundary mdb = new MazeDisplayPresenter();
-        MazeDsGateway mazeDsGateway = md;
+        MazeDisplayOutputBoundary mazeDisplayPresenter = new MazeDisplayPresenter();
+        MazeDsGateway mazeDsGateway = mazeDatabase;
         PlayerDsGateway playerDsGateway = (PlayerDsGateway)gateway;
-        MazeDisplayInputBoundary mdib = new MazeDisplayInteractor(playerDsGateway, mazeDsGateway, mdb);
-        MazeDisplayController mdcr = new MazeDisplayController(mdib);
+        MazeDisplayInputBoundary mazeDisplayInteractor = new MazeDisplayInteractor(playerDsGateway, mazeDsGateway, mazeDisplayPresenter);
+        MazeDisplayController mazeDisplayController = new MazeDisplayController(mazeDisplayInteractor);
         // Navigation use case
-        MazeNavOutputBoundary mnob = new MazeNavPresenter();
-        MazeNavInputBoundary mnib = new MazeNavInteractor(mnob);
-        MazeNavController mnc = new MazeNavController(mnib);
+        MazeNavOutputBoundary mazeNavPresenter = new MazeNavPresenter();
+        MazeNavInputBoundary mazeNavInteractor = new MazeNavInteractor(mazeNavPresenter);
+        MazeNavController mazeNavController = new MazeNavController(mazeNavInteractor);
 
-        MazeNavUI mazeNavUI = new MazeNavUI(mnc);
-        MazeRetrieverUI mazeRetrieverUI = new MazeRetrieverUI(mrc, mdcr);
+        MazeNavUI mazeNavUI = new MazeNavUI(mazeNavController);
+        MazeRetrieverUI mazeRetrieverUI = new MazeRetrieverUI(mazeRetrieverController, mazeDisplayController);
 
 
 
 
         ScreenManager.setStage(primaryStage);
-        ScreenManager.addScreen("designer", mdui);
-        ScreenManager.addScreen("login", lui);
-        ScreenManager.addScreen("register", rui);
+        ScreenManager.addScreen("designer", mazeDesignerUI);
+        ScreenManager.addScreen("login", loginUI);
+        ScreenManager.addScreen("register", registerUI);
         ScreenManager.addScreen("home", mazeRetrieverUI);
         ScreenManager.addScreen("game", mazeNavUI);
 
