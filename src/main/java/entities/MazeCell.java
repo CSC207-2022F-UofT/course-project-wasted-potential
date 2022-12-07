@@ -9,11 +9,11 @@ public class MazeCell {
     /**
      * The row co-ordinate.
      */
-    public int row;
+    private int row;
     /**
      * The column co-ordinate.
      */
-    public int col;
+    private int col;
 
     /**
      * Instantiates a new Maze cell.
@@ -55,5 +55,13 @@ public class MazeCell {
     @Override
     public int hashCode() {
         return Objects.hash(this.row, this.col);
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
     }
 }

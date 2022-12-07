@@ -62,9 +62,7 @@ public class LoginUI extends Application implements Screen{
         login.setAlignment(Pos.CENTER_RIGHT);
         Button regis = new Button("Don't have an account? Register!");
 
-        EventHandler<ActionEvent> eventButtonClick = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        EventHandler<ActionEvent> eventButtonClick = (ActionEvent actionEvent) -> {
                 if (actionEvent.getSource() == login){
                     String username = utf.getText();
                     String password = pwf.getText();
@@ -86,7 +84,6 @@ public class LoginUI extends Application implements Screen{
                 } else if (actionEvent.getSource() == regis){
                     ScreenManager.changeScreen("register");
                 }
-            }
         };
 
         login.setOnAction(eventButtonClick);

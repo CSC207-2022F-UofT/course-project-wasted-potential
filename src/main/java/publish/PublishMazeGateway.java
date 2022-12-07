@@ -11,5 +11,5 @@ public interface PublishMazeGateway {
      *
      * @param maze a SavedMaze representing the maze that is to be published.
      */
-    public void storeMaze(SavedMaze maze);
+    void storeMaze(SavedMaze maze);
 }

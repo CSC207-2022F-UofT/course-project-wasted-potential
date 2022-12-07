@@ -80,16 +80,18 @@ public class MazeDesignerUI extends Application implements Screen{
         ToggleButton starter = new ToggleButton("Start");
         ToggleButton ender = new ToggleButton("End");
 
-        builder.getStyleClass().add("edit-button");
-        bulldozer.getStyleClass().add("edit-button");
-        starter.getStyleClass().add("edit-button");
-        ender.getStyleClass().add("edit-button");
+        String editButton = "edit-button";
+
+        builder.getStyleClass().add(editButton);
+        bulldozer.getStyleClass().add(editButton);
+        starter.getStyleClass().add(editButton);
+        ender.getStyleClass().add(editButton);
 
         Button resetter = new Button("Reset");
-        resetter.getStyleClass().add("edit-button");
+        resetter.getStyleClass().add(editButton);
 
         Button randomizer = new Button("Random");
-        randomizer.getStyleClass().add("edit-button");
+        randomizer.getStyleClass().add(editButton);
 
         Button publisher = new Button("Publish");
         publisher.getStyleClass().add("publish-button");
