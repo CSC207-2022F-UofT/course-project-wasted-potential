@@ -1,4 +1,4 @@
-package screens;
+package navigation;
 
 import entities.GameState;
 import navigation.MazeNavInputBoundary;
@@ -30,7 +30,7 @@ public class MazeNavController {
      * @param maze the maze being played
      * @return a response model for the maze navigation use case which is returned to the view
      */
-    MazeNavResponseModel create(char keyStroke, int[] position, GameState maze) {
+    public MazeNavResponseModel create(char keyStroke, int[] position, GameState maze) {
         MazeNavRequestModel requestModel = new MazeNavRequestModel(keyStroke, position, maze);
 
         return userInput.create(requestModel);
