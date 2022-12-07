@@ -9,6 +9,6 @@ public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override
     public UserLoginResponseModel failView(String errorMessage) {
-        throw new RuntimeException(errorMessage);
+        throw new IllegalArgumentException(errorMessage);
     }
 }

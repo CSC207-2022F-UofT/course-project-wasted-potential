@@ -62,30 +62,27 @@ public class LoginUI extends Application implements Screen{
         login.setAlignment(Pos.CENTER_RIGHT);
         Button regis = new Button("Don't have an account? Register!");
 
-        EventHandler<ActionEvent> eventButtonClick = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (actionEvent.getSource() == login){
-                    String username = utf.getText();
-                    String password = pwf.getText();
-                    try {
-                        UserLoginResponseModel responseModel = controller.loginUser(username, password);
-                        UserSingleton singleton = UserSingleton.getInstance();
-                        singleton.setUsername(responseModel.getUsername());
+        EventHandler<ActionEvent> eventButtonClick = (ActionEvent actionEvent) -> {
+            if (actionEvent.getSource() == login){
+                String username = utf.getText();
+                String password = pwf.getText();
+                try {
+                    UserLoginResponseModel responseModel = controller.loginUser(username, password);
+                    UserSingleton singleton = UserSingleton.getInstance();
+                    singleton.setUsername(responseModel.getUsername());
 
-                        if (responseModel.getUserType().equals("Player")) {
-                            ScreenManager.changeScreen("home");
-                        } else if (responseModel.getUserType().equals("Designer")) {
-                            ScreenManager.changeScreen("designer");
-                        }
-
-                    } catch (RuntimeException e){
-                        error.setText(e.getMessage());
+                    if (responseModel.getUserType().equals("Player")) {
+                        ScreenManager.changeScreen("home");
+                    } else if (responseModel.getUserType().equals("Designer")) {
+                        ScreenManager.changeScreen("designer");
                     }
 
-                } else if (actionEvent.getSource() == regis){
-                    ScreenManager.changeScreen("register");
+                } catch (RuntimeException e){
+                    error.setText(e.getMessage());
                 }
+
+            } else if (actionEvent.getSource() == regis){
+                ScreenManager.changeScreen("register");
             }
         };
 

@@ -65,59 +65,55 @@ public class RegisterUI extends Application implements Screen{
         designerButton.setToggleGroup(chooseUserType);
         playerButton.setToggleGroup(chooseUserType);
 
-        EventHandler<ActionEvent> registerButtonClick = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String username = utf.getText();
-                String password = pwf.getText();
-                String repeatPassword = rpwf.getText();
-                String userType;
+        EventHandler<ActionEvent> registerButtonClick = (ActionEvent actionEvent) -> {
+            String username = utf.getText();
+            String password = pwf.getText();
+            String repeatPassword = rpwf.getText();
+            String userType;
 
-                if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
-                    userType = playerText;
+            if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
+                userType = playerText;
 
-                    // Repeated code needed to set the error message onto the label. Otherwise, the
-                    // method has to be repeated and that's more code being repeated.
-                    try {
-                        register(username, password, repeatPassword, userType);
-                    } catch (RuntimeException e){
-                        error.setText(e.getMessage());
-                    }
-                } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
-                    userType = designerText;
-                    try {
-                        register(username, password, repeatPassword, userType);
-                    } catch (RuntimeException e){
-                        error.setText(e.getMessage());
-                    }
-                } else {
-                    Popup wallpopup = new Popup();
-                    Button close = new Button("Close");
-                    Label label = new Label("Please choose a user type.");
-                    GridPane popuppane = new GridPane();
-                    popuppane.addRow(0, label);
-                    popuppane.addRow(1, close);
-                    wallpopup.getContent().add(popuppane);
-                    popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
-                    close.setStyle("-fx-background-color: #BB86FC;");
-
-                    popuppane.setMinHeight(100);
-                    popuppane.setMinWidth(234);
-                    popuppane.setAlignment(Pos.CENTER);
-
-                    label.setMinWidth(80);
-                    label.setMinHeight(50);
-
-                    EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent popuphandle){
-                            if (popuphandle.getSource()==close){
-                                wallpopup.hide();
-                            }
-                        }
-                    };
-                    close.setOnAction(popuphandle);
-                    wallpopup.show(primaryStage);
+                // Repeated code needed to set the error message onto the label. Otherwise, the
+                // method has to be repeated and that's more code being repeated.
+                try {
+                    register(username, password, repeatPassword, userType);
+                } catch (RuntimeException e){
+                    error.setText(e.getMessage());
                 }
+            } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
+                userType = designerText;
+                try {
+                    register(username, password, repeatPassword, userType);
+                } catch (RuntimeException e){
+                    error.setText(e.getMessage());
+                }
+            } else {
+                Popup wallpopup = new Popup();
+                Button close = new Button("Close");
+                Label label = new Label("Please choose a user type.");
+                GridPane popuppane = new GridPane();
+                popuppane.addRow(0, label);
+                popuppane.addRow(1, close);
+                wallpopup.getContent().add(popuppane);
+                popuppane.setStyle(" -fx-background-color: #CF6679; \n -fx-border-color: black;");
+                close.setStyle("-fx-background-color: #BB86FC;");
+
+                popuppane.setMinHeight(100);
+                popuppane.setMinWidth(234);
+                popuppane.setAlignment(Pos.CENTER);
+
+                label.setMinWidth(80);
+                label.setMinHeight(50);
+
+                EventHandler<ActionEvent> popupHandler = (ActionEvent popupEvent) -> {
+                    if (popupEvent.getSource()==close){
+                        wallpopup.hide();
+                    }
+
+                };
+                close.setOnAction(popupHandler);
+                wallpopup.show(primaryStage);
             }
         };
 

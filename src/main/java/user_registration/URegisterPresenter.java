@@ -9,7 +9,7 @@ public class URegisterPresenter implements URegOutputBoundary {
 
     @Override
     public UserRegisterResponseModel failView(String errorMessage) {
-        throw new RuntimeException(errorMessage);
+        throw new IllegalArgumentException(errorMessage);
 
     }
 }
