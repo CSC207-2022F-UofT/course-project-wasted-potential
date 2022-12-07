@@ -10,11 +10,11 @@ public abstract class Maze {
     /**
      * The Number of rows.
      */
-    protected int numRow;
+    private static int numRow;
     /**
      * The Number of columns.
      */
-    protected int numCol;
+    private static int numCol;
     /**
      * The layout of the maze.
      */
@@ -66,7 +66,7 @@ public abstract class Maze {
      *
      * @return the number of rows
      */
-    public int getNumRow() {
+    public static int getNumRow() {
         return numRow;
     }
 
@@ -75,7 +75,7 @@ public abstract class Maze {
      *
      * @return the number of columns
      */
-    public int getNumCol() {
+    public static int getNumCol() {
         return numCol;
     }
 

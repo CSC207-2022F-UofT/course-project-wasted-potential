@@ -69,8 +69,8 @@ public class MazeDesignerUI extends Application implements Screen{
 
     @Override
     public void start(Stage primaryStage){
-        int mazeRows = 11;
-        int mazeCols = 17;
+        int mazeRows = 17;
+        int mazeCols = 25;
         Button[][] buttonarray = new Button[mazeRows][mazeCols];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
@@ -243,21 +243,26 @@ public class MazeDesignerUI extends Application implements Screen{
     public void updateMazeUI(char[][] mazeState, Button[][] buttonarray){
         for (int i = 0; i < buttonarray.length; i++) {
             for (int j = 0; j < buttonarray[0].length; j++) {
-                if(buttonarray[i][j] == null){
+
+                if (buttonarray[i][j] == null){
                     buttonarray[i][j] = new Button();
                 }
-                if(mazeState[i][j] == '#'){
-                    buttonarray[i][j].setText("#");
-                    buttonarray[i][j].setStyle(" -fx-background-color: #03DAC6;");
-                } else if(mazeState[i][j] == '.'){
-                    buttonarray[i][j].setText(".");
-                    buttonarray[i][j].setStyle(" -fx-background-color: #121212;");
-                } else if(mazeState[i][j] == 'S'){
-                    buttonarray[i][j].setText("S");
-                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
-                } else {
-                    buttonarray[i][j].setText("E");
-                    buttonarray[i][j].setStyle(" -fx-background-color: #CF6679;");
+
+                Button button = buttonarray[i][j];
+
+                button.getStyleClass().clear();
+                button.getStyleClass().add("maze-button");
+
+                char state = mazeState[i][j];
+
+                if (state == '#'){
+                    button.getStyleClass().add("maze-wall");
+                } else if (state == '.'){
+                    button.getStyleClass().add("maze-empty");
+                } else if (state == 'S'){
+                    button.getStyleClass().add("maze-start");
+                } else if (state == 'E'){
+                    button.getStyleClass().add("maze-end");
                 }
             }
         }

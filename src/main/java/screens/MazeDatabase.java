@@ -37,6 +37,8 @@ public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
         headers.put("state", 4);
         headers.put("startPosition", 5);
 
+        System.out.println(csvFile.length());
+
         if(csvFile.length() == 0){
             storeMaze();
         } else {
@@ -57,9 +59,9 @@ public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
                 String state = String.valueOf(col[headers.get("state")]);
                 String startPosition = String.valueOf(col[headers.get("startPosition")]);
                 char[] flatMaze = state.replace(":", "").replace(" ", "").toCharArray();
-                char[][] mazeState = new char[11][17];
-                for (int i = 0; i < 11; i++) {
-                    System.arraycopy(flatMaze, (i * 17), mazeState[i], 0, 17);
+                char[][] mazeState = new char[17][25];
+                for (int i = 0; i < 17; i++) {
+                    System.arraycopy(flatMaze, (i * 25), mazeState[i], 0, 25);
                 }
                 int[] position = new int[2];
                 String positionString = startPosition.replace("[", "")

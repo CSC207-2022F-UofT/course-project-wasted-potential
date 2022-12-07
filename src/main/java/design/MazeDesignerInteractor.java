@@ -28,7 +28,7 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
 
     public void newMaze(){
-        dm = new DesignableMaze(11, 17);
+        dm = new DesignableMaze(17, 25);
     }
 
 
