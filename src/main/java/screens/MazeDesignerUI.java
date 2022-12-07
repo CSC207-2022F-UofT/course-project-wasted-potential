@@ -94,6 +94,7 @@ public class MazeDesignerUI extends Application implements Screen{
         // log out button
         Button logOutButton = new Button("Log Out");
         logOutButton.getStyleClass().add("log-out-button");
+        logOutButton.setLayoutX(1700);
 
         Text solvableIndicator = new Text("This maze is solvable");
 
@@ -143,20 +144,29 @@ public class MazeDesignerUI extends Application implements Screen{
             }
         };
 
-        EventHandler<ActionEvent> extrabuttonHandler = (ActionEvent extrabuttons) -> {
-            if (extrabuttons.getSource()==resetter){
+        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
+            if (popuphandle.getSource()==close){
+                publishpopup.hide();
                 mdc.resetMaze();
-                updateSolvability(solvableIndicator, publisher);
-            } else if (extrabuttons.getSource()==randomizer){
-                mdc.randoMaze();
-                updateSolvability(solvableIndicator, publisher);
-            } else if (extrabuttons.getSource() == logOutButton) {
-                ScreenManager.changeScreen("login");
+                updateMazeUI(mdc.getMazeState(), buttonarray);
             }
+        };
 
-
+        resetter.setOnAction(actionEvent -> {
+            mdc.resetMaze();
+            updateSolvability(solvableIndicator, publisher);
             updateMazeUI(mdc.getMazeState(), buttonarray);
-            if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
+        });
+
+        randomizer.setOnAction(actionEvent -> {
+            mdc.randoMaze();
+            updateMazeUI(mdc.getMazeState(), buttonarray);
+        });
+
+        logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
+
+        publisher.setOnAction(actionEvent -> {
+            if (getSolvableStatus().getIsSolvable()) {
                 List<String> mazeInfo = mpc.publishMaze(UserSingleton.getInstance().getUsername(),
                         UserSingleton.getInstance().getUsername() + "'s Maze",
                         mdc.getDm());
@@ -177,20 +187,8 @@ public class MazeDesignerUI extends Application implements Screen{
 
                 publishpopup.show(primaryStage);
             }
-        };
+        });
 
-        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
-            if (popuphandle.getSource()==close){
-                publishpopup.hide();
-                mdc.resetMaze();
-                updateMazeUI(mdc.getMazeState(), buttonarray);
-            }
-        };
-
-        resetter.setOnAction(extrabuttonHandler);
-        randomizer.setOnAction(extrabuttonHandler);
-        publisher.setOnAction(extrabuttonHandler);
-        logOutButton.setOnAction(extrabuttonHandler);
         close.setOnAction(popupHandler);
 
 
@@ -217,6 +215,7 @@ public class MazeDesignerUI extends Application implements Screen{
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
+
 
     /**
      * Creates a popup if the user tries to edit an outer wall.
