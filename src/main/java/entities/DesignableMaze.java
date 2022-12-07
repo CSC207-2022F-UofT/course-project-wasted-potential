@@ -6,8 +6,8 @@ package entities;
 public class DesignableMaze extends Maze{
 
     private static final String EMPTY = "empty";
-    private int startLocation[] = new int[2];
-    private int endLocation[] = new int[2];
+    private int[] startLocation = new int[2];
+    private int[] endLocation = new int[2];
 
     /**
      * Instantiates a new Designable maze.
@@ -61,8 +61,8 @@ public class DesignableMaze extends Maze{
      * @param col the col
      */
     public void placeStart(int row, int col) {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
+        for (int i = 0; i < getNumRow(); i++) {
+            for (int j = 0; j < getNumCol(); j++) {
                 if (this.state[i][j] == Maze.ENCODING.get("start")){
                     this.state[i][j] = Maze.ENCODING.get(EMPTY);
                 }
@@ -80,8 +80,8 @@ public class DesignableMaze extends Maze{
      * @param col the col
      */
     public void placeEnd(int row, int col) {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
+        for (int i = 0; i < getNumRow(); i++) {
+            for (int j = 0; j < getNumCol(); j++) {
                 if (this.state[i][j] == Maze.ENCODING.get("end")){
                     this.state[i][j] = Maze.ENCODING.get(EMPTY);
                 }
@@ -90,10 +90,6 @@ public class DesignableMaze extends Maze{
         this.state[row][col] = Maze.ENCODING.get("end");
         endLocation[0] = row;
         endLocation[1] = col;
-    }
-
-    public char getCell(int row, int col){
-        return this.state[row][col];
     }
 
     /**
@@ -118,8 +114,8 @@ public class DesignableMaze extends Maze{
      * Empties the maze of all blocks placed.
      */
     public void emptySetup() {
-        for (int i = 0; i < this.getNumRow(); i++) {
-            for (int j = 0; j < this.getNumCol(); j++) {
+        for (int i = 0; i < getNumRow(); i++) {
+            for (int j = 0; j < getNumCol(); j++) {
                 if (i == 0 || j == 0 || i == getNumRow() - 1 || j == getNumCol() - 1) {
                     placeWall(i, j);
                 } else {
@@ -129,10 +125,10 @@ public class DesignableMaze extends Maze{
         }
         startLocation[0] = 1;
         startLocation[1] = 1;
-        endLocation[0] = this.getNumRow()-2;
-        endLocation[1] = this.getNumCol()-2;
+        endLocation[0] = getNumRow()-2;
+        endLocation[1] = getNumCol()-2;
 
         placeStart(1, 1);
-        placeEnd(this.getNumRow()-2, this.getNumCol()-2);
+        placeEnd(getNumRow()-2, getNumCol()-2);
     }
 }

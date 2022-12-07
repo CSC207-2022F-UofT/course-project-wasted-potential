@@ -26,15 +26,15 @@ public class MazeDesignerInteractorTest {
             for (int j = 0; j < state[i].length; j++) {
                 if (i == 0 || j == 0 || i == state.length - 1 || j == state[i].length - 1) {
                     // check if wall at border
-                    Assertions.assertEquals(state[i][j], (char) Maze.ENCODING.get("wall"));
+                    Assertions.assertEquals(state[i][j], (char) Maze.getEncoding("wall"));
                 } else if (i == 1 && j == 1) {
-                    Assertions.assertEquals(state[i][j], (char) Maze.ENCODING.get("start"));
+                    Assertions.assertEquals(state[i][j], (char) Maze.getEncoding("start"));
                 } else if (i == state.length - 2 && j == state[i].length - 2) {
-                    Assertions.assertEquals(state[i][j], (char) Maze.ENCODING.get("end"));
+                    Assertions.assertEquals(state[i][j], (char) Maze.getEncoding("end"));
                 }
                 else {
                     // check if empty everywhere else
-                    Assertions.assertEquals(state[i][j], (char) Maze.ENCODING.get("empty"));
+                    Assertions.assertEquals(state[i][j], (char) Maze.getEncoding("empty"));
                 }
             }
         }
@@ -51,7 +51,7 @@ public class MazeDesignerInteractorTest {
         DesignableMaze dm = interactor.getDesignableMaze();
         char[][] state = dm.getState();
 
-        Assertions.assertEquals(state[3][3], (char) Maze.ENCODING.get("wall"));
+        Assertions.assertEquals(state[3][3], (char) Maze.getEncoding("wall"));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MazeDesignerInteractorTest {
         DesignableMaze dm = interactor.getDesignableMaze();
         char[][] state = dm.getState();
 
-        Assertions.assertEquals(state[3][3], (char) Maze.ENCODING.get("empty"));
+        Assertions.assertEquals(state[3][3], (char) Maze.getEncoding("empty"));
 
     }
 
@@ -79,7 +79,7 @@ public class MazeDesignerInteractorTest {
         DesignableMaze dm = interactor.getDesignableMaze();
         char[][] state = dm.getState();
 
-        Assertions.assertEquals(state[4][4], (char) Maze.ENCODING.get("start"));
+        Assertions.assertEquals(state[4][4], (char) Maze.getEncoding("start"));
 
     }
 
@@ -94,7 +94,7 @@ public class MazeDesignerInteractorTest {
         DesignableMaze dm = interactor.getDesignableMaze();
         char[][] state = dm.getState();
 
-        Assertions.assertEquals(state[7][4], (char) Maze.ENCODING.get("end"));
+        Assertions.assertEquals(state[7][4], (char) Maze.getEncoding("end"));
     }
 
     @Test

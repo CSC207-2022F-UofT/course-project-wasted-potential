@@ -41,8 +41,8 @@ public class MazePublishInteractorTest {
                 LocalDate.now(),
                 designerController.getDm().getState(),
                 designerController.getDm().getStartLocation(),
-                11,
-                17,
+                designerController.getDm().getNumRow(),
+                designerController.getDm().getNumCol(),
                 PublishedMazeSingleton.getId() - 1);
         Assertions.assertTrue(mazes.containsValue(publishedMaze));
     }

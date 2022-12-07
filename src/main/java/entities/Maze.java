@@ -10,11 +10,11 @@ public abstract class Maze {
     /**
      * The Number of rows.
      */
-    private static int numRow;
+    private int numRow;
     /**
      * The Number of columns.
      */
-    private static int numCol;
+    private int numCol;
     /**
      * The layout of the maze.
      */
@@ -22,18 +22,14 @@ public abstract class Maze {
     /**
      * The encoding for the different types of blocks in a maze.
      */
-    final public static Map<String, Character> ENCODING = new HashMap<String, Character>() {{
-        put("empty", '.');
-        put("wall", '#');
-        put("start", 'S');
-        put("end", 'E');
-    }};
+    protected static Map<String, Character> ENCODING = new HashMap<>();
 
-    /**
-     * Instantiates a new Maze. This is a default constructor.
-     */
-    public Maze() {
-
+    static {
+        // initialize the encoding map
+        ENCODING.put("empty", '.');
+        ENCODING.put("wall", '#');
+        ENCODING.put("start", 'S');
+        ENCODING.put("end", 'E');
     }
 
     /**
@@ -42,7 +38,7 @@ public abstract class Maze {
      * @param numRow the number of rows
      * @param numCol the number of columns
      */
-    public Maze(int numRow, int numCol) {
+    protected Maze(int numRow, int numCol) {
         this.numRow = numRow;
         this.numCol = numCol;
         this.state = new char[numRow][numCol];
@@ -55,7 +51,7 @@ public abstract class Maze {
      * @param numCol the number of columns
      * @param state  the layout of the maze
      */
-    public Maze(int numRow, int numCol, char[][] state) {
+    protected Maze(int numRow, int numCol, char[][] state) {
         this.numRow = numRow;
         this.numCol = numCol;
         this.state = state;
@@ -66,7 +62,7 @@ public abstract class Maze {
      *
      * @return the number of rows
      */
-    public static int getNumRow() {
+    public int getNumRow() {
         return numRow;
     }
 
@@ -75,7 +71,7 @@ public abstract class Maze {
      *
      * @return the number of columns
      */
-    public static int getNumCol() {
+    public int getNumCol() {
         return numCol;
     }
 
@@ -109,6 +105,15 @@ public abstract class Maze {
     public boolean inBounds(int row, int col) {
         if (row >= numRow || row < 0) return false;
         return col < numCol && col >= 0;
+    }
+
+    /**
+     * Returns the encoding for different types of blocks in the maze.
+     *
+     * @return a boolean representing whether a given set of co-ordinates are within the bounds of the maze.
+     */
+    public static Character getEncoding(String key)  {
+        return ENCODING.get(key);
     }
 
     /**

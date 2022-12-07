@@ -11,6 +11,9 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
     private MazeGenerator mg;
     private MazeDesignerOutputBoundary mdp;
 
+    private final int numRows = 17;
+    private final int numCols = 25;
+
 
     /**
      * Constructor for the Maze Designer Interactor
@@ -18,19 +21,13 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
      */
     public MazeDesignerInteractor(MazeDesignerOutputBoundary mdp) {
         // update designablemaze instance attribute
-        newMaze();
+        this.dm = new DesignableMaze(numRows, numCols);
         resetMaze();
         // update the randomizedprim instance attribute
         this.mg = new RandomizedPrim(this.dm);
         // update the output boundary instance attribute
         this.mdp = mdp;
     }
-
-
-    public void newMaze(){
-        dm = new DesignableMaze(17, 25);
-    }
-
 
     public void resetMaze(){
         dm.emptySetup();
