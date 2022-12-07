@@ -26,6 +26,28 @@
     /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );*/
 }
 
+.log-out-button {
+    -fx-background-color: rgba(255, 54, 54);
+    -fx-text-fill: #FFFFFF;
+}
+
+.reset-button {
+    -fx-background-color: #CF6679;
+    -fx-text-fill: #121212;
+}
+
+.publish-button {
+    -fx-background-color: #F2CC0F;
+    -fx-text-fill: #121212;
+}
+
+.random-button {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%), #3700A3, #372FF3,
+    radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3);
+    -fx-text-fill: #FFFFFF;
+
+}
+
 .maze-button {
     -fx-min-width: 25px;
     -fx-min-height: 25px;

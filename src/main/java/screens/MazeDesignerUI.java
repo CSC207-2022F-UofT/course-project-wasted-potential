@@ -81,23 +81,23 @@ public class MazeDesignerUI extends Application implements Screen{
         ToggleButton bulldozer = new ToggleButton("Bulldoze");
         ToggleButton starter = new ToggleButton("Place Start");
         ToggleButton ender = new ToggleButton("Place End");
-        Button resetter = new Button("Reset");
-        Text solvableIndicator = new Text("This maze is solvable");
-        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
-        resetter.setStyle(" -fx-background-color: #CF6679; \n -fx-text-fill: #121212;");
-        Button randomizer = new Button("Random");
-        Button publisher = new Button("Publish");
 
-        publisher.setStyle(" -fx-background-color: #F2CC0F; \n -fx-text-fill: #121212;");
-        randomizer.setStyle(" -fx-background-color:\n" +
-                "            linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),\n" +
-                "            #3700A3,\n" +
-                "            #372FF3,\n" +
-                "            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3); \n -fx-text-fill: #FFFFFF;");
+        Button resetter = new Button("Reset");
+        resetter.getStyleClass().add("reset-button");
+
+        Button randomizer = new Button("Random");
+        randomizer.getStyleClass().add("random-button");
+
+        Button publisher = new Button("Publish");
+        publisher.getStyleClass().add("publish-button");
 
         // log out button
         Button logOutButton = new Button("Log Out");
         logOutButton.getStyleClass().add("log-out-button");
+
+        Text solvableIndicator = new Text("This maze is solvable");
+
+        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
 
         HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, publisher, resetter, logOutButton);
         ToggleGroup choices = new ToggleGroup();
