@@ -65,9 +65,7 @@ public class RegisterUI extends Application implements Screen{
         designerButton.setToggleGroup(chooseUserType);
         playerButton.setToggleGroup(chooseUserType);
 
-        EventHandler<ActionEvent> registerButtonClick = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        EventHandler<ActionEvent> registerButtonClick = (ActionEvent actionEvent) -> {
                 String username = utf.getText();
                 String password = pwf.getText();
                 String repeatPassword = rpwf.getText();
@@ -108,17 +106,14 @@ public class RegisterUI extends Application implements Screen{
                     label.setMinWidth(80);
                     label.setMinHeight(50);
 
-                    EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent popuphandle){
-                            if (popuphandle.getSource()==close){
+                    EventHandler<ActionEvent> popuphandle = (ActionEvent handle) -> {
+                            if (handle.getSource()==close){
                                 wallpopup.hide();
                             }
-                        }
                     };
                     close.setOnAction(popuphandle);
                     wallpopup.show(primaryStage);
                 }
-            }
         };
 
         GridPane buttons = new GridPane();

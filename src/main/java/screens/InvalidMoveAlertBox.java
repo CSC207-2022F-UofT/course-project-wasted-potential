@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 
 public class InvalidMoveAlertBox {
+    private InvalidMoveAlertBox() {}
     // These alert boxes could be separated if you were smart about it
     // Create another class called alert box and do it through there
 

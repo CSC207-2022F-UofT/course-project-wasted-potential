@@ -10,25 +10,26 @@ import screens.*;
 import publish.*;
 import navigation.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Application;
 import solvability.*;
 import java.text.ParseException;
-import java.util.NoSuchElementException;
+import java.util.zip.DataFormatException;
 
 public class Main extends Application {
 
     public static void main(String[] args){
         launch(args);
     }
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws FileNotFoundException, DataFormatException {
 
         UserRegisterAndLoginDsGateway gateway;
 
         try{
             gateway = new UserDatabase("./users.csv");
         } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
+            throw new FileNotFoundException("Could not create file.");
         }
 
         ULoginOutputBoundary userLoginPresenter = new UserLoginPresenter();
@@ -48,9 +49,9 @@ public class Main extends Application {
         try {
             mazeDatabase = new MazeDatabase("./mazes.csv");
         } catch (IOException e) {
-            throw new IndexOutOfBoundsException("Could not create file.");
+            throw new FileNotFoundException("Could not create file.");
         } catch (ParseException e) {
-            throw new NoSuchElementException("Creation date is incorrect.");
+            throw new DataFormatException("Creation date is incorrect.");
         }
         PublishMazeInteractor publishMazeInteractor = new PublishMazeInteractor(publishMazePresenter, mazeDatabase);
         PublishMazeController publishMazeController = new PublishMazeController(publishMazeInteractor);

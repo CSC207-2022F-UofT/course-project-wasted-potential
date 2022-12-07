@@ -1,9 +1,6 @@
 package navigation;
 
 import entities.GameState;
-import navigation.MazeNavInputBoundary;
-import navigation.MazeNavRequestModel;
-import navigation.MazeNavResponseModel;
 
 /**
  * The controller for the maze navigation use case.

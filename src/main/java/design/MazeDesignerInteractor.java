@@ -11,8 +11,8 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
     private MazeGenerator mazeGenerator;
     private MazeDesignerOutputBoundary mazeDesignerPresenter;
 
-    private final int numRows = 17;
-    private final int numCols = 25;
+    private static final int numRows = 17;
+    private static final int numCols = 25;
 
 
     /**

@@ -30,7 +30,7 @@ public abstract class User {
      * @param userType     the user type.
      * @param creationTime the creation time of the account.
      */
-    public User(String username, String password, String userType, String creationTime){
+    protected User(String username, String password, String userType, String creationTime){
         this.username = username;
         this.password = password;
         this.userType = userType;

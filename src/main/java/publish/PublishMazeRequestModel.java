@@ -9,19 +9,19 @@ public class PublishMazeRequestModel {
     private String author;
     private String name;
 
-    private DesignableMaze dm;
+    private DesignableMaze designableMaze;
 
     /**
      * Instantiates a new PublishedMazeRequestModel.
      *
      * @param author the author
      * @param name   the name of the maze
-     * @param dm     the DesignableMaze being published.
+     * @param designableMaze     the DesignableMaze being published.
      */
-    public PublishMazeRequestModel(String author, String name, DesignableMaze dm) {
+    public PublishMazeRequestModel(String author, String name, DesignableMaze designableMaze) {
         this.author = author;
         this.name = name;
-        this.dm = dm;
+        this.designableMaze = designableMaze;
     }
 
     /**
@@ -47,7 +47,7 @@ public class PublishMazeRequestModel {
      *
      * @return the DesignableMaze
      */
-    public DesignableMaze getDm() {
-        return dm;
+    public DesignableMaze getDesignableMaze() {
+        return designableMaze;
     }
 }
