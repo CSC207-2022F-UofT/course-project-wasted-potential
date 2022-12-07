@@ -6,7 +6,7 @@ plugins {
 
 javafx {
     version = '11'
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base', 'javafx.media', 'javafx.swing' ]
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base', 'javafx.media', 'javafx.swing']
 }
 
 repositories {
