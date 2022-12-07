@@ -38,7 +38,6 @@ public class MazeRetrieverInteractor implements MazeRetrieverInputBoundary {
 
         MazeRetrieverResponseModel responseModel = new MazeRetrieverResponseModel(played, notPlayed);
 
-
         return mazeRetrieverOutputBoundary.displayMazes(responseModel);
     }
 
