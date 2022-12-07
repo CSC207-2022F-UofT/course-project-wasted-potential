@@ -7,9 +7,9 @@ import entities.DesignableMaze;
  */
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
-    private DesignableMaze dm;
-    private MazeGenerator mg;
-    private MazeDesignerOutputBoundary mdp;
+    private DesignableMaze designableMaze;
+    private MazeGenerator mazeGenerator;
+    private MazeDesignerOutputBoundary mazeDesignerPresenter;
 
     private final int numRows = 17;
     private final int numCols = 25;
@@ -17,61 +17,61 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
     /**
      * Constructor for the Maze Designer Interactor
-     * @param mdp A MazeDesignerOutputBoundary, expected to be a MazeDesignerPresenter
+     * @param mazeDesignerPresenter A MazeDesignerOutputBoundary, expected to be a MazeDesignerPresenter
      */
-    public MazeDesignerInteractor(MazeDesignerOutputBoundary mdp) {
+    public MazeDesignerInteractor(MazeDesignerOutputBoundary mazeDesignerPresenter) {
         // update designablemaze instance attribute
-        this.dm = new DesignableMaze(numRows, numCols);
+        this.designableMaze = new DesignableMaze(numRows, numCols);
         resetMaze();
         // update the randomizedprim instance attribute
-        this.mg = new RandomizedPrim(this.dm);
+        this.mazeGenerator = new RandomizedPrim(this.designableMaze);
         // update the output boundary instance attribute
-        this.mdp = mdp;
+        this.mazeDesignerPresenter = mazeDesignerPresenter;
     }
 
     public void resetMaze(){
-        dm.emptySetup();
+        designableMaze.emptySetup();
     }
 
 
     public void buildWall(int row, int col){
-        dm.placeWall(row, col);
+        designableMaze.placeWall(row, col);
     }
 
 
     public void removeWall(int row, int col){
-        if (row != 0 && col != 0 && row != dm.getNumRow()-1 && col != dm.getNumCol()-1) {
-            dm.deleteWall(row, col);
+        if (row != 0 && col != 0 && row != designableMaze.getNumRow()-1 && col != designableMaze.getNumCol()-1) {
+            designableMaze.deleteWall(row, col);
         }
     }
 
 
     public void startPoint(int row, int col){
-        dm.placeStart(row, col);
+        designableMaze.placeStart(row, col);
     }
 
 
     public void endPoint(int row, int col){
-        dm.placeEnd(row, col);
+        designableMaze.placeEnd(row, col);
     }
     public void randomMaze(){
-        mg = new RandomizedPrim(this.dm);
-        mg.generate();
+        mazeGenerator = new RandomizedPrim(this.designableMaze);
+        mazeGenerator.generate();
         startPoint(1,1);
         endPoint(getRows()-2, getCols()-2);
     }
     public int getRows(){
-        return dm.getNumRow();
+        return designableMaze.getNumRow();
     }
     public int getCols(){
-        return dm.getNumCol();
+        return designableMaze.getNumCol();
     }
 
     public char[][] getMazeState(){
-        return mdp.presentMazeState(dm.getState());
+        return mazeDesignerPresenter.presentMazeState(designableMaze.getState());
     }
 
     public DesignableMaze getDesignableMaze() {
-        return dm;
+        return designableMaze;
     }
 }
