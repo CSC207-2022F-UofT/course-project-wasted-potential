@@ -29,7 +29,7 @@ public class MazePublishInteractorTest {
         MazeDesignerInputBoundary designerInputBoundary = new MazeDesignerInteractor(designerOutputBoundary);
         MazeDesignerController designerController = new MazeDesignerController(designerInputBoundary);
         designerController.resetMaze();
-        PublishMazeResponseModel mazeInfo = interactor.publishMaze("authorName", "mazeName", designerController.getDm());
+        PublishMazeResponseModel mazeInfo = interactor.publishMaze("authorName", "mazeName", designerController.getDesignableMaze());
 
         Assertions.assertEquals("mazeName", mazeInfo.getName());
         Assertions.assertEquals(LocalDate.now(), mazeInfo.getPublishDate());
@@ -39,10 +39,10 @@ public class MazePublishInteractorTest {
                 "mazeName",
                 true,
                 LocalDate.now(),
-                designerController.getDm().getState(),
-                designerController.getDm().getStartLocation(),
-                designerController.getDm().getNumRow(),
-                designerController.getDm().getNumCol(),
+                designerController.getDesignableMaze().getState(),
+                designerController.getDesignableMaze().getStartLocation(),
+                designerController.getDesignableMaze().getNumRow(),
+                designerController.getDesignableMaze().getNumCol(),
                 PublishedMazeSingleton.getId() - 1);
         Assertions.assertTrue(mazes.containsValue(publishedMaze));
     }
