@@ -26,3 +26,12 @@
     -fx-background-color: rgba(255, 54, 54);
     -fx-text-fill: #FFFFFF;
 }
+
+.title-text {
+    -fx-fill: white;
+    -fx-font-size: 40px;
+}
+
+.subtitle-text {
+    -fx-fill: white;
+}

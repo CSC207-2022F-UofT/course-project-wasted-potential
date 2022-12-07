@@ -1,4 +1,5 @@
 package screens;
+import javafx.scene.text.Text;
 import user_login.UserLoginResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -37,6 +38,11 @@ public class LoginUI extends Application implements Screen{
         Label userl = new Label("Username");
         Label pwdl = new Label("Password");
         Label error = new Label();
+
+        Text title = new Text("Maze Gae");
+        Text subtitle = new Text("Made by: Team Wasted Pot");
+        title.getStyleClass().add("title-text");
+        subtitle.getStyleClass().add("subtitle-text");
 
         TextField utf = new TextField();
         PasswordField pwf = new PasswordField();
@@ -92,10 +98,12 @@ public class LoginUI extends Application implements Screen{
 
 
         root.setVgap(10);
-        root.addRow(0, formgp);
-        root.addRow(1, error);
-        root.addRow(2, regis);
-        root.addRow(3, login);
+        root.addRow(0, title);
+        root.addRow(1, subtitle);
+        root.addRow(2, formgp);
+        root.addRow(3, error);
+        root.addRow(4, regis);
+        root.addRow(5, login);
 
         GridPane maze = new GridPane();
 
