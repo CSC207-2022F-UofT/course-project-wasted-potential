@@ -1,6 +1,7 @@
 package display;
 
 import entities.GameState;
+import entities.PublishedMaze;
 
 /**
  * The use case interactor for the maze display use case.
@@ -40,7 +41,8 @@ public class MazeDisplayInteractor implements MazeDisplayInputBoundary {
     public MazeDisplayResponseModel create(MazeDisplayRequestModel requestModel) {
         playerDsGateway.addToPlayed(requestModel.getMazeID(), requestModel.getUsername());
 
-        GameState maze = (GameState) mazeDsGateway.retrieveMaze(requestModel.getMazeID());
+        PublishedMaze pm = mazeDsGateway.retrieveMaze(requestModel.getMazeID());
+        GameState maze = new GameState(pm.getAuthor(), pm.getName(), pm.getPublished(), pm.getPublishDate(), pm.getState(), pm.getStartPosition(), pm.getNumRow(), pm.getNumCol(), requestModel.getMazeID(), pm.getStartPosition());
 
         MazeDisplayResponseModel responseModel = new MazeDisplayResponseModel(maze);
 

@@ -1,6 +1,6 @@
 package retrieval;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The data access interface for the maze retriever use case.
@@ -16,7 +16,7 @@ public interface MazeRetrieverDsGateway {
      * @param username the user who's logged in
      * @return a list of every maze the user has played
      */
-    ArrayList<Integer> retrievePlayed(String username);
+    List<Integer> retrievePlayed(String username);
 
     /**
      * Returns a list of the mazes that a user has not played.
@@ -24,5 +24,5 @@ public interface MazeRetrieverDsGateway {
      * @param username the user who's logged in
      * @return a list of every maze the user has not played
      */
-    ArrayList<Integer> retrieveNotPlayed(String username);
+    List<Integer> retrieveNotPlayed(String username);
 }
