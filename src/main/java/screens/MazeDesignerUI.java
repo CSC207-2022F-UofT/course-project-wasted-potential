@@ -69,8 +69,9 @@ public class MazeDesignerUI extends Application implements Screen{
 
     @Override
     public void start(Stage primaryStage){
-        int mazeRows = 17;
-        int mazeCols = 25;
+        int mazeRows = mdc.getDm().getNumRow();
+        int mazeCols = mdc.getDm().getNumCol();
+
         Button[][] buttonarray = new Button[mazeRows][mazeCols];
         primaryStage.setTitle("Maze Designer");
         GridPane root = new GridPane();
@@ -177,6 +178,7 @@ public class MazeDesignerUI extends Application implements Screen{
         publisher.setOnAction(extrabuttonHandler);
         close.setOnAction(popupHandler);
 
+        System.out.println(mdc.getMazeState().length + " " + mdc.getMazeState()[0].length);
         updateMazeUI(mdc.getMazeState(), buttonarray);
         for (int i = 0; i < mazeRows; i++) {
             for (int j = 0; j < mazeCols; j++) {

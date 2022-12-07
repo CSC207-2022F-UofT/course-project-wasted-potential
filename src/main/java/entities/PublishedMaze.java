@@ -44,8 +44,8 @@ public class PublishedMaze extends Maze{
     /**
      * Instantiates a new Published maze. This is a default constructor.
      */
-    public PublishedMaze() {
-    }
+//    public PublishedMaze() {
+//    }
 
     /**
      * Gets the author of the maze

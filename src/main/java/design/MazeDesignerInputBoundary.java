@@ -4,11 +4,6 @@ import entities.DesignableMaze;
 
 public interface MazeDesignerInputBoundary {
     /**
-     * Creates a new DesignableMaze with dimensions 11 x 17
-     */
-    public void newMaze();
-
-    /**
      * Resets the current maze; having all outer cells as walls and all else be empty
      */
     public void resetMaze();

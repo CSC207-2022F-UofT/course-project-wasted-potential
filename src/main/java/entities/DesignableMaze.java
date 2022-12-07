@@ -12,14 +12,6 @@ public class DesignableMaze extends Maze{
     /**
      * Instantiates a new Designable maze.
      *
-     */
-    public DesignableMaze() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Designable maze.
-     *
      * @param numRow the number of rows
      * @param numCol the number of columns
      */

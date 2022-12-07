@@ -33,15 +33,6 @@ public abstract class Maze {
     }
 
     /**
-     * Instantiates a new Maze. This is a default constructor.
-     */
-    protected Maze() {
-        this.numRow = 25;
-        this.numCol = 25;
-        this.state = new char[numRow][numCol];
-    }
-
-    /**
      * Instantiates a new Maze.
      *
      * @param numRow the number of rows
