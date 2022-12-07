@@ -4,6 +4,7 @@
 .toggle-button{
     -fx-border-color: none;
     -fx-text-fill: #FFFFFF;
+    /*-fx-pref-width: 70px;*/
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),
             #3700A3,
@@ -82,3 +83,10 @@
 .label{
     -fx-text-fill: #121212;
 }
+
+.maze-name-field {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-pref-width: 180px;
+}
+

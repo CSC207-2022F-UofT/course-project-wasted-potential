@@ -6,10 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -94,13 +92,13 @@ public class MazeDesignerUI extends Application implements Screen{
         // log out button
         Button logOutButton = new Button("Log Out");
         logOutButton.getStyleClass().add("log-out-button");
-        logOutButton.setLayoutX(1700);
+        logOutButton.setLayoutX(100);
 
-        Text solvableIndicator = new Text("This maze is solvable");
+        TextField mazeNameField = new TextField("Maze name");
+        mazeNameField.getStyleClass().add("maze-name-field");
 
-        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
+        HBox topRow = new HBox(mazeNameField, builder, bulldozer, starter, ender, randomizer, publisher, resetter, logOutButton);
 
-        HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, publisher, resetter, logOutButton);
         ToggleGroup choices = new ToggleGroup();
         builder.setToggleGroup(choices);
         bulldozer.setToggleGroup(choices);
@@ -109,6 +107,8 @@ public class MazeDesignerUI extends Application implements Screen{
         Popup publishpopup = new Popup();
         Button close = new Button("Close");
 
+        Text solvableIndicator = new Text("This maze is solvable");
+        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
 
 
         EventHandler<ActionEvent> eventHandler = (ActionEvent event) -> {
@@ -168,7 +168,7 @@ public class MazeDesignerUI extends Application implements Screen{
         publisher.setOnAction(actionEvent -> {
             if (getSolvableStatus().getIsSolvable()) {
                 List<String> mazeInfo = mpc.publishMaze(UserSingleton.getInstance().getUsername(),
-                        UserSingleton.getInstance().getUsername() + "'s Maze",
+                        mazeNameField.getText(),
                         mdc.getDm());
                 Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                 GridPane publishpopuppane = new GridPane();
@@ -200,7 +200,7 @@ public class MazeDesignerUI extends Application implements Screen{
         }
 
         root.setVgap(10);
-        root.addRow(0, funcs);
+        root.addRow(0, topRow);
         GridPane maze = new GridPane();
         for (int i = 0; i < buttonarray.length; i++) {
             maze.addRow(i, buttonarray[i]);
@@ -210,6 +210,9 @@ public class MazeDesignerUI extends Application implements Screen{
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
+
+        // make it so the maze-name-field isn't selected by default
+        root.requestFocus();
 
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
