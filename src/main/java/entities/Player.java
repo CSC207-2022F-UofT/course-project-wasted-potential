@@ -1,6 +1,8 @@
 package entities;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The type Player.
@@ -28,6 +30,6 @@ public class Player extends User{
      * @return a list of mazes played by the user
      */
     public List<Integer> getMazesPlayed() {
-        return this.mazesPlayed;
+        return Objects.requireNonNullElse(this.mazesPlayed, Collections.<Integer>emptyList());
     }
 }

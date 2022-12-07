@@ -1,0 +1,23 @@
+.root{
+    -fx-background-color: #121212
+}
+.button {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),
+            #3700A3,
+            #372FF3,
+            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3);
+    -fx-text-fill: #FFFFFF;
+}
+.label{
+    -fx-text-fill: #FFFFFF;
+}
+.toggle-button {
+    -fx-background-color: #372FF3;
+    -fx-text-fill: #FFFFFF;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #3EBDAA;
+}
