@@ -12,8 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Popup;
 
-import javax.swing.*;
-
 
 public class RegisterUI extends Application implements Screen{
 
