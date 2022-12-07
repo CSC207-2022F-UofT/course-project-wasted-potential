@@ -2,15 +2,6 @@
     -fx-background-color: #121212
 }
 .toggle-button{
-    -fx-border-color: none;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),
-            #3700A3,
-            #372FF3,
-            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-
 }
 .toggle-button:selected{
     -fx-border-color: none;
@@ -22,8 +13,25 @@
             radial-gradient(center 50% 50%, radius 100%, #BB86FC, #AA75EB);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
-.button {
-    /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );*/
+
+.edit-button {
+    -fx-border-color: none;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 73px;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #3700D3 0%, #3700B3 100%),
+            #3700A3,
+            #372FF3,
+            radial-gradient(center 50% 50%, radius 100%, #373FF3, #372AA3);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+}
+
+.edit-button:hover, .publish-button, .log-out-button {
+    -fx-cursor: hand;
+}
+
+.button:hover, .toggle-button:hover {
+    -fx-text-fill: #d4d4d4;
 }
 
 .log-out-button {
@@ -31,14 +39,14 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.reset-button {
-    -fx-background-color: #CF6679;
-    -fx-text-fill: #121212;
-}
+/*.reset-button {*/
+/*    -fx-background-color: #CF6679;*/
+/*    -fx-text-fill: #121212;*/
+/*}*/
 
 .publish-button {
-    -fx-background-color: #F2CC0F;
-    -fx-text-fill: #121212;
+    -fx-background-color: #f7b500;
+    -fx-text-fill: white;
 }
 
 .random-button {
@@ -49,8 +57,8 @@
 }
 
 .maze-button {
-    -fx-min-width: 25px;
-    -fx-min-height: 25px;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
     -fx-background-radius: 0px;
     -fx-border-width: 3px;
     -fx-border-color: rgba(0, 0, 0, 0.05);
@@ -82,3 +90,10 @@
 .label{
     -fx-text-fill: #121212;
 }
+
+.maze-name-field {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-pref-width: 170px;
+}
+

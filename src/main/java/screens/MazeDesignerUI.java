@@ -6,10 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -78,15 +76,20 @@ public class MazeDesignerUI extends Application implements Screen{
         root.setAlignment(Pos.CENTER);
 
         ToggleButton builder = new ToggleButton("Build");
-        ToggleButton bulldozer = new ToggleButton("Bulldoze");
-        ToggleButton starter = new ToggleButton("Place Start");
-        ToggleButton ender = new ToggleButton("Place End");
+        ToggleButton bulldozer = new ToggleButton("Destroy");
+        ToggleButton starter = new ToggleButton("Start");
+        ToggleButton ender = new ToggleButton("End");
+
+        builder.getStyleClass().add("edit-button");
+        bulldozer.getStyleClass().add("edit-button");
+        starter.getStyleClass().add("edit-button");
+        ender.getStyleClass().add("edit-button");
 
         Button resetter = new Button("Reset");
-        resetter.getStyleClass().add("reset-button");
+        resetter.getStyleClass().add("edit-button");
 
         Button randomizer = new Button("Random");
-        randomizer.getStyleClass().add("random-button");
+        randomizer.getStyleClass().add("edit-button");
 
         Button publisher = new Button("Publish");
         publisher.getStyleClass().add("publish-button");
@@ -94,12 +97,12 @@ public class MazeDesignerUI extends Application implements Screen{
         // log out button
         Button logOutButton = new Button("Log Out");
         logOutButton.getStyleClass().add("log-out-button");
+        logOutButton.setLayoutX(100);
 
-        Text solvableIndicator = new Text("This maze is solvable");
+        TextField mazeNameField = new TextField(UserSingleton.getInstance().getUsername() + "'s Maze");
+        mazeNameField.getStyleClass().add("maze-name-field");
 
-        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
 
-        HBox funcs = new HBox(builder, bulldozer, starter, ender, randomizer, publisher, resetter, logOutButton);
         ToggleGroup choices = new ToggleGroup();
         builder.setToggleGroup(choices);
         bulldozer.setToggleGroup(choices);
@@ -108,6 +111,18 @@ public class MazeDesignerUI extends Application implements Screen{
         Popup publishpopup = new Popup();
         Button close = new Button("Close");
 
+        Text solvableIndicator = new Text("This maze is solvable");
+        solvableIndicator.setStyle("-fx-fill: #86d154; -fx-font-size: 14px;");
+
+        HBox editGroup1 = new HBox(builder, bulldozer, starter, ender);
+        HBox editGroup2 = new HBox(resetter, randomizer);
+        editGroup1.setLayoutX(180);
+        editGroup2.setLayoutX(503);
+        logOutButton.setLayoutX(680);
+        AnchorPane topRow = new AnchorPane(mazeNameField, editGroup1, editGroup2, logOutButton);
+        AnchorPane bottomRow = new AnchorPane(solvableIndicator, publisher);
+        solvableIndicator.setLayoutY(15);
+        publisher.setLayoutX(683);
 
 
         EventHandler<ActionEvent> eventHandler = (ActionEvent event) -> {
@@ -143,22 +158,32 @@ public class MazeDesignerUI extends Application implements Screen{
             }
         };
 
-        EventHandler<ActionEvent> extrabuttonHandler = (ActionEvent extrabuttons) -> {
-            if (extrabuttons.getSource()==resetter){
+        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
+            if (popuphandle.getSource()==close){
+                publishpopup.hide();
                 mdc.resetMaze();
-                updateSolvability(solvableIndicator, publisher);
-            } else if (extrabuttons.getSource()==randomizer){
-                mdc.randoMaze();
-                updateSolvability(solvableIndicator, publisher);
-            } else if (extrabuttons.getSource() == logOutButton) {
-                ScreenManager.changeScreen("login");
+                updateMazeUI(mdc.getMazeState(), buttonarray);
             }
+        };
 
-
+        resetter.setOnAction(actionEvent -> {
+            mdc.resetMaze();
+            updateSolvability(solvableIndicator, publisher);
             updateMazeUI(mdc.getMazeState(), buttonarray);
-            if (extrabuttons.getSource() == publisher && getSolvableStatus().getIsSolvable()) {
+        });
+
+        randomizer.setOnAction(actionEvent -> {
+            mdc.randoMaze();
+            updateSolvability(solvableIndicator, publisher);
+            updateMazeUI(mdc.getMazeState(), buttonarray);
+        });
+
+        logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
+
+        publisher.setOnAction(actionEvent -> {
+            if (getSolvableStatus().getIsSolvable()) {
                 List<String> mazeInfo = mpc.publishMaze(UserSingleton.getInstance().getUsername(),
-                        UserSingleton.getInstance().getUsername() + "'s Maze",
+                        mazeNameField.getText(),
                         mdc.getDm());
                 Label label = new Label("Your maze " + mazeInfo.get(0) + " has been published!");
                 GridPane publishpopuppane = new GridPane();
@@ -177,20 +202,8 @@ public class MazeDesignerUI extends Application implements Screen{
 
                 publishpopup.show(primaryStage);
             }
-        };
+        });
 
-        EventHandler<ActionEvent> popupHandler = (ActionEvent popuphandle) -> {
-            if (popuphandle.getSource()==close){
-                publishpopup.hide();
-                mdc.resetMaze();
-                updateMazeUI(mdc.getMazeState(), buttonarray);
-            }
-        };
-
-        resetter.setOnAction(extrabuttonHandler);
-        randomizer.setOnAction(extrabuttonHandler);
-        publisher.setOnAction(extrabuttonHandler);
-        logOutButton.setOnAction(extrabuttonHandler);
         close.setOnAction(popupHandler);
 
 
@@ -202,21 +215,25 @@ public class MazeDesignerUI extends Application implements Screen{
         }
 
         root.setVgap(10);
-        root.addRow(0, funcs);
+        root.addRow(0, topRow);
         GridPane maze = new GridPane();
         for (int i = 0; i < buttonarray.length; i++) {
             maze.addRow(i, buttonarray[i]);
         }
         root.addRow(1, maze);
-        root.addRow(2, solvableIndicator);
+        root.addRow(2, bottomRow);
 
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
+
+        // make it so the maze-name-field isn't selected by default
+        root.requestFocus();
 
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
+
 
     /**
      * Creates a popup if the user tries to edit an outer wall.
