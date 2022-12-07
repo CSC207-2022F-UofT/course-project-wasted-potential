@@ -56,6 +56,9 @@ public class RegisterUI extends Application implements Screen{
         Label error = new Label();
         Button regis = new Button("Register");
 
+        Button goBackButton = new Button("Go back");
+        goBackButton.getStyleClass().add("go-back-button");
+
         ToggleButton designerButton = new ToggleButton(designerText);
         ToggleButton playerButton = new ToggleButton(playerText);
         ToggleGroup chooseUserType = new ToggleGroup();
@@ -120,9 +123,13 @@ public class RegisterUI extends Application implements Screen{
 
         GridPane buttons = new GridPane();
         buttons.addRow(0,playerButton,designerButton);
-        buttons.addRow(1, regis);
+        buttons.addRow(1, regis, goBackButton);
 
         regis.setOnAction(registerButtonClick);
+
+        goBackButton.setOnAction(actionEvent ->
+                ScreenManager.changeScreen("login")
+        );
 
         primaryStage.setTitle("Register");
         GridPane root = new GridPane();
@@ -135,7 +142,7 @@ public class RegisterUI extends Application implements Screen{
         root.addRow(2, choose);
         root.addRow(3, buttons);
 
-        Scene scene = new Scene(root, 432, 321);
+        Scene scene = new Scene(root, 1234, 750);
         String css = this.getClass().getResource("/logres.css").toExternalForm();
         scene.getStylesheets().add(css);
 

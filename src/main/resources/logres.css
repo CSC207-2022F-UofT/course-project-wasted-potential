@@ -21,3 +21,8 @@
 .toggle-button:selected {
     -fx-background-color: #3EBDAA;
 }
+
+.go-back-button {
+    -fx-background-color: rgba(255, 54, 54);
+    -fx-text-fill: #FFFFFF;
+}

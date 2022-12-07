@@ -101,7 +101,7 @@ public class LoginUI extends Application implements Screen{
 
         root.addRow(1, maze);
 
-        Scene scene = new Scene(root, 432, 321);
+        Scene scene = new Scene(root, 1234, 750);
         String css = this.getClass().getResource("/logres.css").toExternalForm();
         scene.getStylesheets().add(css);
 
