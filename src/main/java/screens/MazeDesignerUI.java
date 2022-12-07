@@ -174,6 +174,7 @@ public class MazeDesignerUI extends Application implements Screen{
 
         randomizer.setOnAction(actionEvent -> {
             mdc.randoMaze();
+            updateSolvability(solvableIndicator, publisher);
             updateMazeUI(mdc.getMazeState(), buttonarray);
         });
 
