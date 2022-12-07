@@ -39,8 +39,8 @@ public class LoginUI extends Application implements Screen{
         Label pwdl = new Label("Password");
         Label error = new Label();
 
-        Text title = new Text("Maze Gae");
-        Text subtitle = new Text("Made by: Team Wasted Pot");
+        Text title = new Text("Maze Game");
+        Text subtitle = new Text("Made by: Team Wasted Potential");
         title.getStyleClass().add("title-text");
         subtitle.getStyleClass().add("subtitle-text");
 
