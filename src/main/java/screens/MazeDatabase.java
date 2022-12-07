@@ -1,8 +1,9 @@
 package screens;
 
+import display.MazeDsGateway;
 import entities.PublishedMaze;
 import entities.SavedMaze;
-import publish.MazePublisherGateway;
+import publish.PublishMazeGateway;
 
 import java.io.*;
 import java.text.ParseException;
@@ -12,19 +13,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * The type Maze database.
+ * The gateway to write mazes into the database.
  */
-public class MazeDatabase implements MazePublisherGateway {
+public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
     private File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final PublishedMazeSingleton mazes = new PublishedMazeSingleton();
+    private final PublishedMazeSingleton mazes = PublishedMazeSingleton.getInstance();
 
     /**
      * Instantiates a new Maze database.
      *
      * @param csvPath the csv path
-     * @throws IOException the io exception
+     * @throws IOException    the io exception
+     * @throws ParseException the parse exception
      */
     public MazeDatabase(String csvPath) throws IOException, ParseException {
         csvFile = new File(csvPath);
@@ -32,13 +34,19 @@ public class MazeDatabase implements MazePublisherGateway {
         headers.put("name", 1);
         headers.put("author", 2);
         headers.put("creation_time", 3);
-        headers.put("state", 4);
-        headers.put("startPosition", 5);
+        headers.put("rows", 4);
+        headers.put("cols", 5);
+        headers.put("state", 6);
+        headers.put("startPosition", 7);
 
         if(csvFile.length() == 0){
             storeMaze();
         } else {
+            // The code smell when initializing a BufferedReader is left alone, as putting it in a try-catch affects
+            // code readability according to Professor Jonathan.
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+            // This line needs to be skipped, so the code smell will remain, as putting the skipping line into a
+            // variable results in an unused variable code smell.
             reader.readLine();
 
             String mazeInfo;
@@ -48,12 +56,15 @@ public class MazeDatabase implements MazePublisherGateway {
                 String name = String.valueOf(col[headers.get("name")]);
                 String author = String.valueOf(col[headers.get("author")]);
                 String creationTime = String.valueOf(col[headers.get("creation_time")]);
+                int rows = Integer.parseInt(String.valueOf(col[headers.get("rows")]).strip());
+                int cols = Integer.parseInt(String.valueOf(col[headers.get("cols")]).strip());
                 String state = String.valueOf(col[headers.get("state")]);
                 String startPosition = String.valueOf(col[headers.get("startPosition")]);
+
                 char[] flatMaze = state.replace(":", "").replace(" ", "").toCharArray();
-                char[][] mazeState = new char[11][17];
-                for (int i = 0; i < 11; i++) {
-                    System.arraycopy(flatMaze, (i * 17), mazeState[i], 0, 17);
+                char[][] mazeState = new char[rows][cols];
+                for (int i = 0; i < rows; i++) {
+                    System.arraycopy(flatMaze, (i * cols), mazeState[i], 0, cols);
                 }
                 int[] position = new int[2];
                 String positionString = startPosition.replace("[", "")
@@ -66,14 +77,17 @@ public class MazeDatabase implements MazePublisherGateway {
                         LocalDate.parse(creationTime),
                         mazeState,
                         position));
-
-                // use singleton with map and put info into mazeinformation class and pass into singleton to create published maze and put the maze back into the map
             }
 
             reader.close();
 
         }
     }
+    /**
+     * Store the maze in the database.
+     *
+     * @param maze a SavedMaze representing the maze that is to be published.
+     */
     @Override
     public void storeMaze(SavedMaze maze){
         mazes.addMaze(new MazeInformation(maze.getName(),
@@ -83,7 +97,10 @@ public class MazeDatabase implements MazePublisherGateway {
                       maze.getStartPosition()));
         this.storeMaze();
     }
-
+    /**
+     * Writes the maze into the database.
+     *
+     */
     private void storeMaze(){
         BufferedWriter writer;
         try {
@@ -92,9 +109,15 @@ public class MazeDatabase implements MazePublisherGateway {
             writer.newLine();
 
             for(PublishedMaze maze: mazes.getPublishedMazes().values()){
-                String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s, %6$s", maze.getId(),
-                        maze.getName(), maze.getAuthor(),maze.getPublishDate(),
-                        maze, Arrays.toString(maze.getStartPosition()).replace(",", ""));
+                String info = String.format("%1$s,%2$s,%3$s,%4$s, %5$s, %6$s, %7$s, %8$s",
+                        maze.getId(),
+                        maze.getName(),
+                        maze.getAuthor(),
+                        maze.getPublishDate(),
+                        maze.getNumRow(),
+                        maze.getNumCol(),
+                        maze, // implicitly calls toString() method
+                        Arrays.toString(maze.getStartPosition()).replace(",", ""));
                 writer.write(info);
                 writer.newLine();
             }
@@ -102,17 +125,23 @@ public class MazeDatabase implements MazePublisherGateway {
             writer.close();
 
         } catch (IOException e){
-            throw new RuntimeException(e);
+            throw new IndexOutOfBoundsException("Index out of bounds.");
         }
 
     }
 
     /**
-     * Gets mazes.
+     * Gets a map containing integer ids to mazes.
      *
-     * @return the mazes
+     * @return the mazes map.
      */
     public Map<Integer, PublishedMaze> getMazes() {
         return mazes.getPublishedMazes();
+    }
+
+
+    @Override
+    public PublishedMaze retrieveMaze(int mazeId) {
+        return mazes.getPublishedMaze(mazeId);
     }
 }

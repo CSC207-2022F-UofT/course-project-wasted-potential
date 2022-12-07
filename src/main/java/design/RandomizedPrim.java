@@ -21,6 +21,7 @@ public class RandomizedPrim implements MazeGenerator {
     private List<MazeCell> frontierCells = new ArrayList<>();
     private List<MazeCell> emptyCells = new ArrayList<>();
     private Random randomizer = new Random();
+
     /**
      * Instantiates a new Randomized prim.
      *
@@ -35,7 +36,6 @@ public class RandomizedPrim implements MazeGenerator {
         visitedCells.clear();
         frontierCells.clear();
         emptyCells.clear();
-
 
         fillMaze();
 

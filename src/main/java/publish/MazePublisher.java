@@ -6,35 +6,34 @@ import entities.SavedMaze;
 import java.time.LocalDate;
 
 /**
- * The type Maze publisher.
+ * The use case class for publishing mazes.
  */
 public class MazePublisher {
 
-    private MazePublishedRequestModel mazeInfo;
+    private PublishMazeRequestModel mazeInfo;
 
     /**
      * Instantiates a new Maze publisher.
      *
-     * @param mazeInfo the maze info
+     * @param mazeInfo the maze information in the form of a PublishMazeRequestModel.
      */
-    public MazePublisher (MazePublishedRequestModel mazeInfo) {
+    public MazePublisher (PublishMazeRequestModel mazeInfo) {
         this.mazeInfo = mazeInfo;
     }
 
     /**
-     * Check solvable boolean.
+     * Check whether the maze is solvable.
      *
-     * @return the boolean
+     * @return the boolean of whether the maze is solvable or not.
      */
-
     public boolean checkSolvable() {
         return MazeSolver.checkMazeSolvability(this.mazeInfo.getDm());
     }
 
     /**
-     * Publish maze published maze.
+     * Return a SavedMaze containing the maze that is to be published.
      *
-     * @return the published maze
+     * @return the SavedMaze that is about to be published.
      */
     public SavedMaze publishMaze() {
         if (checkSolvable()) {
