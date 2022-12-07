@@ -37,6 +37,8 @@ public class MazeDatabase implements PublishMazeGateway, MazeDsGateway {
         headers.put("state", 4);
         headers.put("startPosition", 5);
 
+        System.out.println(csvFile.length());
+
         if(csvFile.length() == 0){
             storeMaze();
         } else {
