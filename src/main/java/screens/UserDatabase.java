@@ -54,12 +54,12 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
                 String mazesPlayed;
 
 
-                    username = String.valueOf(col[headers.get("username")]);
-                    userType = String.valueOf(col[headers.get("user_type")]);
-                    password = String.valueOf(col[headers.get("password")]);
-                    creationTime = String.valueOf(col[headers.get("creation_time")]);
-                    mazesPlayed = String.valueOf(col[headers.get("mazes_played")]);
-                    playedMazes = getMazes(mazesPlayed);
+                username = String.valueOf(col[headers.get("username")]);
+                userType = String.valueOf(col[headers.get("user_type")]);
+                password = String.valueOf(col[headers.get("password")]);
+                creationTime = String.valueOf(col[headers.get("creation_time")]);
+                mazesPlayed = String.valueOf(col[headers.get("mazes_played")]);
+                playedMazes = getMazes(mazesPlayed);
 
 
 
