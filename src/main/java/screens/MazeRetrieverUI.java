@@ -92,6 +92,7 @@ public class MazeRetrieverUI extends Application implements Screen {
             playedHBox.getChildren().add(buttonsPlayed[i]);
         }
 
+        // This is not duplicate code since played and notPlayed are two separate lists
         for (int i = 0; i < notPlayed.size(); i++) {
             buttonsNotPlayed[i] = new Button(notPlayed.get(i).toString());
             buttonsNotPlayed[i].setText(notPlayed.get(i).toString());

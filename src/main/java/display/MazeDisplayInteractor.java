@@ -41,8 +41,8 @@ public class MazeDisplayInteractor implements MazeDisplayInputBoundary {
     public MazeDisplayResponseModel create(MazeDisplayRequestModel requestModel) {
         playerDsGateway.addToPlayed(requestModel.getMazeID(), requestModel.getUsername());
 
-        PublishedMaze pm = mazeDsGateway.retrieveMaze(requestModel.getMazeID());
-        GameState maze = new GameState(pm.getAuthor(), pm.getName(), pm.getPublished(), pm.getPublishDate(), pm.getState(), pm.getStartPosition(), pm.getNumRow(), pm.getNumCol(), requestModel.getMazeID(), pm.getStartPosition());
+        PublishedMaze publishedMaze = mazeDsGateway.retrieveMaze(requestModel.getMazeID());
+        GameState maze = new GameState(publishedMaze.getAuthor(), publishedMaze.getName(), publishedMaze.getPublished(), publishedMaze.getPublishDate(), publishedMaze.getState(), publishedMaze.getStartPosition(), publishedMaze.getNumRow(), publishedMaze.getNumCol(), requestModel.getMazeID(), publishedMaze.getStartPosition());
 
         MazeDisplayResponseModel responseModel = new MazeDisplayResponseModel(maze);
 

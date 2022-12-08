@@ -32,6 +32,8 @@ public class MazeDesignerController {
      */
     public void handleBuild(String action, int row, int col){
 
+        // Not all versions of Java support an enhanced switch case, so the switch case
+        // was not changed despite the warning
         switch (action) {
             case "build":
                 mazeDesignerInteractor.buildWall(row, col);
