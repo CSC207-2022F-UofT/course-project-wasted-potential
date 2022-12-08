@@ -33,7 +33,7 @@ public class GameState extends PublishedMaze {
                      int[] startPosition,
                      int numRow,
                      int numCol,
-                     int id, int[] position) {
+                     int id, int[] position) { // Despite the warning, this attribute is used in the program.
         super(author, name, published, date,
         state, startPosition, numRow, numCol, id);
         this.position = position;

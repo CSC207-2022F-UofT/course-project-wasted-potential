@@ -4,8 +4,8 @@ package user_login;
  * The user request model which stores all the information the user inputs in the login screen.
  */
 public class UserLoginRequestModel {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     /**
      * The constructor that instantiates a new UserLoginRequestModel.

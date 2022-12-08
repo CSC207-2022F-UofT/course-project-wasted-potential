@@ -43,10 +43,6 @@ public class PublishedMaze extends Maze{
     }
 
     /**
-     * Instantiates a new Published maze. This is a default constructor.
-     */
-
-    /**
      * Gets the author of the maze
      *
      * @return the author of the maze
@@ -76,7 +72,7 @@ public class PublishedMaze extends Maze{
     /**
      * Gets publish date.
      *
-     * @return the publish date
+     * @return the published date
      */
     public LocalDate getPublishDate() {
         return publishDate;
@@ -106,7 +102,7 @@ public class PublishedMaze extends Maze{
      * This is because published mazes must be stored in a csv file.
      * Therefore, toString() returns a representation which makes this easier.
      *
-     * @return
+     * @return a string representation of the maze
      */
     @Override
     public String toString() {
@@ -126,7 +122,7 @@ public class PublishedMaze extends Maze{
         if (!(obj instanceof PublishedMaze)) {
             return false;
         }
-        PublishedMaze pm = (PublishedMaze) obj;
-        return pm.getState() == ((PublishedMaze) obj).getState() && pm.getId() == ((PublishedMaze) obj).getId();
+        PublishedMaze publishedMaze = (PublishedMaze) obj;
+        return publishedMaze.getState() == ((PublishedMaze) obj).getState() && publishedMaze.getId() == ((PublishedMaze) obj).getId();
     }
 }

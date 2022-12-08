@@ -5,9 +5,17 @@ import entities.MazeCell;
 
 import java.util.List;
 
+/**
+ * The type Hint generator interactor.
+ */
 public class HintGeneratorInteractor implements HintGeneratorInBoundary {
-    private HintGeneratorOutBoundary hintGeneratorOutBoundary;
+    private final HintGeneratorOutBoundary hintGeneratorOutBoundary;
 
+    /**
+     * Instantiates a new Hint generator interactor.
+     *
+     * @param hintGeneratorOutBoundary the hint generator out boundary
+     */
     public HintGeneratorInteractor(HintGeneratorOutBoundary hintGeneratorOutBoundary) {
         this.hintGeneratorOutBoundary = hintGeneratorOutBoundary;
     }

@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Player extends User{
 
-    private List<Integer> mazesPlayed;
+    private final List<Integer> mazesPlayed;
 
     /**
      * Instantiates a new Player.
@@ -30,6 +30,6 @@ public class Player extends User{
      * @return a list of mazes played by the user
      */
     public List<Integer> getMazesPlayed() {
-        return Objects.requireNonNullElse(this.mazesPlayed, Collections.<Integer>emptyList());
+        return Objects.requireNonNullElse(this.mazesPlayed, Collections.emptyList());
     }
 }

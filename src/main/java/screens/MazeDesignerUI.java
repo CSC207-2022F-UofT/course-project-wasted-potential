@@ -15,7 +15,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import publish.PublishMazeController;
 
-import solvability.MazeSolvabilityControl;
+import solvability.MazeSolvabilityController;
 import solvability.MazeSolvabilityResponseModel;
 import java.util.List;
 
@@ -27,23 +27,23 @@ public class MazeDesignerUI extends Application implements Screen{
      * The Css file containing visual information.
      */
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
-    private MazeDesignerController mazeDesignerController;
+    private final MazeDesignerController mazeDesignerController;
 
-    private PublishMazeController publishMazeController;
+    private final PublishMazeController publishMazeController;
 
-    private MazeSolvabilityControl mazeSolvabilityControl;
+    private final MazeSolvabilityController mazeSolvabilityController;
 
     /**
      * Instantiates a new Maze designer ui.
      *
      * @param mazeDesignerController the MazeDesignerController
      * @param publishMazeController the PublishMazeController
-     * @param mazeSolvabilityControl the MazeSolvabilityControl
+     * @param mazeSolvabilityController the MazeSolvabilityController
      */
-    public MazeDesignerUI(MazeDesignerController mazeDesignerController, PublishMazeController publishMazeController, MazeSolvabilityControl mazeSolvabilityControl) {
+    public MazeDesignerUI(MazeDesignerController mazeDesignerController, PublishMazeController publishMazeController, MazeSolvabilityController mazeSolvabilityController) {
         this.mazeDesignerController = mazeDesignerController;
         this.publishMazeController = publishMazeController;
-        this.mazeSolvabilityControl = mazeSolvabilityControl;
+        this.mazeSolvabilityController = mazeSolvabilityController;
     }
 
     /**
@@ -56,7 +56,7 @@ public class MazeDesignerUI extends Application implements Screen{
     }
 
     private MazeSolvabilityResponseModel getSolvableStatus() {
-        return mazeSolvabilityControl.checkMazeSolvability(mazeDesignerController.getDesignableMaze());
+        return mazeSolvabilityController.checkMazeSolvability(mazeDesignerController.getDesignableMaze());
     }
     private void updateSolvability(Text solvableIndicator, Button publishButton) {
         MazeSolvabilityResponseModel responseMode = getSolvableStatus();
@@ -65,6 +65,7 @@ public class MazeDesignerUI extends Application implements Screen{
         publishButton.setDisable(!responseMode.getIsSolvable());
     }
 
+    // The start method is necessary for the screen to be initialized. Therefore, we did not fix it.
     @Override
     public void start(Stage primaryStage){
         int mazeRows = mazeDesignerController.getDesignableMaze().getNumRow();
@@ -175,12 +176,16 @@ public class MazeDesignerUI extends Application implements Screen{
         });
 
         randomizer.setOnAction(actionEvent -> {
-            mazeDesignerController.randoMaze();
+            mazeDesignerController.randomizeMaze();
             updateSolvability(solvableIndicator, publisher);
             updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
         });
 
-        logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
+        logOutButton.setOnAction(actionEvent -> {
+            mazeDesignerController.resetMaze();
+            updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
+            ScreenManager.changeScreen("login");
+        });
 
         publisher.setOnAction(actionEvent -> {
             if (getSolvableStatus().getIsSolvable()) {

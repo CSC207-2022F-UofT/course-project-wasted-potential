@@ -1,5 +1,8 @@
 package solvability;
 
+/**
+ * The type Maze solvable presenter.
+ */
 public class MazeSolvablePresenter implements MazeSolvableOutBoundary {
     public MazeSolvabilityResponseModel reportSolvability(boolean solvable) {
         if (solvable) {

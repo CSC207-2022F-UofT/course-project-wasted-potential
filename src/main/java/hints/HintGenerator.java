@@ -9,12 +9,21 @@ import java.util.Set;
 import java.util.Queue;
 import java.util.LinkedList;
 
+/**
+ * The type Hint generator.
+ */
 public class HintGenerator {
 
     private HintGenerator() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
+    /**
+     * Generate hint list.
+     *
+     * @param maze the maze to be navigated
+     * @return the list of maze cells
+     */
     public static List<MazeCell> generateHint(GameState maze) {
         // Store the maze's start cell
         int[] startLocation = maze.getPosition();

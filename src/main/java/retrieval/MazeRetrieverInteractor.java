@@ -1,5 +1,8 @@
 package retrieval;
 
+import display.MazeDsGateway;
+import entities.PublishedMaze;
+
 import java.util.List;
 
 /**
@@ -11,17 +14,20 @@ import java.util.List;
 public class MazeRetrieverInteractor implements MazeRetrieverInputBoundary {
 
     private final MazeRetrieverDsGateway mazeRetrieverDsGateway;
+    private final MazeDsGateway mazeDsGateway;
     private final MazeRetrieverOutputBoundary mazeRetrieverOutputBoundary;
 
     /**
      * The constructor for the MazeRetrieverInteractor class.
      *
-     * @param mazeRetrieverDsGateway the data access interface for the maze retriever use case
      * @param mazeRetrieverOutputBoundary the output boundary for the maze retriever use case
      */
-    public MazeRetrieverInteractor(MazeRetrieverDsGateway mazeRetrieverDsGateway, MazeRetrieverOutputBoundary mazeRetrieverOutputBoundary) {
+    public MazeRetrieverInteractor(MazeRetrieverDsGateway mazeRetrieverDsGateway,
+                                   MazeRetrieverOutputBoundary mazeRetrieverOutputBoundary,
+                                   MazeDsGateway mazeDsGateway) {
         this.mazeRetrieverDsGateway = mazeRetrieverDsGateway;
         this.mazeRetrieverOutputBoundary = mazeRetrieverOutputBoundary;
+        this.mazeDsGateway = mazeDsGateway;
     }
 
     /**
@@ -33,8 +39,10 @@ public class MazeRetrieverInteractor implements MazeRetrieverInputBoundary {
      */
     @Override
     public MazeRetrieverResponseModel create(MazeRetrieverRequestModel requestModel) {
-        List<Integer> played = mazeRetrieverDsGateway.retrievePlayed(requestModel.getUsername());
-        List<Integer> notPlayed = mazeRetrieverDsGateway.retrieveNotPlayed(requestModel.getUsername());
+
+        MazeRetrieverFacade mazeRetrieverFacade = new MazeRetrieverFacade(mazeRetrieverDsGateway, mazeDsGateway);
+        List<PublishedMaze> played = mazeRetrieverFacade.retrieveMazesPlayed(requestModel.getUsername());
+        List<PublishedMaze> notPlayed = mazeRetrieverFacade.retrieveMazesNotPlayed(requestModel.getUsername());
 
         MazeRetrieverResponseModel responseModel = new MazeRetrieverResponseModel(played, notPlayed);
 

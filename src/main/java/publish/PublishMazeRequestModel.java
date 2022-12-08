@@ -6,10 +6,10 @@ import entities.DesignableMaze;
  * The request model class for the use case of publishing mazes.
  */
 public class PublishMazeRequestModel {
-    private String author;
-    private String name;
+    private final String author;
+    private final String name;
 
-    private DesignableMaze designableMaze;
+    private final DesignableMaze designableMaze;
 
     /**
      * Instantiates a new PublishedMazeRequestModel.

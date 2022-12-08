@@ -156,7 +156,7 @@ public class MazeNavUI extends Application implements Screen {
                 else {
                     isComplete = controller.create('d', this.maze.getPosition(), this.maze);
                 }
-                updateMazeUI(maze.getState(), this.maze.getPosition());
+                updateMazeUI(maze.getState(), maze.getPosition());
                 if (isComplete) {
                     MazeCompleteAlertBox.display("Maze Complete!", "Congrats, you just solved this maze. " +
                             "You will now be redirected to the home screen.");

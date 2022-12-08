@@ -7,7 +7,6 @@ package display;
  */
 public class MazeDisplayPresenter implements MazeDisplayOutputBoundary {
 
-
     /**
      * Returns a response model back to the controller
      *

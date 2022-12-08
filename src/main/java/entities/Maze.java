@@ -10,11 +10,11 @@ public abstract class Maze {
     /**
      * The Number of rows.
      */
-    private int numRow;
+    private final int numRow;
     /**
      * The Number of columns.
      */
-    private int numCol;
+    private final int numCol;
     /**
      * The layout of the maze.
      */
@@ -22,7 +22,7 @@ public abstract class Maze {
     /**
      * The encoding for the different types of blocks in a maze.
      */
-    protected static Map<String, Character> ENCODING = new HashMap<>();
+    protected static final Map<String, Character> ENCODING = new HashMap<>();
 
     static {
         // initialize the encoding map
@@ -128,7 +128,7 @@ public abstract class Maze {
             for (int j = 0; j < this.numCol; j++) {
                 curRow.append(state[i][j]);
             }
-            returnString.append(curRow + "\r\n");
+            returnString.append(curRow).append("\r\n");
         }
 
         return returnString.toString();

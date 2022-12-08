@@ -2,6 +2,7 @@ package screens;
 
 import display.MazeDisplayController;
 import display.MazeDisplayResponseModel;
+import entities.PublishedMaze;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import retrieval.MazeRetrieverController;
 import retrieval.MazeRetrieverResponseModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,17 +57,17 @@ public class MazeRetrieverUI extends Application implements Screen {
 
 
         MazeRetrieverResponseModel retrieverRespModel = retrieverController.create(singleton.getUsername());
-        List<Integer> played;
-        List<Integer> notPlayed;
+        List<PublishedMaze> played;
+        List<PublishedMaze> notPlayed;
         try {
             played = retrieverRespModel.getPlayed();
         } catch (ClassCastException e) {
-            played = new ArrayList<>();
+            played = Collections.emptyList();
         }
         try {
             notPlayed = retrieverRespModel.getNotPlayed();
         } catch (ClassCastException e) {
-            notPlayed = new ArrayList<>();
+            notPlayed = Collections.emptyList();
         }
 
         HBox playedHBox = new HBox();
@@ -80,12 +82,17 @@ public class MazeRetrieverUI extends Application implements Screen {
         Button[] buttonsNotPlayed = new Button[notPlayed.size()];
 
         for (int i = 0; i < played.size(); i++) {
-            buttonsPlayed[i] = new Button(played.get(i).toString());
-            buttonsPlayed[i].setText(played.get(i).toString());
+            PublishedMaze publishedMaze = played.get(i);
+            String buttonText = publishedMaze.getId() + ", " + publishedMaze.getName() + ", " +
+                    publishedMaze.getAuthor();
+            buttonsPlayed[i] = new Button(buttonText);
+            buttonsPlayed[i].setText(buttonText);
             buttonsPlayed[i].setOnAction(event -> {
                 Button button = (Button) event.getSource();
+                String[] buttonString = button.getText().split(",");
+                String mazeId = buttonString[0].trim();
                 MazeDisplayResponseModel respModel =
-                        displayController.create(singleton.getUsername(), Integer.parseInt(button.getText()));
+                        displayController.create(singleton.getUsername(), Integer.parseInt(mazeId));
                 maze.setMaze(respModel.getMaze());
 
                 ScreenManager.changeScreen("game");
@@ -93,13 +100,20 @@ public class MazeRetrieverUI extends Application implements Screen {
             playedHBox.getChildren().add(buttonsPlayed[i]);
         }
 
+        // We decided to keep this warning as it aided with the readability of the code
         for (int i = 0; i < notPlayed.size(); i++) {
-            buttonsNotPlayed[i] = new Button(notPlayed.get(i).toString());
-            buttonsNotPlayed[i].setText(notPlayed.get(i).toString());
+            PublishedMaze publishedMaze = notPlayed.get(i);
+            String buttonText = publishedMaze.getId() + ", " + publishedMaze.getName() + ", " +
+                    publishedMaze.getAuthor();
+            buttonsNotPlayed[i] = new Button(buttonText);
+            buttonsNotPlayed[i].setText(buttonText);
             buttonsNotPlayed[i].setOnAction(event -> {
                 Button button = (Button) event.getSource();
+                String[] buttonString = button.getText().split(",");
+                String mazeId = buttonString[0].trim();
+                System.out.println(mazeId);
                 MazeDisplayResponseModel respModel =
-                        displayController.create(singleton.getUsername(), Integer.parseInt(button.getText()));
+                        displayController.create(singleton.getUsername(), Integer.parseInt(mazeId));
                 maze.setMaze(respModel.getMaze());
                 ScreenManager.changeScreen("game");
 

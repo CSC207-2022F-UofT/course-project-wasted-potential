@@ -51,13 +51,11 @@ public class MazeSolver {
         int[] startLocation = maze.getStartLocation();
         MazeCell startCell = new MazeCell(startLocation[0], startLocation[1]);
         // Initialize an arrayList to store the cells to visit
-        Queue<MazeCell> queue = new LinkedList<MazeCell>() {
-            {add(startCell);}
-        };
+        Queue<MazeCell> queue = new LinkedList<>();
+        queue.add(startCell);
         // Initialize a set to store all visited cells
-        Set<MazeCell> visited = new HashSet<MazeCell>() {
-            {add(startCell);}
-        };
+        Set<MazeCell> visited = new HashSet<>();
+        visited.add(startCell);
 
         // Perform breadth first search as long as there are still cells to visit in the queue
         while (!(queue.isEmpty())) {

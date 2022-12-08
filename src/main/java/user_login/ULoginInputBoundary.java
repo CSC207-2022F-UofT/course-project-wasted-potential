@@ -6,5 +6,5 @@ public interface ULoginInputBoundary {
      * @param userRequestModel the user request model
      * @return the user response model
      */
-    public UserLoginResponseModel logUserIn(UserLoginRequestModel userRequestModel);
+    UserLoginResponseModel logUserIn(UserLoginRequestModel userRequestModel);
 }

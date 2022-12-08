@@ -2,5 +2,5 @@ package screens;
 import javafx.stage.Stage;
 
 public interface Screen {
-    public void start(Stage stage);
+    void start(Stage stage);
 }

@@ -8,7 +8,7 @@ import entities.SavedMaze;
  */
 public class PublishMazeInteractor implements PublishMazeInBoundary {
 
-    private PublishMazeOutBoundary outBoundary;
+    private final PublishMazeOutBoundary outBoundary;
 
     /**
      * An attribute containing the gateway, generally the database.
