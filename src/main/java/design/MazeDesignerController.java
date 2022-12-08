@@ -33,10 +33,18 @@ public class MazeDesignerController {
     public void handleBuild(String action, int row, int col){
 
         switch (action) {
-            case "build" -> mazeDesignerInteractor.buildWall(row, col);
-            case "remove" -> mazeDesignerInteractor.removeWall(row, col);
-            case "start" -> mazeDesignerInteractor.startPoint(row, col);
-            default -> mazeDesignerInteractor.endPoint(row, col);
+            case "build":
+                mazeDesignerInteractor.buildWall(row, col);
+                break;
+            case "remove":
+                mazeDesignerInteractor.removeWall(row, col);
+                break;
+            case "start":
+                mazeDesignerInteractor.startPoint(row, col);
+                break;
+            default:
+                mazeDesignerInteractor.endPoint(row, col);
+                break;
         }
     }
 
