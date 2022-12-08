@@ -79,7 +79,7 @@ public class RegisterUI extends Application implements Screen{
             String repeatPassword = repeatedPasswordField.getText();
             String userType;
 
-            if (playerButton == (ToggleButton) chooseUserType.getSelectedToggle()){
+            if (playerButton == chooseUserType.getSelectedToggle()){
                 userType = playerText;
 
                 // Repeated code needed to set the error message onto the label. Otherwise, the
@@ -89,7 +89,7 @@ public class RegisterUI extends Application implements Screen{
                 } catch (RuntimeException e){
                     error.setText(e.getMessage());
                 }
-            } else if (designerButton == (ToggleButton) chooseUserType.getSelectedToggle()) {
+            } else if (designerButton == chooseUserType.getSelectedToggle()) {
                 userType = designerText;
                 try {
                     register(username, password, repeatPassword, userType);
@@ -155,12 +155,12 @@ public class RegisterUI extends Application implements Screen{
     }
 
     /**
-     * Register.
+     * Register method that changes screen depending on whether the user type is a player or designer.
      *
-     * @param username       the username
-     * @param password       the password
-     * @param repeatPassword the repeat password
-     * @param userType       the user type
+     * @param username       the user's username
+     * @param password       the user's password
+     * @param repeatPassword the user's repeated password
+     * @param userType       the user's user type
      */
     public void register(String username, String password, String repeatPassword, String userType) {
 
