@@ -4,16 +4,18 @@ import java.util.Map;
 import javafx.stage.Stage;
 
 public class ScreenManager {
-    private static Map<String, Screen> Screens = new HashMap<String, Screen>();
+    private static Map<String, Screen> Screens = new HashMap<>();
     private static Stage gameStage;
+
+    private ScreenManager() {}
 
     public static void addScreen(String name, Screen screen) {
         Screens.put(name, screen);
     }
 
-    public static void changeScreen(String name) throws RuntimeException {
+    public static void changeScreen(String name) throws IllegalArgumentException {
         if (!Screens.containsKey(name)) {
-            throw new RuntimeException("Specified screen does not exist in ScreenManager");
+            throw new IllegalArgumentException("Specified screen does not exist in ScreenManager");
         }
         else {
             Screen requestedScreen = Screens.get(name);

@@ -27,7 +27,7 @@ public class MazePublisher {
      * @return the boolean of whether the maze is solvable or not.
      */
     public boolean checkSolvable() {
-        return MazeSolver.checkMazeSolvability(this.mazeInfo.getDm());
+        return MazeSolver.checkMazeSolvability(this.mazeInfo.getDesignableMaze());
     }
 
     /**
@@ -38,9 +38,9 @@ public class MazePublisher {
     public SavedMaze publishMaze() {
         if (checkSolvable()) {
             int[] startPosition = new int[2];
-            for (int i = 0; i < this.mazeInfo.getDm().getNumRow(); i++) {
-                for (int j = 0; j < this.mazeInfo.getDm().getNumCol(); j++) {
-                    if (this.mazeInfo.getDm().getState()[i][j] == 'S') {
+            for (int i = 0; i < this.mazeInfo.getDesignableMaze().getNumRow(); i++) {
+                for (int j = 0; j < this.mazeInfo.getDesignableMaze().getNumCol(); j++) {
+                    if (this.mazeInfo.getDesignableMaze().getState()[i][j] == 'S') {
                         startPosition[0] = i;
                         startPosition[1] = j;
                     }
@@ -50,10 +50,10 @@ public class MazePublisher {
                     this.mazeInfo.getName(),
                     true,
                     LocalDate.now(),
-                    this.mazeInfo.getDm().getState(),
+                    this.mazeInfo.getDesignableMaze().getState(),
                     startPosition,
-                    this.mazeInfo.getDm().getNumRow(),
-                    this.mazeInfo.getDm().getNumCol());
+                    this.mazeInfo.getDesignableMaze().getNumRow(),
+                    this.mazeInfo.getDesignableMaze().getNumCol());
         }
         else {
             return null;

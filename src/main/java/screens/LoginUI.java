@@ -83,7 +83,7 @@ public class LoginUI extends Application implements Screen{
 
             } else if (actionEvent.getSource() == register){
                 ScreenManager.changeScreen("register");
-            }
+            }  
         };
 
         login.setOnAction(eventButtonClick);

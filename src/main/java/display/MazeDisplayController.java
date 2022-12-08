@@ -1,9 +1,5 @@
 package display;
 
-import display.MazeDisplayInputBoundary;
-import display.MazeDisplayRequestModel;
-import display.MazeDisplayResponseModel;
-
 /**
  * The controller for the maze display use case.
  *

@@ -9,9 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import solvability.MazeSolvabilityControl;
 
 
 public class MazeCompleteAlertBox {
+    private MazeCompleteAlertBox() {}
 
     public static void display(String title, String message) {
         Stage window = new Stage();
@@ -23,12 +25,9 @@ public class MazeCompleteAlertBox {
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button("Close");
-        EventHandler<ActionEvent> popuphandle = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        EventHandler<ActionEvent> popuphandle = (ActionEvent actionEvent) -> {
                 ScreenManager.changeScreen("home");
                 window.close();
-            }
         };
 
         closeButton.setOnAction(popuphandle);

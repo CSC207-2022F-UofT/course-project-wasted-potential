@@ -7,7 +7,7 @@ import java.time.LocalDate;
  */
 public class GameState extends PublishedMaze {
 
-    private int[] position;
+    private int[] position = this.startPosition;
 
     /**
      * Instantiates a new Game state.
@@ -23,6 +23,8 @@ public class GameState extends PublishedMaze {
      * @param id            the unique identifier for the maze
      * @param position      the position of the icon navigating the maze
      */
+    // Has code smell of more than 7 parameters, as GameState extends PublishedMaze which needs a significant amount
+    // of information
     public GameState(String author,
                      String name,
                      Boolean published,
@@ -56,4 +58,5 @@ public class GameState extends PublishedMaze {
         this.position[0] = x;
         this.position[1] = y;
     }
+    // The equals method does not need to be implemented in GameState, as GameStates are never compared.
 }

@@ -1,8 +1,5 @@
 package display;
 
-import display.MazeDisplayOutputBoundary;
-import display.MazeDisplayResponseModel;
-
 /**
  * The presenter for the maze display use case.
  *

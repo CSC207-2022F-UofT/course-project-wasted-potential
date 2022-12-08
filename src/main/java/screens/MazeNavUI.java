@@ -92,7 +92,6 @@ public class MazeNavUI extends Application implements Screen {
                 } else if (e.getCode() == KeyCode.A) {
                     responseModel = controller.create('a', maze.getPosition(), maze);
                 } else if (e.getCode() == KeyCode.S) {
-                    System.out.println("WASSSUPPPPPPPPPPPP");
                     responseModel = controller.create('s', maze.getPosition(), maze);
                 } else {
                     responseModel = controller.create('d', maze.getPosition(), maze);
