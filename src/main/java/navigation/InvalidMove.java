@@ -8,12 +8,25 @@ package navigation;
  */
 public class InvalidMove extends RuntimeException {
 
+    private final int[] requestedPosition;
+
     /**
      * The constructor for the InvalidMove exception.
      *
-     * @param message the message to be displayed to the user
+     * @param message           the message to be displayed to the user
+     * @param requestedPosition the attempted cell to enter
      */
-    public InvalidMove(String message) {
+    public InvalidMove(String message, int[] requestedPosition) {
         super(message);
+        this.requestedPosition = requestedPosition;
+    }
+
+    /**
+     * Get requested position.
+     *
+     * @return the requested position
+     */
+    public int[] getRequestedPosition() {
+        return this.requestedPosition;
     }
 }

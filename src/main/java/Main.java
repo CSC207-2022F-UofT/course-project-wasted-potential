@@ -1,4 +1,7 @@
 import design.*;
+import hints.HintGeneratorControl;
+import hints.HintGeneratorInteractor;
+import hints.HintGeneratorPresenter;
 import user_login.*;
 import user_registration.*;
 import display.*;
@@ -17,6 +20,10 @@ import solvability.*;
 import java.text.ParseException;
 import java.util.zip.DataFormatException;
 
+/**
+ * This is the main file where all the screens and classes needed are initialized and when this file is ran, the game
+ * starts from the login screen.
+ */
 public class Main extends Application {
 
     public static void main(String[] args){
@@ -78,8 +85,12 @@ public class Main extends Application {
         MazeNavOutputBoundary mazeNavPresenter = new MazeNavPresenter();
         MazeNavInputBoundary mazeNavInteractor = new MazeNavInteractor(mazeNavPresenter);
         MazeNavController mazeNavController = new MazeNavController(mazeNavInteractor);
+        // Hint use case
+        HintGeneratorPresenter hintGeneratorPresenter = new HintGeneratorPresenter();
+        HintGeneratorInteractor hintGeneratorInteractor = new HintGeneratorInteractor(hintGeneratorPresenter);
+        HintGeneratorControl hintGeneratorControl = new HintGeneratorControl(hintGeneratorInteractor);
 
-        MazeNavUI mazeNavUI = new MazeNavUI(mazeNavController);
+        MazeNavUI mazeNavUI = new MazeNavUI(mazeNavController, hintGeneratorControl);
         MazeRetrieverUI mazeRetrieverUI = new MazeRetrieverUI(mazeRetrieverController, mazeDisplayController);
 
 

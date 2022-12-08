@@ -25,9 +25,9 @@ public class MazeNavController {
      *
      * @param keyStroke the user input
      * @param maze the maze being played
-     * @return a response model for the maze navigation use case which is returned to the view
+     * @return a boolean to indicate if the maze was completed
      */
-    public MazeNavResponseModel create(char keyStroke, int[] position, GameState maze) {
+    public boolean create(char keyStroke, int[] position, GameState maze) {
         MazeNavRequestModel requestModel = new MazeNavRequestModel(keyStroke, position, maze);
 
         return userInput.create(requestModel);

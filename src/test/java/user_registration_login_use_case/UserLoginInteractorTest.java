@@ -11,7 +11,13 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
- class UserLoginInteractorTest {
+/**
+ * Tests for the UserLoginInteractor class.
+ */
+class UserLoginInteractorTest {
+    /**
+     * Tests the case the user exists in the database but their password does not match the one in the database.
+     */
     @Test
      void nameExistsPasswordInvalid(){
 
@@ -31,6 +37,10 @@ import static org.junit.Assert.*;
 
     }
 
+    /**
+     * Tests the case the user exists in the database and their password matches
+     * the one associated to their user in the database.
+     */
     @Test
      void nameExistsPasswordValid(){
 
@@ -50,6 +60,9 @@ import static org.junit.Assert.*;
 
     }
 
+    /**
+     * Tests the case the username does not exist in the database
+     */
     @Test
      void usernameDoesNotExist(){
 
