@@ -56,7 +56,7 @@ public class HintGenerator {
                     visited.add(move);
                     List<MazeCell> newPath = new ArrayList<>(currPath);
                     newPath.add(move);
-                    queue.add(currPath);
+                    queue.add(newPath);
                 }
             }
         }

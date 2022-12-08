@@ -86,7 +86,7 @@ public class MazeRetrieverUI extends Application implements Screen {
                         displayController.create(singleton.getUsername(), Integer.parseInt(button.getText()));
                 MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
-
+                System.out.println(respModel.getMaze().getId());
                 ScreenManager.changeScreen("game");
             });
             playedHBox.getChildren().add(buttonsPlayed[i]);
