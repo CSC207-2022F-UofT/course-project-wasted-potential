@@ -63,7 +63,6 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
         else {
             requestModel.getMaze().updatePosition(x, y);
             boolean isComplete = mazeState[x][y] == Maze.getEncoding("end");
-            requestModel.getMaze().updatePosition(x, y);
             return outputBoundary.moveIcon(isComplete);
         }
     }
