@@ -102,15 +102,6 @@ public class DesignableMaze extends Maze{
     }
 
     /**
-     * Get end location of the maze.
-     *
-     * @return an int array representing the co-ordinates of the start position.
-     */
-    public int[] getEndLocation() {
-        return endLocation;
-    }
-
-    /**
      * Empties the maze of all blocks placed.
      */
     public void emptySetup() {

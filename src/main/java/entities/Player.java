@@ -30,6 +30,6 @@ public class Player extends User{
      * @return a list of mazes played by the user
      */
     public List<Integer> getMazesPlayed() {
-        return Objects.requireNonNullElse(this.mazesPlayed, Collections.<Integer>emptyList());
+        return Objects.requireNonNullElse(this.mazesPlayed, Collections.emptyList());
     }
 }

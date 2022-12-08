@@ -2,7 +2,6 @@ package design;
 
 import entities.DesignableMaze;
 import entities.MazeCell;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

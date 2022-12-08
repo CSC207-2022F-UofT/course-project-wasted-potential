@@ -6,6 +6,6 @@ public interface MazeDesignerOutputBoundary {
      * @param mazeState the char[][] to be manipulated
      * @return the char[][] that is the representation of the maze
      */
-    public char[][] presentMazeState(char[][] mazeState);
+    char[][] presentMazeState(char[][] mazeState);
 
 }

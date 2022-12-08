@@ -22,7 +22,7 @@ public abstract class Maze {
     /**
      * The encoding for the different types of blocks in a maze.
      */
-    protected static Map<String, Character> ENCODING = new HashMap<>();
+    protected static final Map<String, Character> ENCODING = new HashMap<>();
 
     static {
         // initialize the encoding map

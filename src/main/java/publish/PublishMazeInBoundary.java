@@ -14,5 +14,5 @@ public interface PublishMazeInBoundary {
      * @param designableMaze     the DesignableMaze being published
      * @return the PublishMazeResponseModel.
      */
-    public PublishMazeResponseModel publishMaze(String author, String name, DesignableMaze designableMaze);
+    PublishMazeResponseModel publishMaze(String author, String name, DesignableMaze designableMaze);
 }

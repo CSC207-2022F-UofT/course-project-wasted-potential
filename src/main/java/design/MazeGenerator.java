@@ -8,5 +8,5 @@ public interface MazeGenerator {
     /**
      * Randomly generate a maze
      */
-    public void generate();
+    void generate();
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * The controller class for the use case of publishing mazes.
  */
 public class PublishMazeController {
-    private PublishMazeInBoundary inBoundary;
+    private PublishMazeInBoundary inputBoundary;
 
     /**
      * Instantiates a new PublishMazeController.
@@ -17,7 +17,7 @@ public class PublishMazeController {
      * @param inBoundary the input boundary, generally the interactor.
      */
     public PublishMazeController(PublishMazeInBoundary inBoundary) {
-        this.inBoundary = inBoundary;
+        this.inputBoundary = inBoundary;
     }
 
     /**
@@ -29,7 +29,7 @@ public class PublishMazeController {
      * @return an ArrayList of information to be shown to the user.
      */
     public List<String> publishMaze(String author, String name, DesignableMaze designableMaze) {
-        PublishMazeResponseModel mazeInfo = inBoundary.publishMaze(author, name, designableMaze);
+        PublishMazeResponseModel mazeInfo = inputBoundary.publishMaze(author, name, designableMaze);
         ArrayList<String> displayedInfo = new ArrayList<>();
         displayedInfo.add(mazeInfo.getName());
         displayedInfo.add(mazeInfo.getPublishDate().toString());
