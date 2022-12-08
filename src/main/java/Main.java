@@ -1,3 +1,5 @@
+import databases.MazeDatabase;
+import databases.UserDatabase;
 import design.*;
 import hints.HintGeneratorControl;
 import hints.HintGeneratorInteractor;

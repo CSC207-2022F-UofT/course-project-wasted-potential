@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
-import screens.MazeDatabase;
+import databases.MazeDatabase;
 
 public class HintsInteractorTest {
 

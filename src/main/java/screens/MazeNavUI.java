@@ -15,6 +15,7 @@ import navigation.InvalidMove;
 import navigation.MazeNavController;
 import hints.HintGeneratorControl;
 import javafx.application.Application;
+import singletons.MazeSingleton;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,5 @@
 package screens;
+import singletons.UserSingleton;
 import user_registration.UserRegisterController;
 import user_registration.UserRegisterResponseModel;
 import javafx.application.Application;

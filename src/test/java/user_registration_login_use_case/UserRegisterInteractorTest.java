@@ -6,7 +6,7 @@ import entities.User;
 import entities.UserFactory;
 import org.junit.jupiter.api.Test;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
-import screens.TemporaryMemoryAccess;
+import databases.TemporaryMemoryAccess;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

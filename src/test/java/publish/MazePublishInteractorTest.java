@@ -4,8 +4,8 @@ import design.*;
 import entities.PublishedMaze;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import screens.MazeDatabase;
-import screens.PublishedMazeSingleton;
+import databases.MazeDatabase;
+import singletons.PublishedMazeSingleton;
 
 import java.io.IOException;
 import java.text.ParseException;

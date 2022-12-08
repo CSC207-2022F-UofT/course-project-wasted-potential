@@ -1,5 +1,6 @@
 package screens;
 import javafx.scene.text.Text;
+import singletons.UserSingleton;
 import user_login.UserLoginResponseModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
