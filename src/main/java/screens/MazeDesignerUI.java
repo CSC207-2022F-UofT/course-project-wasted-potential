@@ -181,7 +181,11 @@ public class MazeDesignerUI extends Application implements Screen{
             updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
         });
 
-        logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
+        logOutButton.setOnAction(actionEvent -> {
+            mazeDesignerController.resetMaze();
+            updateMazeUI(mazeDesignerController.getMazeState(), buttonarray);
+            ScreenManager.changeScreen("login");
+        });
 
         publisher.setOnAction(actionEvent -> {
             if (getSolvableStatus().getIsSolvable()) {
