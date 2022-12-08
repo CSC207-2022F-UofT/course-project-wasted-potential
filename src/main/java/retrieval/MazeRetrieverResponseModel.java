@@ -1,5 +1,7 @@
 package retrieval;
 
+import entities.PublishedMaze;
+
 import java.util.List;
 
 
@@ -10,8 +12,8 @@ import java.util.List;
  */
 public class MazeRetrieverResponseModel {
 
-    private final List<Integer> played;
-    private final List<Integer> notPlayed;
+    private final List<PublishedMaze> played;
+    private final List<PublishedMaze> notPlayed;
 
     /**
      * The constructor for the MazeRetrieverResponseModel class.
@@ -19,7 +21,7 @@ public class MazeRetrieverResponseModel {
      * @param played a list of every maze the user has played
      * @param notPlayed a list of every maze the user has not played
      */
-    public MazeRetrieverResponseModel(List<Integer> played, List<Integer> notPlayed) {
+    public MazeRetrieverResponseModel(List<PublishedMaze> played, List<PublishedMaze> notPlayed) {
         this.played = played;
         this.notPlayed = notPlayed;
     }
@@ -29,7 +31,7 @@ public class MazeRetrieverResponseModel {
      *
      * @return a list of every maze the user has played
      */
-    public List<Integer> getPlayed() {
+    public List<PublishedMaze> getPlayed() {
         return this.played;
     }
 
@@ -38,7 +40,7 @@ public class MazeRetrieverResponseModel {
      *
      * @return a list of every maze the user has not played
      */
-    public List<Integer> getNotPlayed() {
+    public List<PublishedMaze> getNotPlayed() {
         return this.notPlayed;
     }
 }
