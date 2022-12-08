@@ -1,7 +1,5 @@
 package navigation;
 
-import navigation.*;
-
 /**
  * The presenter for the maze navigation use case.
  *

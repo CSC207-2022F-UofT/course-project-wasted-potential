@@ -11,6 +11,7 @@ import java.util.LinkedList;
  * The type Maze solver.
  */
 public class MazeSolver {
+    private MazeSolver() {}
 
     /**
      * Finds all valid moves in a given maze.
@@ -21,16 +22,16 @@ public class MazeSolver {
      */
     public static List<MazeCell> getValidMoves(Maze maze, MazeCell position) {
         // Intialize an empty arrayList to store the valid moves
-        List<MazeCell> validMoves = new ArrayList<MazeCell>();
+        List<MazeCell> validMoves = new ArrayList<>();
         // Initialize an array to store the cell representations of moves in all 4 directions
-        MazeCell[] possibleMoves = {new MazeCell(position.row + 1, position.col),
-                new MazeCell(position.row - 1, position.col),
-                new MazeCell(position.row, position.col + 1),
-                new MazeCell(position.row, position.col - 1)};
+        MazeCell[] possibleMoves = {new MazeCell(position.getRow() + 1, position.getCol()),
+                new MazeCell(position.getRow() - 1, position.getCol()),
+                new MazeCell(position.getRow(), position.getCol() + 1),
+                new MazeCell(position.getRow(), position.getCol() - 1)};
 
         // Add all valid moves in possibleMoves to the validMoves arrayList
         for (MazeCell move: possibleMoves) {
-            if (maze.inBounds(move.row, move.col) && maze.getCell(move.row, move.col) != Maze.ENCODING.get("wall")) {
+            if (maze.inBounds(move.getRow(), move.getCol()) && maze.getCell(move.getRow(), move.getCol()) != Maze.ENCODING.get("wall")) {
                 validMoves.add(move);
             }
         }
@@ -59,11 +60,11 @@ public class MazeSolver {
         };
 
         // Perform breadth first search as long as there are still cells to visit in the queue
-        while (queue.size() > 0) {
+        while (!(queue.isEmpty())) {
             // Store the next cell to visit and remove it from the queue
             MazeCell currPosition = queue.remove();
             // Return true if the current cell is the end cell
-            if (maze.getCell(currPosition.row, currPosition.col) == Maze.ENCODING.get("end")) {
+            if (maze.getCell(currPosition.getRow(), currPosition.getCol()) == Maze.ENCODING.get("end")) {
                 return true;
             }
             // Get the valid moves from the current cell

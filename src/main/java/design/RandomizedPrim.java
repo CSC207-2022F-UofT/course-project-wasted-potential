@@ -53,7 +53,7 @@ public class RandomizedPrim implements MazeGenerator {
 
         // delete the walls which should be empty
         for (MazeCell e : emptyCells)  {
-            maze.deleteWall(e.row, e.col);
+            maze.deleteWall(e.getRow(), e.getCol());
         }
     }
     private void fillMaze() {
@@ -85,8 +85,8 @@ public class RandomizedPrim implements MazeGenerator {
         List<MazeCell> neighbors = new ArrayList<>();
 
         for (int[] d : DELTA) {
-            int newRow = v.row + d[0];
-            int newCol = v.col + d[1];
+            int newRow = v.getRow() + d[0];
+            int newCol = v.getCol() + d[1];
 
             if (!maze.inBounds(newRow, newCol)) {
                 continue;
@@ -104,8 +104,8 @@ public class RandomizedPrim implements MazeGenerator {
         return array.get(randIdx);
     }
     private MazeCell getMiddleCell(MazeCell v1, MazeCell v2) {
-        int midRow = (v1.row + v2.row) / 2;
-        int midCol = (v1.col + v2.col) / 2;
+        int midRow = (v1.getRow() + v2.getRow()) / 2;
+        int midCol = (v1.getCol() + v2.getCol()) / 2;
         return new MazeCell(midRow, midCol);
     }
 
