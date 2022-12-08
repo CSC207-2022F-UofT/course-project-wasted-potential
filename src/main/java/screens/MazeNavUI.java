@@ -1,17 +1,23 @@
 package screens;
 
 import entities.GameState;
+import entities.MazeCell;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import navigation.InvalidMove;
 import navigation.MazeNavController;
-import navigation.MazeNavResponseModel;
+import hints.HintGeneratorControl;
 import javafx.application.Application;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The view class for the maze navigation use case.
@@ -20,14 +26,22 @@ public class MazeNavUI extends Application implements Screen {
     String css = this.getClass().getResource("/stylesheet.css").toExternalForm();
 
     private final MazeNavController controller;
+    private final HintGeneratorControl hintController;
+
+    private GameState maze;
+
+    private List<MazeCell> hint;
+
+    private Button[][] buttonarray;
 
     /**
      * The constructor for the MazeNavView.
      *
      * @param controller the controller for the maze navigation use case
      */
-    public MazeNavUI(MazeNavController controller) {
+    public MazeNavUI(MazeNavController controller, HintGeneratorControl hintController) {
         this.controller = controller;
+        this.hintController = hintController;
     }
 
     /**
@@ -43,19 +57,18 @@ public class MazeNavUI extends Application implements Screen {
      * Update the UI.
      *
      * @param mazeState the state of the maze
-     * @param buttonarray the buttonarray
      * @param userPosition the position of the player
      */
-    public void updateMazeUI(char[][] mazeState, Button[][] buttonarray, int[] userPosition){
+    public void updateMazeUI(char[][] mazeState, int[] userPosition){
         // Translate each cell in the mazeState to a renderable button
-        for (int i = 0; i < buttonarray.length; i++) {
-            for (int j = 0; j < buttonarray[0].length; j++) {
+        for (int i = 0; i < this.buttonarray.length; i++) {
+            for (int j = 0; j < this.buttonarray[0].length; j++) {
 
-                if (buttonarray[i][j] == null){
-                    buttonarray[i][j] = new Button();
+                if (this.buttonarray[i][j] == null){
+                    this.buttonarray[i][j] = new Button();
                 }
 
-                Button button = buttonarray[i][j];
+                Button button = this.buttonarray[i][j];
 
                 button.getStyleClass().clear();
                 button.getStyleClass().add("maze-button-play");
@@ -73,48 +86,78 @@ public class MazeNavUI extends Application implements Screen {
                 }
             }
         }
+        // Change the styles of hint cells
+        for (MazeCell cell : this.hint) {
+            this.buttonarray[cell.getRow()][cell.getCol()].getStyleClass().add("maze-hint");
+        }
         // Change the styles of the cell at the player's current position
-        buttonarray[userPosition[0]][userPosition[1]].getStyleClass().add("maze-player");
+        this.buttonarray[userPosition[0]][userPosition[1]].getStyleClass().add("maze-player");
 
+        MazeCell currentPositionCell = new MazeCell(userPosition[0], userPosition[1]);
+        if (this.hint.contains(currentPositionCell)) {
+            this.hint.remove(currentPositionCell);
+        }
     }
 
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
+        root.setVgap(10);
         Scene scene = new Scene(root, 1234, 750);
         scene.getStylesheets().add(css);
         MazeSingleton singleton = MazeSingleton.getInstance();
         // Get current maze instance
-        GameState maze = singleton.getMaze();
+        this.maze = singleton.getMaze();
         // Button array to render cells
-        Button[][] buttonarray = new Button[maze.getNumRow()][maze.getNumCol()];
-        updateMazeUI(maze.getState(), buttonarray, maze.getPosition());
+        this.buttonarray = new Button[maze.getNumRow()][maze.getNumCol()];
+        // Initialize empty hint
+        this.hint = new ArrayList<>();
+        updateMazeUI(this.maze.getState(), this.maze.getPosition());
+
+        // quit button
+        Button quitButton = new Button("Quit");
+        quitButton.getStyleClass().add("log-out-button");
+        quitButton.setLayoutX(680);
+
+        // hint button
+        Button hintButton = new Button("Hint");
+        hintButton.getStyleClass().add("hint-button");
+        hintButton.setLayoutX(600);
+
+        // maze name
+        Text mazeName = new Text(this.maze.getName());
+        mazeName.getStyleClass().add("maze-name");
+        mazeName.setLayoutY(15);
+
+        AnchorPane topRow = new AnchorPane(mazeName, hintButton, quitButton);
+        root.addRow(0, topRow);
 
         // Render contents of buttonarray
         GridPane mazeRender = new GridPane();
-        for (int i = 0; i < buttonarray.length; i++) {
-            mazeRender.addRow(i, buttonarray[i]);
+        for (int i = 0; i < this.buttonarray.length; i++) {
+            mazeRender.addRow(i, this.buttonarray[i]);
         }
         root.addRow(1, mazeRender);
+
 
         // Move handler
         scene.setOnKeyPressed((KeyEvent event) -> {
             try {
-                MazeNavResponseModel responseModel;
+                boolean isComplete;
                 if (event.getCode() == KeyCode.W) {
-                    responseModel = controller.create('w', maze.getPosition(), maze);
+                    isComplete = controller.create('w', this.maze.getPosition(), this.maze);
                 }
                 else if (event.getCode() == KeyCode.A) {
-                    responseModel = controller.create('a', maze.getPosition(), maze);
+                    isComplete = controller.create('a', this.maze.getPosition(), this.maze);
                 }
                 else if (event.getCode() == KeyCode.S) {
-                    responseModel = controller.create('s', maze.getPosition(), maze);
+                    isComplete = controller.create('s', this.maze.getPosition(), this.maze);
                 }
                 else {
-                    responseModel = controller.create('d', maze.getPosition(), maze);
+                    isComplete = controller.create('d', this.maze.getPosition(), this.maze);
                 }
-                updateMazeUI(maze.getState(), buttonarray, maze.getPosition());
-                if (responseModel.getIsComplete()) {
+                updateMazeUI(maze.getState(), this.maze.getPosition());
+                if (isComplete) {
                     MazeCompleteAlertBox.display("Maze Complete!", "Congrats, you just solved this maze. " +
                             "You will now be redirected to the home screen.");
                 }
@@ -122,8 +165,17 @@ public class MazeNavUI extends Application implements Screen {
             // Handle invalid moves
             catch (InvalidMove e) {
                 int[] requestedPosition = e.getRequestedPosition();
-                buttonarray[requestedPosition[0]][requestedPosition[1]].getStyleClass().add("error-wall");
+                this.buttonarray[requestedPosition[0]][requestedPosition[1]].getStyleClass().add("error-wall");
             }
+        });
+
+        quitButton.setOnAction(actionEvent -> {
+            ScreenManager.changeScreen("home");
+        });
+
+        hintButton.setOnAction(actionEvent -> {
+            this.hint = hintController.generateHint(maze).getHint();
+            updateMazeUI(this.maze.getState(), this.maze.getPosition());
         });
 
         primaryStage.setScene(scene);

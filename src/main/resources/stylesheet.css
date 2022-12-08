@@ -14,7 +14,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
 
-.edit-button {
+.edit-button, .hint-button {
     -fx-border-color: none;
     -fx-text-fill: #FFFFFF;
     -fx-pref-width: 73px;
@@ -26,8 +26,16 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
 
-.edit-button:hover, .publish-button, .log-out-button {
+.edit-button:hover, .publish-button, .log-out-button, .hint-button {
     -fx-cursor: hand;
+}
+
+.hint-button {
+    -fx-pref-width: 50px;
+}
+
+.maze-hint {
+    -fx-background-color: #f7b500 !important;
 }
 
 .button:hover, .toggle-button:hover {
@@ -95,7 +103,6 @@
 
 .maze-button:hover {
     -fx-border-color: red;
-    /*-fx-border-radius: 5px;*/
 }
 
 .label{
@@ -108,3 +115,7 @@
     -fx-pref-width: 170px;
 }
 
+.maze-name {
+    -fx-fill: white;
+    -fx-font-size: 13pt;
+}

@@ -10,10 +10,10 @@ public interface MazeNavOutputBoundary {
     /**
      * Moves the icon to the requested position.
      *
-     * @param responseModel a response model containing the maze state
-     * @return a response model
+     * @param isComplete a boolean indicating if the maze is complete
+     * @return boolean indiciating if the maze is complete
      */
-    MazeNavResponseModel moveIcon(MazeNavResponseModel responseModel);
+    boolean moveIcon(boolean isComplete);
 
     /**
      * Notifies the user that the requested move is invalid.
@@ -22,6 +22,6 @@ public interface MazeNavOutputBoundary {
      * @param requestedPosition the attempted cell to enter
      * @return a response model
      */
-    MazeNavResponseModel prepareFailView(String error, int[] requestedPosition);
+    boolean prepareFailView(String error, int[] requestedPosition);
 
 }
