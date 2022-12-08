@@ -73,6 +73,12 @@ public class MazeRetrieverUI extends Application implements Screen {
         HBox playedHBox = new HBox();
         HBox notPlayedHBox = new HBox();
 
+        // log out button
+        Button logOutButton = new Button("Log Out");
+        logOutButton.getStyleClass().add("log-out-button");
+        logOutButton.setLayoutX(100);
+        logOutButton.setLayoutX(680);
+
         Button[] buttonsPlayed;
         try {
             buttonsPlayed = new Button[played.size()];
@@ -128,11 +134,15 @@ public class MazeRetrieverUI extends Application implements Screen {
 
         root.setVgap(10);
 
-        root.addRow(0, playedHBox);
+        root.addRow(0, logOutButton);
 
-        root.addRow(1, notPlayedHBox);
+        root.addRow(1, playedHBox);
+
+        root.addRow(2, notPlayedHBox);
 
         Scene scene = new Scene(root, 1234, 750);
+
+        logOutButton.setOnAction(actionEvent -> ScreenManager.changeScreen("login"));
 
         primaryStage.setScene(scene);
         scene.getStylesheets().add(css);
