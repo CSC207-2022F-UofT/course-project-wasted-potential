@@ -26,29 +26,29 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
      * It also checks whether a move is valid and whether the move completes the maze.
      *
      * @param requestModel a request model containing the keystroke, the requested position, the current position, and the maze
-     * @return a response model containing the previous position and the new position of the icon
+     * @return a boolean indicating if the maze is complete
      */
     @Override
-    public MazeNavResponseModel create(MazeNavRequestModel requestModel) {
+    public boolean create(MazeNavRequestModel requestModel) {
 
         int[] position = requestModel.getPosition();
         char keyStroke = requestModel.getKeyStroke();
         int[] requestedPosition;
 
         if (keyStroke == 'w') {
-            requestedPosition = new int[]{position[0], (position[1] + 1)};
-        }
-
-        else if (keyStroke == 'a') {
             requestedPosition = new int[]{position[0] - 1, position[1]};
         }
 
-        else if (keyStroke == 's') {
+        else if (keyStroke == 'a') {
             requestedPosition = new int[]{position[0], position[1] - 1};
         }
 
-        else {
+        else if (keyStroke == 's') {
             requestedPosition = new int[]{position[0] + 1, position[1]};
+        }
+
+        else {
+            requestedPosition = new int[]{position[0], position[1] + 1};
         }
 
         int x = requestedPosition[0];
@@ -57,15 +57,14 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
         char[][] mazeState = requestModel.getMaze().getState();
 
         if (mazeState[x][y] == Maze.getEncoding("wall")) {
-            return outputBoundary.prepareFailView("Invalid move. Please try again.");
+            return outputBoundary.prepareFailView("Invalid move. Please try again.", requestedPosition);
         }
 
         else {
             requestModel.getMaze().updatePosition(x, y);
-            MazeNavResponseModel responseModel = new MazeNavResponseModel(requestModel.getPosition(),
-                    requestedPosition, mazeState[x][y] == Maze.getEncoding("end"));
+            boolean isComplete = mazeState[x][y] == Maze.getEncoding("end");
             requestModel.getMaze().updatePosition(x, y);
-            return outputBoundary.moveIcon(responseModel);
+            return outputBoundary.moveIcon(isComplete);
         }
     }
 }
