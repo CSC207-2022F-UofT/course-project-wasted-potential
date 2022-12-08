@@ -17,6 +17,10 @@ import solvability.*;
 import java.text.ParseException;
 import java.util.zip.DataFormatException;
 
+/**
+ * This is the main file where all the screens and classes needed are initialized and when this file is ran, the game
+ * starts from the login screen.
+ */
 public class Main extends Application {
 
     public static void main(String[] args){
