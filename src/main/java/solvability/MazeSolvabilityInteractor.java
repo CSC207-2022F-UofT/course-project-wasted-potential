@@ -4,7 +4,7 @@ import entities.DesignableMaze;
 import entities.MazeSolver;
 
 public class MazeSolvabilityInteractor implements MazeSolvableInBoundary {
-    private MazeSolvableOutBoundary mazeSolvableOutBoundary;
+    private final MazeSolvableOutBoundary mazeSolvableOutBoundary;
 
     public MazeSolvabilityInteractor(MazeSolvableOutBoundary mazeSolvableOutBoundary) {
         this.mazeSolvableOutBoundary = mazeSolvableOutBoundary;

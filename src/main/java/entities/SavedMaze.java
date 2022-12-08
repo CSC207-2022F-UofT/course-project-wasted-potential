@@ -6,11 +6,11 @@ import java.time.LocalDate;
  * The type Saved maze.
  */
 public class SavedMaze extends Maze{
-    private String author;
-    private String name;
-    private Boolean published;
-    private LocalDate publishDate;
-    private int[] startPosition;
+    private final String author;
+    private final String name;
+    private final Boolean published;
+    private final LocalDate publishDate;
+    private final int[] startPosition;
 
     /**
      * Instantiates a new Saved maze.
@@ -103,7 +103,7 @@ public class SavedMaze extends Maze{
             for (int j = 0; j < this.getNumCol(); j++) {
                 curRow.append(state[i][j]);
             }
-            returnString.append(curRow + ":");
+            returnString.append(curRow).append(":");
         }
         return returnString.toString();
     }

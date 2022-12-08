@@ -2,10 +2,10 @@ package solvability;
 
 import entities.DesignableMaze;
 
-public class MazeSolvabilityControl {
-    private MazeSolvableInBoundary mazeSolvabilityInBoundary;
+public class MazeSolvabilityController {
+    private final MazeSolvableInBoundary mazeSolvabilityInBoundary;
 
-    public MazeSolvabilityControl(MazeSolvableInBoundary mazeSolvabilityInBoundary) {
+    public MazeSolvabilityController(MazeSolvableInBoundary mazeSolvabilityInBoundary) {
         this.mazeSolvabilityInBoundary = mazeSolvabilityInBoundary;
     }
 

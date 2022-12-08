@@ -9,7 +9,7 @@ import java.util.List;
  * The controller class for the use case of publishing mazes.
  */
 public class PublishMazeController {
-    private PublishMazeInBoundary inputBoundary;
+    private final PublishMazeInBoundary inputBoundary;
 
     /**
      * Instantiates a new PublishMazeController.

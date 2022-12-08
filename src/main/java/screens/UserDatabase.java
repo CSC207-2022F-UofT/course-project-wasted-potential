@@ -85,17 +85,19 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
+            String format = "%1$s,%2$s,%3$s,%4$s,%5$s";
+
             for(User user: userAccounts.values()){
                 if (user instanceof Player) {
                     Player player = (Player)(user);
                     String info;
                     if (mazeListToString(player.getMazesPlayed()).length() != 0) {
-                        info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
+                        info = String.format(format, player.getUsername(),
                                 player.getUserType(), player.getPassword(), player.getCreationTime(),
                                 mazeListToString(player.getMazesPlayed()));
                     }
                     else {
-                        info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", player.getUsername(),
+                        info = String.format(format, player.getUsername(),
                                 player.getUserType(), player.getPassword(), player.getCreationTime(),
                                 new ArrayList<>());
                     }
@@ -105,7 +107,7 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
                     writer.newLine();
                 } else {
                     Designer designer = (Designer) user;
-                    String info = String.format("%1$s,%2$s,%3$s,%4$s,%5$s", designer.getUsername(),
+                    String info = String.format(format, designer.getUsername(),
                             designer.getUserType(), designer.getPassword(), designer.getCreationTime(),
                             new ArrayList<>());
                     writer.write(info);
@@ -164,11 +166,12 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
      * @return the string
      */
     public String mazeListToString (List<Integer> playedMazes) {
-        String mazeList = "";
+        // This empty string is necessary for the loop to run correctly
+        StringBuilder mazeList = new StringBuilder("");
         for (Integer mazeId : playedMazes) {
-            mazeList = mazeList + mazeId.toString() + ":";
+            mazeList.append(mazeId.toString()).append(":") ;
         }
-        return mazeList;
+        return mazeList.toString();
     }
 
     /**

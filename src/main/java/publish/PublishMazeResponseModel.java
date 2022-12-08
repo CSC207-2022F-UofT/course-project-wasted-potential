@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * The response model class for the use case of publishing mazes.
  */
 public class PublishMazeResponseModel {
-    private String name;
-    private LocalDate publishDate;
+    private final String name;
+    private final LocalDate publishDate;
 
 
     /**

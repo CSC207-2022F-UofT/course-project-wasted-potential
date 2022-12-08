@@ -10,7 +10,7 @@ import java.time.LocalDate;
  */
 public class MazePublisher {
 
-    private PublishMazeRequestModel mazeInfo;
+    private final PublishMazeRequestModel mazeInfo;
 
     /**
      * Instantiates a new Maze publisher.

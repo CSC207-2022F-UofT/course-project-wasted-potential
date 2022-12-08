@@ -5,8 +5,8 @@ package user_login;
  */
 
 public class UserLoginResponseModel {
-    private String username;
-    private String userType;
+    private final String username;
+    private final String userType;
 
     /**
      * The constructor that instantiates a new response model

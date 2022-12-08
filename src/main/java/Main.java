@@ -61,8 +61,8 @@ public class Main extends Application {
         // Solvability use case
         MazeSolvableOutBoundary mazeSolvablePresenter = new MazeSolvablePresenter();
         MazeSolvableInBoundary mazeSolvabilityInteractor = new MazeSolvabilityInteractor(mazeSolvablePresenter);
-        MazeSolvabilityControl mazeSolvabilityControl = new MazeSolvabilityControl(mazeSolvabilityInteractor);
-        Screen mazeDesignerUI = new MazeDesignerUI(mazeDesignerController, publishMazeController, mazeSolvabilityControl);
+        MazeSolvabilityController mazeSolvabilityController = new MazeSolvabilityController(mazeSolvabilityInteractor);
+        Screen mazeDesignerUI = new MazeDesignerUI(mazeDesignerController, publishMazeController, mazeSolvabilityController);
         // Retrieval use case
         MazeRetrieverOutputBoundary mazeRetrieverPresenter = new MazeRetrieverPresenter();
         MazeRetrieverDsGateway mazeRetrieverDsGateway = (MazeRetrieverDsGateway) gateway;
