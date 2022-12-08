@@ -7,7 +7,7 @@ import java.time.LocalDate;
  */
 public class GameState extends PublishedMaze {
 
-    private int[] position = this.startPosition;
+    private int[] position;
 
     /**
      * Instantiates a new Game state.
@@ -36,7 +36,7 @@ public class GameState extends PublishedMaze {
                      int id, int[] position) { // Despite the warning, this attribute is used in the program.
         super(author, name, published, date,
         state, startPosition, numRow, numCol, id);
-        this.position = startPosition;
+        this.position = position;
     }
 
     /**

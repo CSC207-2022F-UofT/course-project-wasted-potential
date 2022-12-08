@@ -14,6 +14,8 @@ import retrieval.MazeRetrieverController;
 import retrieval.MazeRetrieverResponseModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The view for the maze retriever use case.
@@ -51,20 +53,21 @@ public class MazeRetrieverUI extends Application implements Screen {
 
         primaryStage.setTitle("Menu");
         UserSingleton singleton = UserSingleton.getInstance();
+        MazeSingleton maze = MazeSingleton.getInstance();
 
 
         MazeRetrieverResponseModel retrieverRespModel = retrieverController.create(singleton.getUsername());
-        ArrayList<PublishedMaze> played;
-        ArrayList<PublishedMaze> notPlayed;
+        List<PublishedMaze> played;
+        List<PublishedMaze> notPlayed;
         try {
-            played = (ArrayList<PublishedMaze>) retrieverRespModel.getPlayed();
+            played = retrieverRespModel.getPlayed();
         } catch (ClassCastException e) {
-            played = new ArrayList<>();
+            played = Collections.emptyList();
         }
         try {
-            notPlayed = (ArrayList<PublishedMaze>) retrieverRespModel.getNotPlayed();
+            notPlayed = retrieverRespModel.getNotPlayed();
         } catch (ClassCastException e) {
-            notPlayed = new ArrayList<>();
+            notPlayed = Collections.emptyList();
         }
 
         HBox playedHBox = new HBox();
@@ -90,8 +93,8 @@ public class MazeRetrieverUI extends Application implements Screen {
                 String mazeId = buttonString[0].trim();
                 MazeDisplayResponseModel respModel =
                         displayController.create(singleton.getUsername(), Integer.parseInt(mazeId));
-                MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
+
                 ScreenManager.changeScreen("game");
             });
             playedHBox.getChildren().add(buttonsPlayed[i]);
@@ -111,7 +114,6 @@ public class MazeRetrieverUI extends Application implements Screen {
                 System.out.println(mazeId);
                 MazeDisplayResponseModel respModel =
                         displayController.create(singleton.getUsername(), Integer.parseInt(mazeId));
-                MazeSingleton maze = MazeSingleton.getInstance();
                 maze.setMaze(respModel.getMaze());
                 ScreenManager.changeScreen("game");
 
