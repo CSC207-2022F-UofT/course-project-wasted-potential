@@ -9,11 +9,11 @@ public class MazeCell {
     /**
      * The row co-ordinate.
      */
-    private int row;
+    private int row; // This cannot be final
     /**
      * The column co-ordinate.
      */
-    private int col;
+    private int col; // This cannot be final
 
     /**
      * Instantiates a new Maze cell.

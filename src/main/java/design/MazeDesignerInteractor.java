@@ -3,7 +3,7 @@ package design;
 import entities.DesignableMaze;
 
 /**
- * The Maze Designer Interactor
+ * The Maze Designer Interactor.
  */
 public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
 
@@ -21,10 +21,10 @@ public class MazeDesignerInteractor implements MazeDesignerInputBoundary {
      * @param mazeDesignerPresenter A MazeDesignerOutputBoundary, expected to be a MazeDesignerPresenter
      */
     public MazeDesignerInteractor(MazeDesignerOutputBoundary mazeDesignerPresenter) {
-        // update designablemaze instance attribute
+        // update designableMaze instance attribute
         this.designableMaze = new DesignableMaze(NUM_ROWS, NUM_COLS);
         resetMaze();
-        // update the randomizedprim instance attribute
+        // update the randomizedPrim instance attribute
         this.mazeGenerator = new RandomizedPrim(this.designableMaze);
         // update the output boundary instance attribute
         this.mazeDesignerPresenter = mazeDesignerPresenter;

@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Player extends User{
 
-    private List<Integer> mazesPlayed;
+    private final List<Integer> mazesPlayed;
 
     /**
      * Instantiates a new Player.

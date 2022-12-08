@@ -11,15 +11,15 @@ import java.util.Random;
  */
 public class RandomizedPrim implements MazeGenerator {
 
-    private DesignableMaze maze;
+    private final DesignableMaze maze;
     private static final int[][] DELTA = {
             {2, 0}, {-2, 0}, {0,-2}, {0, 2}
     };
 
-    private List<MazeCell> visitedCells = new ArrayList<>();
-    private List<MazeCell> frontierCells = new ArrayList<>();
-    private List<MazeCell> emptyCells = new ArrayList<>();
-    private Random randomizer = new Random();
+    private final List<MazeCell> visitedCells = new ArrayList<>();
+    private final List<MazeCell> frontierCells = new ArrayList<>();
+    private final List<MazeCell> emptyCells = new ArrayList<>();
+    private final Random randomizer = new Random();
 
     /**
      * Instantiates a new Randomized prim.

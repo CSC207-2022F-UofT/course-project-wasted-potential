@@ -47,5 +47,10 @@ public interface MazeDesignerInputBoundary {
      */
     char[][] getMazeState();
 
+    /**
+     * Gets the Maze.
+     *
+     * @return returns the DesignableMaze object
+     */
     DesignableMaze getDesignableMaze();
 }

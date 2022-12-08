@@ -1,5 +1,8 @@
 package design;
 
+/**
+ * The Maze Designer Output Boundary.
+ */
 public interface MazeDesignerOutputBoundary {
     /**
      * Algorithm to return UI representation
