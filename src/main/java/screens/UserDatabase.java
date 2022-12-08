@@ -183,8 +183,10 @@ public class UserDatabase implements UserRegisterAndLoginDsGateway, PlayerDsGate
     @Override
     public void addToPlayed(int mazeId, String username) {
         Player player = (Player)userAccounts.get(username);
-        player.getMazesPlayed().add(mazeId);
-        this.save();
+        if (!player.getMazesPlayed().contains(mazeId)) {
+            player.getMazesPlayed().add(mazeId);
+            this.save();
+        }
     }
 
     /**
