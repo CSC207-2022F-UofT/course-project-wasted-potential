@@ -1,4 +1,4 @@
-package screens;
+package databases;
 
 import display.PlayerDsGateway;
 import entities.Designer;
@@ -6,6 +6,7 @@ import entities.Player;
 import entities.User;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import retrieval.MazeRetrieverDsGateway;
+import singletons.PublishedMazeSingleton;
 
 import java.io.*;
 import java.util.*;

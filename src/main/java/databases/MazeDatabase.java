@@ -1,9 +1,11 @@
-package screens;
+package databases;
 
 import display.MazeDsGateway;
 import entities.PublishedMaze;
 import entities.SavedMaze;
 import publish.PublishMazeGateway;
+import singletons.MazeInformation;
+import singletons.PublishedMazeSingleton;
 
 import java.io.*;
 import java.text.ParseException;

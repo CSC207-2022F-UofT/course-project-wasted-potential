@@ -1,4 +1,4 @@
-package screens;
+package singletons;
 
 public class UserSingleton {
 

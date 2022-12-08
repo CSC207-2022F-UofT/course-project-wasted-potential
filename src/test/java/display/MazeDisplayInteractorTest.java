@@ -1,9 +1,5 @@
 package display;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import screens.MazeDatabase;
-
 public class MazeDisplayInteractorTest {
 //    @Test
 //    public void createTest() {

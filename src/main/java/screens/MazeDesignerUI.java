@@ -15,6 +15,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import publish.PublishMazeController;
 
+import singletons.UserSingleton;
 import solvability.MazeSolvabilityController;
 import solvability.MazeSolvabilityResponseModel;
 import java.util.List;

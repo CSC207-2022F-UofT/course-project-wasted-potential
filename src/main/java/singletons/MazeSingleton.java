@@ -1,4 +1,4 @@
-package screens;
+package singletons;
 
 import entities.GameState;
 
