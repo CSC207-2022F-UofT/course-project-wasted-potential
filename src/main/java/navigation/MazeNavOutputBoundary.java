@@ -19,8 +19,9 @@ public interface MazeNavOutputBoundary {
      * Notifies the user that the requested move is invalid.
      *
      * @param error an error message to be returned
+     * @param requestedPosition the attempted cell to enter
      * @return a response model
      */
-    MazeNavResponseModel prepareFailView(String error);
+    MazeNavResponseModel prepareFailView(String error, int[] requestedPosition);
 
 }

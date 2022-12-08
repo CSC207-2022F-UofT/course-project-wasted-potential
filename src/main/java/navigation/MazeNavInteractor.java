@@ -36,19 +36,19 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
         int[] requestedPosition;
 
         if (keyStroke == 'w') {
-            requestedPosition = new int[]{position[0], (position[1] + 1)};
-        }
-
-        else if (keyStroke == 'a') {
             requestedPosition = new int[]{position[0] - 1, position[1]};
         }
 
-        else if (keyStroke == 's') {
+        else if (keyStroke == 'a') {
             requestedPosition = new int[]{position[0], position[1] - 1};
         }
 
-        else {
+        else if (keyStroke == 's') {
             requestedPosition = new int[]{position[0] + 1, position[1]};
+        }
+
+        else {
+            requestedPosition = new int[]{position[0], position[1] + 1};
         }
 
         int x = requestedPosition[0];
@@ -57,7 +57,7 @@ public class MazeNavInteractor implements MazeNavInputBoundary {
         char[][] mazeState = requestModel.getMaze().getState();
 
         if (mazeState[x][y] == Maze.getEncoding("wall")) {
-            return outputBoundary.prepareFailView("Invalid move. Please try again.");
+            return outputBoundary.prepareFailView("Invalid move. Please try again.", requestedPosition);
         }
 
         else {

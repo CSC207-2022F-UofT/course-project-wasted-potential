@@ -25,11 +25,11 @@ public class MazeNavPresenter implements MazeNavOutputBoundary {
      * Returns an InvalidMove exception back to the controller and subsequently to the view
      *
      * @param error an error message to be returned
+     * @param requestedPosition the attempted cell to enter
      * @return an exception to be returned to the controller and subsequently to the view
      */
     @Override
-    public MazeNavResponseModel prepareFailView(String error) {
-
-        throw new InvalidMove(error);
+    public MazeNavResponseModel prepareFailView(String error, int[] requestedPosition) {
+        throw new InvalidMove(error, requestedPosition);
     }
 }
