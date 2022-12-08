@@ -1,5 +1,7 @@
 package user_login;
 
+import screens.UserLoginError;
+
 public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override
@@ -9,6 +11,6 @@ public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override
     public UserLoginResponseModel failView(String errorMessage) {
-        throw new IllegalArgumentException(errorMessage);
+        throw new UserLoginError(errorMessage);
     }
 }
