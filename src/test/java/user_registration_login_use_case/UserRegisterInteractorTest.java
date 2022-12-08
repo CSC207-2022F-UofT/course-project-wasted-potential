@@ -11,7 +11,13 @@ import screens.TemporaryMemoryAccess;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Tests for the UserRegisterInteractor class.
+ */
 class UserRegisterInteractorTest {
+    /**
+     * Tests when a new user wants to register but the username they want to use is taken already.
+     */
     @Test
     void usernameExists(){
 
@@ -34,6 +40,9 @@ class UserRegisterInteractorTest {
 
     }
 
+    /**
+     * Tests when the users password and repeated password while registering does not match.
+     */
     @Test
     void passwordsDoNotMatch(){
         UserRegisterAndLoginDsGateway gateway = new TemporaryMemoryAccess();
@@ -50,6 +59,9 @@ class UserRegisterInteractorTest {
         }
     }
 
+    /**
+     * Tests whether a player is successfully added to the users.csv file when a new user registers as a player.
+     */
     @Test
     void createPlayer(){
         UserRegisterAndLoginDsGateway gateway = new TemporaryMemoryAccess();
@@ -71,6 +83,9 @@ class UserRegisterInteractorTest {
         assertEquals(true, gateway.checkValidPassword("harry", "jeep"));
     }
 
+    /**
+     * Tests whether a designer is successfully added to the users.csv file when a new user registers as a designer.
+     */
     @Test
     void createDesigner(){
         UserRegisterAndLoginDsGateway gateway = new TemporaryMemoryAccess();

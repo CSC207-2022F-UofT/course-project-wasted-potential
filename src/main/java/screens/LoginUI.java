@@ -14,7 +14,7 @@ import user_login.UserLoginController;
 
 
 /**
- * The Login User Interface
+ * The user login user interface
  */
 public class LoginUI extends Application implements Screen{
 
@@ -35,8 +35,8 @@ public class LoginUI extends Application implements Screen{
 
     public void start(Stage primaryStage){
 
-        Label userl = new Label("Username");
-        Label pwdl = new Label("Password");
+        Label usernameLabel = new Label("Username");
+        Label passwordLabel = new Label("Password");
         Label error = new Label();
 
         Text title = new Text("Maze Game");
@@ -44,28 +44,28 @@ public class LoginUI extends Application implements Screen{
         title.getStyleClass().add("title-text");
         subtitle.getStyleClass().add("subtitle-text");
 
-        TextField utf = new TextField();
-        PasswordField pwf = new PasswordField();
+        TextField userTextField = new TextField();
+        PasswordField passwordField = new PasswordField();
 
-        GridPane formgp = new GridPane();
-        formgp.setAlignment(Pos.CENTER);
-        formgp.setHgap(10);
-        formgp.setVgap(10);
-        formgp.setPadding(new Insets(25, 25, 25, 25));
-        formgp.add(userl,0,0);
-        formgp.add(utf,2,0);
+        GridPane formGridPane = new GridPane();
+        formGridPane.setAlignment(Pos.CENTER);
+        formGridPane.setHgap(10);
+        formGridPane.setVgap(10);
+        formGridPane.setPadding(new Insets(25, 25, 25, 25));
+        formGridPane.add(usernameLabel,0,0);
+        formGridPane.add(userTextField,2,0);
 
-        formgp.add(pwdl,0,1);
-        formgp.add(pwf,2,1);
+        formGridPane.add(passwordLabel,0,1);
+        formGridPane.add(passwordField,2,1);
 
         Button login = new Button("Login");
         login.setAlignment(Pos.CENTER_RIGHT);
-        Button regis = new Button("Don't have an account? Register!");
+        Button register = new Button("Don't have an account? Register!");
 
         EventHandler<ActionEvent> eventButtonClick = (ActionEvent actionEvent) -> {
             if (actionEvent.getSource() == login){
-                String username = utf.getText();
-                String password = pwf.getText();
+                String username = userTextField.getText();
+                String password = passwordField.getText();
                 try {
                     UserLoginResponseModel responseModel = controller.loginUser(username, password);
                     UserSingleton singleton = UserSingleton.getInstance();
@@ -81,13 +81,13 @@ public class LoginUI extends Application implements Screen{
                     error.setText(e.getMessage());
                 }
 
-            } else if (actionEvent.getSource() == regis){
+            } else if (actionEvent.getSource() == register){
                 ScreenManager.changeScreen("register");
             }
         };
 
         login.setOnAction(eventButtonClick);
-        regis.setOnAction(eventButtonClick);
+        register.setOnAction(eventButtonClick);
 
         primaryStage.setTitle("Log In");
         GridPane root = new GridPane();
@@ -97,9 +97,9 @@ public class LoginUI extends Application implements Screen{
         root.setVgap(10);
         root.addRow(0, title);
         root.addRow(1, subtitle);
-        root.addRow(2, formgp);
+        root.addRow(2, formGridPane);
         root.addRow(3, error);
-        root.addRow(4, regis);
+        root.addRow(4, register);
         root.addRow(5, login);
 
         GridPane maze = new GridPane();
