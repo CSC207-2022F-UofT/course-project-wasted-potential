@@ -36,7 +36,7 @@ public class HintGenerator {
             // Store the last cell in current path
             MazeCell currPosition = currPath.get(currPath.size() - 1);
             // Return true if the last cell in the current path is the end cell
-            if (maze.getCell(currPosition.row, currPosition.col) == Maze.getEncoding("end")) {
+            if (maze.getCell(currPosition.getRow(), currPosition.getCol()) == Maze.getEncoding("end")) {
                 return currPath.subList(1, currPath.size()/2 + 1);
             }
             // Get the valid moves from the last cell in the current path

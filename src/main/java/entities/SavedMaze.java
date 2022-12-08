@@ -24,6 +24,8 @@ public class SavedMaze extends Maze{
      * @param numRow        the number of rows
      * @param numCol        the number of columns
      */
+    // This class needs a significant amount of information about the maze, therefore has many parameters in
+    // its constructor
     public SavedMaze(String author,
                      String name,
                      Boolean published,
@@ -91,7 +93,7 @@ public class SavedMaze extends Maze{
      * This is because saved mazes must be stored in a csv file.
      * Therefore, toString() returns a representation which makes this easier.
      *
-     * @return
+     * @return String
      */
     @Override
     public String toString() {

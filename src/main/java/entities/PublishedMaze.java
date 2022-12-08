@@ -23,6 +23,7 @@ public class PublishedMaze extends Maze{
      * @param state         the layout of the maze
      * @param startPosition the start position of the maze
      */
+    // This constructor needs many parameters because it is a class that needs a significant amount of information.
     public PublishedMaze(String author,
                          String name,
                          Boolean published,

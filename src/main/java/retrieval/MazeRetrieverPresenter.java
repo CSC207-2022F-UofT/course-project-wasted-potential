@@ -1,7 +1,5 @@
 package retrieval;
 
-import retrieval.*;
-
 /**
  * The Presenter for the Maze Retriever Use Case.
  *

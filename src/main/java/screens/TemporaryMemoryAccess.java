@@ -6,9 +6,12 @@ import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A Temporary Memory Access Class for the purpose of testing the user login and registration use cases.
+ */
 public class TemporaryMemoryAccess implements UserRegisterAndLoginDsGateway {
 
-    final private Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     @Override
     public void save(User user) {

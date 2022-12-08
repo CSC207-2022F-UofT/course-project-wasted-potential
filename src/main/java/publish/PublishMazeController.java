@@ -25,11 +25,11 @@ public class PublishMazeController {
      *
      * @param author the author
      * @param name   the maze's name
-     * @param dm     the DesignableMaze that is being published.
+     * @param designableMaze     the DesignableMaze that is being published.
      * @return an ArrayList of information to be shown to the user.
      */
-    public List<String> publishMaze(String author, String name, DesignableMaze dm) {
-        PublishMazeResponseModel mazeInfo = inBoundary.publishMaze(author, name, dm);
+    public List<String> publishMaze(String author, String name, DesignableMaze designableMaze) {
+        PublishMazeResponseModel mazeInfo = inBoundary.publishMaze(author, name, designableMaze);
         ArrayList<String> displayedInfo = new ArrayList<>();
         displayedInfo.add(mazeInfo.getName());
         displayedInfo.add(mazeInfo.getPublishDate().toString());

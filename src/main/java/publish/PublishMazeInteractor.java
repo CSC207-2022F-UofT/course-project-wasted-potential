@@ -31,17 +31,17 @@ public class PublishMazeInteractor implements PublishMazeInBoundary {
      *
      * @param author the author
      * @param name   the maze name
-     * @param dm     the DesignableMaze being published
+     * @param designableMaze     the DesignableMaze being published
      * @return the PublishMazeResponseModel.
      */
-    public PublishMazeResponseModel publishMaze(String author, String name, DesignableMaze dm) {
-        PublishMazeRequestModel mazeInfo = new PublishMazeRequestModel(author, name, dm);
+    public PublishMazeResponseModel publishMaze(String author, String name, DesignableMaze designableMaze) {
+        PublishMazeRequestModel mazeInfo = new PublishMazeRequestModel(author, name, designableMaze);
         MazePublisher maze = new MazePublisher(mazeInfo);
-        SavedMaze sm = maze.publishMaze();
-        if (sm != null) {
-            gateway.storeMaze(sm);
-            PublishMazeResponseModel info = new PublishMazeResponseModel(sm.getName(),
-                                                                             sm.getPublishDate());
+        SavedMaze savedMaze = maze.publishMaze();
+        if (savedMaze != null) {
+            gateway.storeMaze(savedMaze);
+            PublishMazeResponseModel info = new PublishMazeResponseModel(savedMaze.getName(),
+                                                                             savedMaze.getPublishDate());
             return this.outBoundary.reportSuccess(info);
         }
         else {
