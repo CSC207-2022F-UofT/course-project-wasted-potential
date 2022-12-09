@@ -1,43 +1,81 @@
 package display;
 
+import databases.MazeDatabase;
+import databases.UserDatabase;
+
+import entities.GameState;
+import entities.PublishedMaze;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.Arrays;
+
 public class MazeDisplayInteractorTest {
-//    @Test
-//    public void createTest() {
+    @Test
+    public void createTest() throws IOException, ParseException {
 
-//        MazeDsGateway mazeGateway = new MazeDatabase("./mazes.csv"); // doesn't implement mazeDSGateway fsr
-//        PlayerDsGateway playerGateway = new UserDatabase(); // not on main branch yet exist yet
-//        MazeDisplayOutputBoundary presenter = new MazeDisplayPresenter();
-//        MazeDisplayInteractor interactor = new MazeDisplayInteractor(playerGateway, mazeGateway, presenter);
-//
-//        // make fake request
-//        MazeDisplayRequestModel request = new MazeDisplayRequestModel("bob", 123);
-//
-//        MazeDisplayResponseModel response = interactor.create(request);
+        MazeDsGateway mazeGateway = new MazeDatabase("./mazes.csv") {
+            @Override
+            public PublishedMaze retrieveMaze(int mazeId) {
+                Assertions.assertEquals(3, mazeId);
 
-        // test if response is correct
-        /*
-            1. check if the gameState in the response actually corresponds to the id 123
-            2. check if the maze was added to their played list
-         */
+                char[][] fakeState =  {
+                    {'#', '#', '#', '#'},
+                    {'#', 'S', 'E', '#'},
+                    {'#', '#', '#', '#'}
+                };
+
+                return new PublishedMaze("Anya", "coolMaze",
+                        true, LocalDate.of(1, 2, 3), fakeState, new int[]{1, 1},
+                        3, 4, 3);
+            }
+        };
+        PlayerDsGateway playerGateway = new UserDatabase("./users.csv") {
+            @Override
+            public void addToPlayed(int mazeId, String username) {
+                // ensure the correct maze is being added to the user database
+                Assertions.assertEquals("Nezuko", username);
+                Assertions.assertEquals(3, mazeId);
+            }
+        };
+        MazeDisplayOutputBoundary presenter = new MazeDisplayPresenter() {
+            @Override
+            public MazeDisplayResponseModel displayMaze(MazeDisplayResponseModel responseModel) {
+                GameState gameState = responseModel.getMaze();
 
 
-        /*
-        1. create MazeDisplayInteractor
-            - requires
-                - playerDSGateway (nothing implements this)
-                - mazeDSGateway (nothing implements this)
-                - mazeDisplayOutputBoundary (implemented by MazeDisplayPresenter)
-        2. create fake requestModel
-            - requires:
-                - player username
-                - mazeID
-         it seems like create does this
-            . add the mazeID to a players "played list" in the player database
-            - gets the published maze associated with mazeID from maze database
-            - creates a response model containing the published maze
-            - returns the response model
+                Assertions.assertEquals("Anya", gameState.getAuthor());
+                Assertions.assertEquals("coolMaze", gameState.getName());
 
-         */
+                char[][] fakeState =  {
+                        {'#', '#', '#', '#'},
+                        {'#', 'S', 'E', '#'},
+                        {'#', '#', '#', '#'}
+                };
 
-//    }
+                char[][] displayGameState = gameState.getState();
+
+                for (int i = 0; i < displayGameState.length; i++) {
+                    Assertions.assertArrayEquals(fakeState[i], displayGameState[i]);
+                }
+
+                Assertions.assertEquals(3, gameState.getNumRow());
+                Assertions.assertEquals(4, gameState.getNumCol());
+                Assertions.assertEquals(3, gameState.getId());
+
+                return null;
+            }
+        };
+
+        // create fake mazeDisaplyRequestModel
+        MazeDisplayRequestModel requestModel = new MazeDisplayRequestModel("Nezuko", 3);
+
+        MazeDisplayInteractor interactor = new MazeDisplayInteractor(playerGateway, mazeGateway, presenter);
+        interactor.create(requestModel);
+
+    }
 }
