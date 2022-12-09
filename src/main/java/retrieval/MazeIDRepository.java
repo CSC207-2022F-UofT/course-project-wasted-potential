@@ -36,10 +36,7 @@ public class MazeIDRepository implements MazeRetrieverContainer {
         @Override
         public boolean hasNext() {
 
-            if (index < mazeIDs.size()) {
-                return true;
-            }
-            return false;
+            return index < mazeIDs.size();
         }
 
         @Override

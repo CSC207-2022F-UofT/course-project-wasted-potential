@@ -1,13 +1,15 @@
 package screens;
+
+import javafx.stage.Stage;
+
 import java.util.HashMap;
 import java.util.Map;
-import javafx.stage.Stage;
 
 /**
  * Manages the screens which are displayed to the user.
  */
 public class ScreenManager {
-    private static Map<String, Screen> Screens = new HashMap<>();
+    private static Map<String, Screen> screens = new HashMap<>();
     private static Stage gameStage;
 
     private ScreenManager() {}
@@ -19,7 +21,7 @@ public class ScreenManager {
      * @param screen the screen the UI class
      */
     public static void addScreen(String name, Screen screen) {
-        Screens.put(name, screen);
+        screens.put(name, screen);
     }
 
     /**
@@ -29,11 +31,11 @@ public class ScreenManager {
      * @throws IllegalArgumentException the illegal argument exception
      */
     public static void changeScreen(String name) throws IllegalArgumentException {
-        if (!Screens.containsKey(name)) {
+        if (!screens.containsKey(name)) {
             throw new IllegalArgumentException("Specified screen does not exist in ScreenManager");
         }
         else {
-            Screen requestedScreen = Screens.get(name);
+            Screen requestedScreen = screens.get(name);
             requestedScreen.start(gameStage);
         }
     }
