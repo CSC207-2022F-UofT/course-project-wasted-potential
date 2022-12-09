@@ -1,10 +1,5 @@
 package user_registration;
 
-import screens.UserCreationError;
-
-/**
- * The User register presenter.
- */
 public class URegisterPresenter implements URegOutputBoundary {
 
     @Override

@@ -1,4 +1,4 @@
-package screens;
+package user_login;
 
 /**
  * A subclass of the RuntimeException class when there is an error logging in the user.

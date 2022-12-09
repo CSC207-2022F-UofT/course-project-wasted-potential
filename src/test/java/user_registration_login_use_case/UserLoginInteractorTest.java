@@ -5,7 +5,7 @@ import entities.Player;
 import entities.User;
 import org.junit.jupiter.api.Test;
 import register_and_login_shared_classes.UserRegisterAndLoginDsGateway;
-import screens.TemporaryMemoryAccess;
+import databases.TemporaryMemoryAccess;
 
 import java.util.ArrayList;
 

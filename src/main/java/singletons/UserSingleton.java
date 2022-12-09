@@ -1,4 +1,4 @@
-package screens;
+package singletons;
 
 /**
  * The type User singleton.

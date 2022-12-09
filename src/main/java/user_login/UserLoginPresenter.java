@@ -1,10 +1,5 @@
 package user_login;
 
-import screens.UserLoginError;
-
-/**
- * The type User login presenter.
- */
 public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override

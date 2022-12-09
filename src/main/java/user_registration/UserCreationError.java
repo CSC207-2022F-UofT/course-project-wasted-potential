@@ -1,4 +1,4 @@
-package screens;
+package user_registration;
 
 /**
  * A subclass of the RuntimeException class when there is an error creating the user.

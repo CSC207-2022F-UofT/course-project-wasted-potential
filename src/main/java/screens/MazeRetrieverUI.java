@@ -12,8 +12,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import retrieval.MazeRetrieverController;
 import retrieval.MazeRetrieverResponseModel;
+import singletons.MazeSingleton;
+import singletons.UserSingleton;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
