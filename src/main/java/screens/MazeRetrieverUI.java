@@ -46,7 +46,7 @@ public class MazeRetrieverUI extends Application implements Screen {
      * @param args the input arguments
      */
     // args[] needs to stay as is for JavaFX Application to run correctly.
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         launch(args);
     }
 
