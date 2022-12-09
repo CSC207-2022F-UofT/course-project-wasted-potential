@@ -119,6 +119,8 @@ public class PublishedMaze extends Maze{
 
     @Override
     public boolean equals(Object obj) {
+        // This is how the equals method was written in the lecture notes
+        // Therefore we ignored the warning
         if (!(obj instanceof PublishedMaze)) {
             return false;
         }
