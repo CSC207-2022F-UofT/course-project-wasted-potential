@@ -7,5 +7,5 @@ public interface URegInputBoundary {
      * @param userRequestModel the user request model
      * @return the user response model
      */
-    public UserRegisterResponseModel createUser(UserRegisterRequestModel userRequestModel);
+    UserRegisterResponseModel createUser(UserRegisterRequestModel userRequestModel);
 }

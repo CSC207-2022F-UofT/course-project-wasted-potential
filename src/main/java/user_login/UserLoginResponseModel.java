@@ -14,7 +14,6 @@ public class UserLoginResponseModel {
      * @param username the user's username
      * @param userType the user's user type
      */
-
     public UserLoginResponseModel(String username, String userType) {
         this.username = username;
         this.userType = userType;

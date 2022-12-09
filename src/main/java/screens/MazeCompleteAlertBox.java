@@ -11,9 +11,18 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 
+/**
+ * The alert box to notify the user that they have completed the maze.
+ */
 public class MazeCompleteAlertBox {
     private MazeCompleteAlertBox() {}
 
+    /**
+     * Displays the window to the user.
+     *
+     * @param title   the title of the window
+     * @param message the message to be displayed to the user
+     */
     public static void display(String title, String message) {
         Stage window = new Stage();
 

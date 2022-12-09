@@ -1,5 +1,8 @@
 package user_login;
 
+/**
+ * The User login presenter.
+ */
 public class UserLoginPresenter implements ULoginOutputBoundary {
 
     @Override
