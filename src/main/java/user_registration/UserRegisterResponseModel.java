@@ -4,9 +4,9 @@ package user_registration;
  * The response model which stores the user's username, user type and password.
  */
 public class UserRegisterResponseModel {
-    private String username;
-    private String userType;
-    private String creationTime;
+    private final String username;
+    private final String userType;
+    private final String creationTime;
 
     /**
      * Instantiates a new response model.
