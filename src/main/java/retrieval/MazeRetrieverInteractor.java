@@ -39,7 +39,7 @@ public class MazeRetrieverInteractor implements MazeRetrieverInputBoundary {
      */
     @Override
     public MazeRetrieverResponseModel create(MazeRetrieverRequestModel requestModel) {
-
+        // The facade currently is not being tested but could be in the future.
         MazeRetrieverFacade mazeRetrieverFacade = new MazeRetrieverFacade(mazeRetrieverDsGateway, mazeDsGateway);
         List<PublishedMaze> played = mazeRetrieverFacade.retrieveMazesPlayed(requestModel.getUsername());
         List<PublishedMaze> notPlayed = mazeRetrieverFacade.retrieveMazesNotPlayed(requestModel.getUsername());
