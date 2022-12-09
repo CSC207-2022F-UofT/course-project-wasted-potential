@@ -29,9 +29,6 @@ public class MazeNavUI extends Application implements Screen {
     private final MazeNavController controller;
     private final HintGeneratorControl hintController;
 
-    // This variable is used throughout this UI class and therefore should stay as an instance attribute.
-    private GameState maze;
-
     private List<MazeCell> hint;
 
     private Button[][] buttonarray;
@@ -52,7 +49,7 @@ public class MazeNavUI extends Application implements Screen {
      * @param args the input arguments
      */
     // args[] needs to stay as is for JavaFX Application to run correctly.
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -110,12 +107,12 @@ public class MazeNavUI extends Application implements Screen {
         scene.getStylesheets().add(css);
         MazeSingleton singleton = MazeSingleton.getInstance();
         // Get current maze instance
-        this.maze = singleton.getMaze();
+        GameState maze = singleton.getMaze();
         // Button array to render cells
         this.buttonarray = new Button[maze.getNumRow()][maze.getNumCol()];
         // Initialize empty hint
         this.hint = new ArrayList<>();
-        updateMazeUI(this.maze.getState(), this.maze.getPosition());
+        updateMazeUI(maze.getState(), maze.getPosition());
 
         // quit button
         Button quitButton = new Button("Quit");
@@ -128,7 +125,7 @@ public class MazeNavUI extends Application implements Screen {
         hintButton.setLayoutX(600);
 
         // maze name
-        Text mazeName = new Text(this.maze.getName());
+        Text mazeName = new Text(maze.getName());
         mazeName.getStyleClass().add("maze-name");
         mazeName.setLayoutY(15);
 
@@ -148,16 +145,16 @@ public class MazeNavUI extends Application implements Screen {
             try {
                 boolean isComplete;
                 if (event.getCode() == KeyCode.W) {
-                    isComplete = controller.create('w', this.maze.getPosition(), this.maze);
+                    isComplete = controller.create('w', maze.getPosition(), maze);
                 }
                 else if (event.getCode() == KeyCode.A) {
-                    isComplete = controller.create('a', this.maze.getPosition(), this.maze);
+                    isComplete = controller.create('a', maze.getPosition(), maze);
                 }
                 else if (event.getCode() == KeyCode.S) {
-                    isComplete = controller.create('s', this.maze.getPosition(), this.maze);
+                    isComplete = controller.create('s', maze.getPosition(), maze);
                 }
                 else {
-                    isComplete = controller.create('d', this.maze.getPosition(), this.maze);
+                    isComplete = controller.create('d', maze.getPosition(), maze);
                 }
                 updateMazeUI(maze.getState(), maze.getPosition());
                 if (isComplete) {
@@ -176,7 +173,7 @@ public class MazeNavUI extends Application implements Screen {
 
         hintButton.setOnAction(actionEvent -> {
             this.hint = hintController.generateHint(maze).getHint();
-            updateMazeUI(this.maze.getState(), this.maze.getPosition());
+            updateMazeUI(maze.getState(), maze.getPosition());
         });
 
         primaryStage.setScene(scene);
