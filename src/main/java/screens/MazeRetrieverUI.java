@@ -45,6 +45,7 @@ public class MazeRetrieverUI extends Application implements Screen {
      *
      * @param args the input arguments
      */
+    // args[] needs to stay as is for JavaFX Application to run correctly.
     public static void main(String args[]) {
         launch(args);
     }
@@ -118,7 +119,6 @@ public class MazeRetrieverUI extends Application implements Screen {
                 Button button = (Button) event.getSource();
                 String[] buttonString = button.getText().split(",");
                 String mazeId = buttonString[0].trim();
-                System.out.println(mazeId);
                 MazeDisplayResponseModel respModel =
                         displayController.create(singleton.getUsername(), Integer.parseInt(mazeId));
                 maze.setMaze(respModel.getMaze());

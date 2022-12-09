@@ -29,6 +29,7 @@ public class MazeNavUI extends Application implements Screen {
     private final MazeNavController controller;
     private final HintGeneratorControl hintController;
 
+    // This variable is used throughout this UI class and therefore should stay as an instance attribute.
     private GameState maze;
 
     private List<MazeCell> hint;
@@ -50,6 +51,7 @@ public class MazeNavUI extends Application implements Screen {
      *
      * @param args the input arguments
      */
+    // args[] needs to stay as is for JavaFX Application to run correctly.
     public static void main(String args[]) {
         launch(args);
     }
@@ -170,9 +172,7 @@ public class MazeNavUI extends Application implements Screen {
             }
         });
 
-        quitButton.setOnAction(actionEvent -> {
-            ScreenManager.changeScreen("home");
-        });
+        quitButton.setOnAction(actionEvent -> ScreenManager.changeScreen("home"));
 
         hintButton.setOnAction(actionEvent -> {
             this.hint = hintController.generateHint(maze).getHint();

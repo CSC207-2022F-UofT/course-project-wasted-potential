@@ -15,6 +15,7 @@ public class TemporaryMemoryAccess implements UserRegisterAndLoginDsGateway {
 
     @Override
     public void save(User user) {
+        // This class is used for testing, so the sout is for testing purposes.
         System.out.println("Save" + user.getUsername());
         users.put(user.getUsername(), user);
     }

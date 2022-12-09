@@ -117,6 +117,7 @@ public class PublishedMaze extends Maze{
         return returnString.toString();
     }
 
+    // This class should not override hashCode(), as the method would not be used in the program.
     @Override
     public boolean equals(Object obj) {
         // This is how the equals method was written in the lecture notes
